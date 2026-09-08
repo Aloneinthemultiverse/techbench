@@ -92,24 +92,13 @@ class TechnicianAgent(Agent):
     def __init__(self, controller: TurnController, log: EventLog) -> None:
         super().__init__(
             instructions=(
-                "You help a technician whose hands are inside a machine. "
-                "Keep every answer to one or two short sentences. "
-                "Say part numbers digit by digit. No markdown, no emoji, no lists. "
-                "When you report search results, give at most two findings and "
-                "keep each to one sentence. "
-                "You can draft emails, but you never send them - a person reviews and "
-                "sends. Read the recipient back to the caller. "
-                "For any question about the business - hours, delivery, returns, "
-                "warranty, payments, complaints - you MUST call answer_enquiry and "
-                "say only what it returns. Never answer those from your own "
-                "knowledge. "
-                "You can also open applications and create projects on the user's "
-                "computer. Only allowlisted applications are permitted; if asked "
-                "for anything else, say what you can open instead. "
-                "If the user speaks or asks for Hindi, Spanish or French, call "
-                "switch_language first, then answer in that language. "
-                "If the user interrupts and changes the request, answer only the "
-                "new request and never mention the abandoned one."
+                "You help a caller hands-free. One or two short sentences per "
+                "reply. Digits spoken singly. No markdown, emoji or lists. "
+                "Business questions: use answer_enquiry only, never memory. "
+                "Email is drafted, never sent; read the address back. "
+                "Only allowlisted apps open; say what is available otherwise. "
+                "If the user revises mid-answer, answer only the new request "
+                "and never mention the abandoned one."
             ),
         )
         self.controller = controller
@@ -122,11 +111,8 @@ class TechnicianAgent(Agent):
 
     @function_tool
     async def answer_enquiry(self, context: RunContext, question: str) -> str:
-        """Answer a customer enquiry or complaint about the business: hours,
-        delivery, returns, refunds, warranty, payment, escalation.
-
-        Always use this for business questions. Never answer them from memory:
-        a confident wrong answer about a refund policy is worse than no answer.
+        """Answer any business question: hours, delivery, returns, warranty,
+        payment, complaints. Required - never answer these from memory.
 
         Args:
             question: what the caller asked.
@@ -144,13 +130,12 @@ class TechnicianAgent(Agent):
     @function_tool
     async def compose_email(self, context: RunContext, to: str, subject: str,
                             body: str) -> str:
-        """Draft an email to a customer. The draft is saved for a human to
-        review and send; this never sends mail itself.
+        """Draft a customer email for a human to send. Never sends.
 
         Args:
-            to: recipient address as the caller gave it.
-            subject: short subject line.
-            body: what the email should say, in full sentences.
+            to: recipient address.
+            subject: subject line.
+            body: full sentences.
         """
         turn_id = self.controller.current
         self.log.emit("tool_dispatch", turn_id=turn_id, tool="email", subject=subject[:60])
@@ -165,12 +150,10 @@ class TechnicianAgent(Agent):
 
     @function_tool
     async def remember_fact(self, context: RunContext, topic: str, facts: str) -> str:
-        """Add a business fact to the knowledge base so future callers get the
-        right answer. Use when the operator corrects you or tells you something
-        new about the business.
+        """Save a new business fact for future callers.
 
         Args:
-            topic: short heading, e.g. "Holiday hours".
+            topic: short heading.
             facts: the information, in full sentences.
         """
         turn_id = self.controller.current
@@ -184,11 +167,10 @@ class TechnicianAgent(Agent):
 
     @function_tool
     async def delegate_task(self, context: RunContext, task: str) -> str:
-        """Hand a longer computing task to Claude Code: writing or editing files,
-        answering questions about code, building something small.
+        """Hand a coding or file task to Claude Code.
 
         Args:
-            task: what to do, in plain language.
+            task: what to do.
         """
         turn_id = self.controller.current
         self.log.emit("tool_dispatch", turn_id=turn_id, tool="delegate", task=task[:80])
@@ -239,8 +221,7 @@ class TechnicianAgent(Agent):
 
     @function_tool
     async def switch_language(self, context: RunContext, language: str) -> str:
-        """Switch the spoken language. Use when the user asks to be spoken to in
-        another language, or starts speaking one.
+        """Switch spoken language.
 
         Args:
             language: english, hindi, spanish, or french.
@@ -258,12 +239,10 @@ class TechnicianAgent(Agent):
 
     @function_tool
     async def search_web(self, context: RunContext, query: str) -> str:
-        """Search the live web and report what was found.
-
-        Use for anything current: prices, specs, documentation, news.
+        """Search the live web for current information.
 
         Args:
-            query: What to search for.
+            query: what to search for.
         """
         turn_id = self.controller.current
         self.log.emit("tool_dispatch", turn_id=turn_id, tool="web_search", query=query)
@@ -328,9 +307,11 @@ async def entrypoint(ctx: JobContext) -> None:
         # than nova-3 here; streams, so no chunking latency penalty.
         # Fallback if accuracy regresses: inference.STT("deepgram/nova-3", language="en")
         stt=inference.STT("cartesia/ink-whisper"),
-        # Keyless via LiveKit Inference. Swap to Cerebras for lower TTFT:
-        #   llm=openai.LLM.with_cerebras(model="gpt-oss-120b")
-        llm=inference.LLM("openai/gpt-4.1-mini"),
+        # Chosen by measurement, not reputation. TTFT from India, n=3 each
+        # (eval/llm_latency.py): gpt-oss-120b 908ms, gpt-4.1-nano 1064ms,
+        # gpt-4.1-mini 1134ms, gemini-3.1-flash-lite 1193ms, and the model
+        # branded "fast" - grok-4-1-fast-non-reasoning - was 4647ms.
+        llm=inference.LLM("openai/gpt-oss-120b"),
         # Rime is the primary spoken output - direct plugin, our own key.
         # NOTE: do NOT pass sample_rate. Forcing 24000 crashes livekit_ffi's
         # soxr resampler (assertion FFT_LEN == -1 in fft4g_cache.h). Plugin
@@ -339,12 +320,21 @@ async def entrypoint(ctx: JobContext) -> None:
         # Blocks interruptions briefly after the agent starts speaking so the
         # client can calibrate acoustic echo cancellation. Without this the
         # agent hears its own voice and self-interrupts (the "radio" artifact).
-        aec_warmup_duration=3.0,
+        # 3.0 s felt unresponsive: interruptions are blocked for that whole
+        # window while AEC calibrates. 1.5 s still calibrates on a headset.
+        aec_warmup_duration=1.5,
         turn_handling=TurnHandlingOptions(
             interruption={
                 "resume_false_interruption": True,
                 "false_interruption_timeout": 1.0,
             },
+            # preemptive_generation is DISABLED deliberately. Enabling it
+            # crashed livekit_ffi.dll's soxr resampler
+            # (assertion LSX_FFT_BR == NULL, fft4g_cache.h:13): speculative
+            # generations create and cancel TTS streams concurrently, and the
+            # soxr FFT cache is not safe under that. Same component that
+            # crashed on a forced sample_rate (FFT_LEN == -1, line 15).
+            # Latency cost is real; a crashing demo costs more.
         ),
         tts_text_transforms=[
             "filter_emoji",

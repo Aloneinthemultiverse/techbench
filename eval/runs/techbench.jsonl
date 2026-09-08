@@ -1729,3 +1729,41 @@
 {"t_ms": 1122130.51, "kind": "agent_state", "state": "listening", "turn_id": 139}
 {"t_ms": 1122130.66, "kind": "tts_stop", "turn_id": 139}
 {"t_ms": 1169146.43, "kind": "session_end", "dropped": 1, "committed": 16}
+{"t_ms": 0.15, "kind": "session_start", "room": "techbench", "tts_provider": "rime", "rime_model": "coda", "rime_speaker": "lyra", "tool_delay_s": 3.0}
+{"t_ms": 2140.1, "kind": "tts_start", "turn_id": 0}
+{"t_ms": 2209.4, "kind": "agent_state", "state": "listening", "turn_id": 0}
+{"t_ms": 2209.65, "kind": "tts_stop", "turn_id": 0}
+{"t_ms": 2210.47, "kind": "agent_state", "state": "thinking", "turn_id": 0}
+{"t_ms": 0.19, "kind": "session_start", "room": "techbench", "tts_provider": "rime", "rime_model": "coda", "rime_speaker": "lyra", "tool_delay_s": 3.0}
+{"t_ms": 1156.24, "kind": "tts_start", "turn_id": 0}
+{"t_ms": 1194.01, "kind": "agent_state", "state": "thinking", "turn_id": 0}
+{"t_ms": 1318.09, "kind": "agent_state", "state": "listening", "turn_id": 0}
+{"t_ms": 1318.55, "kind": "tts_stop", "turn_id": 0}
+{"t_ms": 2632.62, "kind": "lat_llm", "turn_id": 0, "ttft": 1.2176621999969939}
+{"t_ms": 3627.79, "kind": "agent_state", "state": "speaking", "turn_id": 0}
+{"t_ms": 4926.6, "kind": "lat_tts", "turn_id": 0, "ttfb": 0.9431102000089595, "provider": "rime"}
+{"t_ms": 8578.94, "kind": "spoken", "interrupted": false, "intended_chars": 79, "spoken_chars": 79, "truncated_chars": 0}
+{"t_ms": 8579.37, "kind": "agent_state", "state": "listening", "turn_id": 0}
+{"t_ms": 8579.62, "kind": "tts_stop", "turn_id": 0}
+{"t_ms": 13690.6, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "user_speech"}
+{"t_ms": 13691.35, "kind": "tts_start", "turn_id": 1}
+{"t_ms": 14633.06, "kind": "lat_llm", "turn_id": 1, "ttft": 0.7760479999997187}
+{"t_ms": 15500.51, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "user_speech"}
+{"t_ms": 15501.45, "kind": "tts_start", "turn_id": 2}
+{"t_ms": 16650.35, "kind": "lat_llm", "turn_id": 2, "ttft": 0.980230200002552}
+{"t_ms": 17478.67, "kind": "lat_eou", "turn_id": 2, "end_of_utterance_delay": 2.495044231414795, "transcription_delay": 0.5197651386260986}
+{"t_ms": 17481.78, "kind": "agent_state", "state": "thinking", "turn_id": 2}
+{"t_ms": 18431.23, "kind": "agent_state", "state": "speaking", "turn_id": 2}
+{"t_ms": 18638.39, "kind": "lat_tts", "turn_id": 2, "ttfb": 0.36160070000914857, "provider": "rime"}
+{"t_ms": 19758.46, "kind": "lat_tts", "turn_id": 2, "ttfb": 0.4456112000043504, "provider": "rime"}
+{"t_ms": 22422.57, "kind": "spoken", "interrupted": false, "intended_chars": 59, "spoken_chars": 59, "truncated_chars": 0}
+{"t_ms": 22422.93, "kind": "agent_state", "state": "listening", "turn_id": 2}
+{"t_ms": 22422.95, "kind": "tts_stop", "turn_id": 2}
+{"t_ms": 26090.93, "kind": "turn_start", "turn_id": 3, "superseded": 2, "reason": "user_speech"}
+{"t_ms": 26091.48, "kind": "tts_start", "turn_id": 3}
+{"t_ms": 0.14, "kind": "session_start", "room": "techbench", "tts_provider": "rime", "rime_model": "coda", "rime_speaker": "lyra", "tool_delay_s": 3.0}
+{"t_ms": 1057.62, "kind": "tts_start", "turn_id": 0}
+{"t_ms": 1107.58, "kind": "agent_state", "state": "thinking", "turn_id": 0}
+{"t_ms": 5184.76, "kind": "lat_llm", "turn_id": 0, "ttft": 3.686147800006438}
+{"t_ms": 8825.2, "kind": "agent_state", "state": "listening", "turn_id": 0}
+{"t_ms": 8825.39, "kind": "tts_stop", "turn_id": 0}

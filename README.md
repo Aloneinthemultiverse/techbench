@@ -78,7 +78,7 @@ Live session (1731 events, 133 utterances, 34 interrupted):
 |---|---|
 | End-of-utterance | 948 ms |
 | Transcription (Whisper) | 385 ms |
-| LLM TTFT | 1143 ms |
+| LLM TTFT | 1143 ms (gpt-4.1-mini; since replaced — see below) |
 | **Rime TTFB** | **369 ms** |
 | Time to silence | 1053 ms (n=6, noisy — see limitations) |
 
@@ -87,6 +87,23 @@ Barge-ins: 6. False interruptions correctly ignored: 3.
 **The fence fired live:** of 17 tool results, 16 committed and 1 dropped —
 `fence_drop what=web_search result_turn=12 current_turn=13`. A search from a
 superseded turn was killed before synthesis. Stale results spoken: **0**.
+
+### Model choice by measurement
+
+Voice agents live or die on time-to-first-token, so the LLM was chosen by
+benchmark rather than reputation (`eval/llm_latency.py`, n=3 each, from India):
+
+| Model | Median TTFT |
+|---|---|
+| **`openai/gpt-oss-120b`** (chosen) | **908 ms** |
+| `openai/gpt-4.1-nano` | 1064 ms |
+| `openai/gpt-4.1-mini` (previous) | 1134 ms |
+| `google/gemini-3.1-flash-lite` | 1193 ms |
+| `xai/grok-4-1-fast-non-reasoning` | 4647 ms |
+
+The model branded "fast" was five times slower than the fastest. Note these
+figures include a ~500 ms India-to-US round trip, so they compress the real
+differences between models and should not be read as provider benchmarks.
 
 ## Architecture
 
@@ -160,7 +177,7 @@ thread because asyncio cannot attach to a stdin pipe on Windows.
 | **Rime** | text-to-speech (primary spoken output) | yes |
 | LiveKit Cloud | WebRTC transport, VAD, turn detection, barge-in, AEC | yes |
 | `cartesia/ink-whisper` | streaming speech-to-text | via LiveKit Inference |
-| `openai/gpt-4.1-mini` | reasoning | via LiveKit Inference |
+| `openai/gpt-oss-120b` | reasoning | via LiveKit Inference |
 | DuckDuckGo HTML | live web search tool | no |
 
 ### Business enquiries — grounded retrieval
