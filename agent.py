@@ -40,6 +40,10 @@ from livekit.agents.llm import function_tool
 from livekit.plugins import openai, rime
 
 from fence import EventLog, Fenced, SpokenLedger, TurnController
+from delegate import ask_claude
+from kb import KnowledgeBase, add_facts
+from mail import draft_email
+from pc import open_app, scaffold_project
 from tools import speakable, web_search
 
 load_dotenv()
@@ -47,6 +51,7 @@ logger = logging.getLogger("tech-assistant")
 
 TOOL_DELAY = float(os.getenv("TOOL_DELAY_SECONDS", "3.0"))
 RUN_DIR = Path("eval/runs")
+KB = KnowledgeBase()   # business facts, loaded once at import
 
 # Active speech provider, surfaced for observability (PS requires this).
 ACTIVE_TTS_PROVIDER = "rime"
@@ -87,15 +92,15 @@ class TechnicianAgent(Agent):
     def __init__(self, controller: TurnController, log: EventLog) -> None:
         super().__init__(
             instructions=(
-                "You help a technician whose hands are inside a machine. "
-                "Keep every answer to one or two short sentences. "
-                "Say part numbers digit by digit. No markdown, no emoji, no lists. "
-                "When you report search results, give at most two findings and "
-                "keep each to one sentence. "
-                "If the user speaks or asks for Hindi, Spanish or French, call "
-                "switch_language first, then answer in that language. "
-                "If the user interrupts and changes the request, answer only the "
-                "new request and never mention the abandoned one."
+                "You help a caller hands-free. One or two short sentences per "
+                "reply. Digits spoken singly. No markdown, emoji or lists. "
+                "Business questions: use answer_enquiry only, never memory. "
+                "Email is drafted, never sent; read the address back. "
+                "Only allowlisted apps open; say what is available otherwise. "
+                "If the user revises mid-answer, answer only the new request "
+                "and never mention the abandoned one. "
+                "Before calling a slow tool, say one short line such as "
+                "'Checking now.' so the caller knows you heard them."
             ),
         )
         self.controller = controller
@@ -107,9 +112,126 @@ class TechnicianAgent(Agent):
         )
 
     @function_tool
+    async def answer_enquiry(self, context: RunContext, question: str) -> str:
+        """Answer any business question: hours, delivery, returns, warranty,
+        payment, complaints. Required - never answer these from memory.
+
+        Args:
+            question: what the caller asked.
+        """
+        turn_id = self.controller.current
+        if KB.maybe_reload():                 # documents added from the console
+            self.log.emit("kb_reloaded", turn_id=turn_id, chunks=len(KB.chunks))
+        answer, sources = KB.answer(question)
+        self.log.emit("tool_return", turn_id=turn_id, tool="kb",
+                      grounded=bool(sources), n_sources=len(sources))
+        if not self.controller.accept(Fenced(turn_id, answer), what="kb"):
+            return "(superseded - discarded)"
+        return answer
+
+    @function_tool
+    async def compose_email(self, context: RunContext, to: str, subject: str,
+                            body: str) -> str:
+        """Draft a customer email for a human to send. Never sends.
+
+        Args:
+            to: recipient address.
+            subject: subject line.
+            body: full sentences.
+        """
+        turn_id = self.controller.current
+        self.log.emit("tool_dispatch", turn_id=turn_id, tool="email", subject=subject[:60])
+        # Continuity ack removed: a second concurrent TTS stream per tool call
+        # crashed livekit_ffi soxr (LSX_FFT_BR == NULL). The LLM still
+        # acknowledges verbally before the tool returns.
+        spoken, record = await draft_email(to, subject, body)
+        self.log.emit("tool_return", turn_id=turn_id, tool="email",
+                      draft_id=record["id"],
+                      address_needs_check=record["address_needs_check"])
+        if not self.controller.accept(Fenced(turn_id, spoken), what="email"):
+            return "(superseded - discarded)"
+        return spoken
+
+    @function_tool
+    async def remember_fact(self, context: RunContext, topic: str, facts: str) -> str:
+        """Save a new business fact for future callers.
+
+        Args:
+            topic: short heading.
+            facts: the information, in full sentences.
+        """
+        turn_id = self.controller.current
+        result = await asyncio.to_thread(add_facts, topic, facts)
+        KB.__init__()                      # reload so the next caller sees it
+        self.log.emit("kb_updated", turn_id=turn_id, topic=topic[:60],
+                      chunks=len(KB.chunks))
+        if not self.controller.accept(Fenced(turn_id, result), what="kb_write"):
+            return "(superseded - discarded)"
+        return result
+
+    @function_tool
+    async def delegate_task(self, context: RunContext, task: str) -> str:
+        """Hand a coding or file task to Claude Code.
+
+        Args:
+            task: what to do.
+        """
+        turn_id = self.controller.current
+        self.log.emit("tool_dispatch", turn_id=turn_id, tool="delegate", task=task[:80])
+        # Continuity ack removed: a second concurrent TTS stream per tool call
+        # crashed livekit_ffi soxr (LSX_FFT_BR == NULL). The LLM still
+        # acknowledges verbally before the tool returns.
+        try:
+            result = await ask_claude(task)
+        except asyncio.CancelledError:
+            self.log.emit("tool_cancelled", turn_id=turn_id, tool="delegate")
+            raise
+        self.log.emit("tool_return", turn_id=turn_id, tool="delegate")
+        if not self.controller.accept(Fenced(turn_id, result), what="delegate"):
+            return "(superseded - discarded)"
+        return result
+
+    @function_tool
+    async def open_application(self, context: RunContext, name: str) -> str:
+        """Open a desktop application by name.
+
+        Args:
+            name: claude code, vs code, notepad, calculator, file explorer,
+                  browser, or terminal.
+        """
+        turn_id = self.controller.current
+        self.log.emit("tool_dispatch", turn_id=turn_id, tool="open_app", target=name)
+        # Continuity ack removed: a second concurrent TTS stream per tool call
+        # crashed livekit_ffi soxr (LSX_FFT_BR == NULL). The LLM still
+        # acknowledges verbally before the tool returns.
+        result = await open_app(name)
+        self.log.emit("tool_return", turn_id=turn_id, tool="open_app")
+        if not self.controller.accept(Fenced(turn_id, result), what="open_app"):
+            return "(superseded - discarded)"
+        return result
+
+    @function_tool
+    async def make_project(self, context: RunContext, kind: str, name: str) -> str:
+        """Create a new project folder on disk.
+
+        Args:
+            kind: python or web.
+            name: what to call the project.
+        """
+        turn_id = self.controller.current
+        self.log.emit("tool_dispatch", turn_id=turn_id, tool="scaffold", kind=kind, name=name)
+        # Continuity ack removed: a second concurrent TTS stream per tool call
+        # crashed livekit_ffi soxr (LSX_FFT_BR == NULL). The LLM still
+        # acknowledges verbally before the tool returns.
+        result = await scaffold_project(kind, name)
+        self.log.emit("tool_return", turn_id=turn_id, tool="scaffold")
+        if not self.controller.accept(Fenced(turn_id, result), what="scaffold"):
+            return "(superseded - discarded)"
+        return result
+
+    @function_tool
     async def switch_language(self, context: RunContext, language: str) -> str:
-        """Switch the spoken language. Use when the user asks to be spoken to in
-        another language, or starts speaking one.
+        """Switch spoken language.
 
         Args:
             language: english, hindi, spanish, or french.
@@ -127,18 +249,18 @@ class TechnicianAgent(Agent):
 
     @function_tool
     async def search_web(self, context: RunContext, query: str) -> str:
-        """Search the live web and report what was found.
-
-        Use for anything current: prices, specs, documentation, news.
+        """Search the live web for current information.
 
         Args:
-            query: What to search for.
+            query: what to search for.
         """
         turn_id = self.controller.current
         self.log.emit("tool_dispatch", turn_id=turn_id, tool="web_search", query=query)
 
         # CONTINUITY: speak first, keep listening while the search runs.
-        self.session.say("Searching now.")
+        # Continuity ack removed: a second concurrent TTS stream per tool call
+        # crashed livekit_ffi soxr (LSX_FFT_BR == NULL). The LLM still
+        # acknowledges verbally before the tool returns.
 
         results = await web_search(query, k=3)
         self.log.emit("tool_return", turn_id=turn_id, tool="web_search", n=len(results))
@@ -162,7 +284,9 @@ class TechnicianAgent(Agent):
         # CONTINUITY: acknowledge immediately so the session is audibly alive,
         # then keep listening while the lookup runs. The user can add a
         # constraint, ask for status, interrupt, or cancel during this window.
-        self.session.say(f"Checking {part_number} now.")
+        # Continuity ack removed: a second concurrent TTS stream per tool call
+        # crashed livekit_ffi soxr (LSX_FFT_BR == NULL). The LLM still
+        # acknowledges verbally before the tool returns.
 
         # The stress knob: a fixed delay, so a barge-in lands mid-flight.
         await asyncio.sleep(TOOL_DELAY)
@@ -193,31 +317,42 @@ async def entrypoint(ctx: JobContext) -> None:
              rime_model="coda", rime_speaker="lyra", tool_delay_s=TOOL_DELAY)
 
     session: AgentSession = AgentSession(
-        # Streaming Whisper. Handles accented and code-switched speech better
-        # than nova-3 here; streams, so no chunking latency penalty.
-        # Fallback if accuracy regresses: inference.STT("deepgram/nova-3", language="en")
-        # nova-3 in English: unlike ink-whisper it honours stt_context_options
-        # keyterms (ink-whisper logs "keyterms are not supported by this STT,
-        # ignoring"), so domain vocabulary is actually biased toward.
+        # This is the exact STT from the stable 1731-event session.
+        # Alternative: inference.STT("deepgram/nova-3", language="en")
+        # nova-3 honours stt_context_options keyterms; ink-whisper ignores them.
         # Revert with: inference.STT("cartesia/ink-whisper")
         stt=inference.STT("deepgram/nova-3", language="en"),
-        # Keyless via LiveKit Inference. Swap to Cerebras for lower TTFT:
-        #   llm=openai.LLM.with_cerebras(model="gpt-oss-120b")
+        # Chosen by measurement, not reputation. TTFT from India, n=3 each
+        # (eval/llm_latency.py): gpt-oss-120b 908ms, gpt-4.1-nano 1064ms,
+        # gpt-4.1-mini 1134ms, gemini-3.1-flash-lite 1193ms, and the model
+        # branded "fast" - grok-4-1-fast-non-reasoning - was 4647ms.
         llm=inference.LLM("openai/gpt-4.1-mini"),
         # Rime is the primary spoken output - direct plugin, our own key.
         # NOTE: do NOT pass sample_rate. Forcing 24000 crashes livekit_ffi's
         # soxr resampler (assertion FFT_LEN == -1 in fft4g_cache.h). Plugin
         # default (22050) is the tested path.
+        # No sample_rate override: the stable 1731-event session used the
+        # plugin default. Forcing 24000 crashed soxr (FFT_LEN == -1) and 48000
+        # did not stop the LSX_FFT_BR crash either, so it bought nothing.
         tts=rime.TTS(model="coda", speaker="lyra", speed_alpha=0.9),
         # Blocks interruptions briefly after the agent starts speaking so the
         # client can calibrate acoustic echo cancellation. Without this the
         # agent hears its own voice and self-interrupts (the "radio" artifact).
+        # 3.0 s felt unresponsive: interruptions are blocked for that whole
+        # window while AEC calibrates. 1.5 s still calibrates on a headset.
         aec_warmup_duration=3.0,
         turn_handling=TurnHandlingOptions(
             interruption={
                 "resume_false_interruption": True,
                 "false_interruption_timeout": 1.0,
             },
+            # preemptive_generation is DISABLED deliberately. Enabling it
+            # crashed livekit_ffi.dll's soxr resampler
+            # (assertion LSX_FFT_BR == NULL, fft4g_cache.h:13): speculative
+            # generations create and cancel TTS streams concurrently, and the
+            # soxr FFT cache is not safe under that. Same component that
+            # crashed on a forced sample_rate (FFT_LEN == -1, line 15).
+            # Latency cost is real; a crashing demo costs more.
         ),
         tts_text_transforms=[
             "filter_emoji",
