@@ -6,12 +6,14 @@ Run alongside the agent:
 """
 from __future__ import annotations
 
-import asyncio, json, os, time
+import asyncio, json, os, re, time
 from pathlib import Path
 
 from aiohttp import web
 from dotenv import load_dotenv
 from livekit import api
+
+from kb import KB_DIR, KnowledgeBase
 
 load_dotenv()
 
@@ -64,6 +66,57 @@ async def events(request: web.Request) -> web.StreamResponse:
     return resp
 
 
+def _safe_name(raw: str) -> str:
+    stem = re.sub(r"[^A-Za-z0-9 _-]", "", raw).strip().replace(" ", "-")[:60]
+    return (stem or "document") + ".md"
+
+
+async def kb_add_doc(request: web.Request) -> web.Response:
+    """Accept a pasted document or an uploaded .md/.txt and add it to the KB."""
+    KB_DIR.mkdir(parents=True, exist_ok=True)
+    title, body = "", ""
+
+    if request.content_type and request.content_type.startswith("multipart/"):
+        reader = await request.multipart()
+        while True:
+            part = await reader.next()
+            if part is None:
+                break
+            if part.name == "title":
+                title = (await part.text()).strip()
+            elif part.name == "file":
+                if part.filename and not part.filename.lower().endswith((".md", ".txt")):
+                    return web.json_response(
+                        {"error": "only .md or .txt files"}, status=400)
+                title = title or Path(part.filename or "document").stem
+                body = (await part.read()).decode("utf-8", "replace")
+    else:
+        data = await request.json()
+        title = (data.get("title") or "").strip()
+        body = (data.get("text") or "").strip()
+
+    if not body.strip():
+        return web.json_response({"error": "no content"}, status=400)
+
+    path = KB_DIR / _safe_name(title or "document")
+    existing = path.exists() and path.stat().st_size > 0
+    # A chunk beginning with "#" is treated as a label, so keep the heading on
+    # its own and separate it from the body with a blank line.
+    header = "" if body.lstrip().startswith("#") else "# " + (title or "Document") + "\n\n"
+    with path.open("a", encoding="utf-8") as fh:
+        fh.write(("\n\n" if existing else "") + header + body.strip() + "\n")
+
+    kb = KnowledgeBase()
+    return web.json_response({"file": path.name, "chunks": len(kb.chunks)})
+
+
+async def kb_status(request: web.Request) -> web.Response:
+    from collections import Counter
+    kb = KnowledgeBase()
+    by_src = Counter(c.source for c in kb.chunks)
+    return web.json_response({"chunks": len(kb.chunks), "sources": dict(by_src)})
+
+
 async def index(request: web.Request) -> web.Response:
     return web.FileResponse(WEB / "index.html")
 
@@ -73,6 +126,8 @@ app.add_routes([
     web.get("/", index),
     web.get("/api/token", token),
     web.get("/api/events", events),
+    web.post("/api/kb", kb_add_doc),
+    web.get("/api/kb", kb_status),
     web.static("/static", WEB),
 ])
 

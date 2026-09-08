@@ -65,6 +65,24 @@ class KnowledgeBase:
                     self.chunks.append(Chunk(line, path.name, toks))
                     self.df.update(toks.keys())
         self.n = max(len(self.chunks), 1)
+        self._dir = directory
+        self._stamp = self._dir_stamp(directory)
+
+    @staticmethod
+    def _dir_stamp(directory: Path) -> float:
+        """Newest mtime in the kb folder. Cheap change detector so the agent
+        process picks up documents added from the web console."""
+        if not directory.exists():
+            return 0.0
+        return max((p.stat().st_mtime for p in directory.glob("*")), default=0.0)
+
+    def maybe_reload(self) -> bool:
+        """Re-read the folder if anything changed. Returns True if it did."""
+        current = self._dir_stamp(self._dir)
+        if current != self._stamp:
+            self.__init__(self._dir)
+            return True
+        return False
 
     def _score(self, chunk: Chunk, query: list[str]) -> float:
         if not chunk.tokens:

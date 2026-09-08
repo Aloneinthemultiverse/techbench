@@ -66,6 +66,25 @@ h2{margin:0;padding:10px 14px;font-size:12px;letter-spacing:.08em;text-transform
     <div class="body" id="chat"><div class="hint">Connect, then say: “look up HP-4412”. Interrupt mid-answer with “no, VX-207 instead”.</div></div>
   </section>
 
+  <section>
+    <h2>Knowledge base <span id="kbcount" style="color:var(--dim);font-weight:400"></span></h2>
+    <div class="body">
+      <p class="hint" style="padding:0 0 10px">
+        Paste a policy, price list or FAQ — or upload a <code>.md</code> / <code>.txt</code>.
+        The agent picks it up on the next question, no restart.
+      </p>
+      <input id="kbtitle" placeholder="Title, e.g. Refund policy"
+             style="width:100%;padding:8px;margin-bottom:8px;background:#0d1117;color:var(--fg);border:1px solid var(--line);border-radius:6px;font:inherit">
+      <textarea id="kbtext" rows="6" placeholder="Write in full sentences. Each sentence becomes a retrievable fact."
+             style="width:100%;padding:8px;background:#0d1117;color:var(--fg);border:1px solid var(--line);border-radius:6px;font:inherit;resize:vertical"></textarea>
+      <div style="display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap">
+        <button id="kbsave">Add to knowledge base</button>
+        <input type="file" id="kbfile" accept=".md,.txt" style="color:var(--dim);font:inherit;font-size:12px">
+      </div>
+      <div id="kbmsg" style="margin-top:10px;font-size:12px;color:var(--dim)"></div>
+    </div>
+  </section>
+
   <section style="grid-column:1/-1">
     <h2>Agent event log — what actually happened</h2>
     <div class="body" id="log"></div>
@@ -132,4 +151,51 @@ $('go').onclick = async () => {
 };
 
 $('stop').onclick = () => room && room.disconnect();
+
+// ---- knowledge base ----
+async function kbRefresh(){
+  try {
+    const s = await (await fetch('/api/kb')).json();
+    $('kbcount').textContent = `— ${s.chunks} facts from ${Object.keys(s.sources).length} file(s)`;
+  } catch {}
+}
+kbRefresh();
+
+function kbMsg(text, ok){
+  $('kbmsg').textContent = text;
+  $('kbmsg').style.color = ok ? 'var(--ok)' : 'var(--bad)';
+}
+
+$('kbsave').onclick = async () => {
+  const title = $('kbtitle').value.trim();
+  const text  = $('kbtext').value.trim();
+  const file  = $('kbfile').files[0];
+  if (!text && !file) return kbMsg('Paste some text or choose a file first.', false);
+
+  $('kbsave').disabled = true;
+  kbMsg('Adding…', true);
+  try {
+    let res;
+    if (file) {
+      const fd = new FormData();
+      fd.append('title', title || file.name.replace(/\.[^.]+$/, ''));
+      fd.append('file', file);
+      res = await fetch('/api/kb', { method:'POST', body: fd });
+    } else {
+      res = await fetch('/api/kb', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ title, text })
+      });
+    }
+    const out = await res.json();
+    if (!res.ok) throw new Error(out.error || 'failed');
+    kbMsg(`Added to ${out.file}. The agent now knows ${out.chunks} facts.`, true);
+    $('kbtext').value = ''; $('kbtitle').value = ''; $('kbfile').value = '';
+    kbRefresh();
+  } catch (e) {
+    kbMsg('Could not add that: ' + e.message, false);
+  } finally {
+    $('kbsave').disabled = false;
+  }
+};
 </script>

@@ -201,7 +201,13 @@ behaviour change to be tested before it is claimed, not a transport change.
 
 ### Getting information into the knowledge base
 
-Three routes, in order of how much you are adding:
+Four routes, in order of how much you are adding:
+
+0. **The web console** — an "Add knowledge" panel: paste a policy or price list,
+   or upload a `.md` / `.txt`. Non-text uploads are refused. The panel shows the
+   live fact count, and the running agent picks the document up on its next
+   question via an mtime check — **no restart**. Verified: 29 to 33 facts across
+   a pasted document and an uploaded file, both retrievable immediately.
 
 1. **Bulk** — drop `.md` or `.txt` files into `kb/`. Sentences become chunks;
    `##` headings are treated as labels, not answers.
@@ -248,6 +254,7 @@ through the same turn fence as every other tool.
 | `answer_enquiry` | **live** retrieval over **synthetic** business facts in `kb/` |
 | `compose_email` | **live** — writes a real `.eml` to `drafts/`; **never sends** |
 | `remember_fact` | **live** — appends to `kb/learned.md` and reloads retrieval |
+| Console "Add knowledge" panel | **live** — writes to `kb/`, agent reloads on next question |
 | Latency figures | **measured**, from LiveKit's own instrumentation |
 | 20-trial barge-in result | **logic level** — real fence objects, simulated timeline |
 | Live-session figures | **measured**, single session, small n |

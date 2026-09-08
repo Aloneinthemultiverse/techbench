@@ -132,6 +132,8 @@ class TechnicianAgent(Agent):
             question: what the caller asked.
         """
         turn_id = self.controller.current
+        if KB.maybe_reload():                 # documents added from the console
+            self.log.emit("kb_reloaded", turn_id=turn_id, chunks=len(KB.chunks))
         answer, sources = KB.answer(question)
         self.log.emit("tool_return", turn_id=turn_id, tool="kb",
                       grounded=bool(sources), n_sources=len(sources))
