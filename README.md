@@ -141,6 +141,7 @@ Test protocol: **[TESTING.md](TESTING.md)**.
 - **Latency is geography-bound.** Rime resolves to AWS us-west-2 (Oregon); from India there is a ~270 ms RTT floor and no published APAC endpoint.
 - **Do not set `sample_rate` on `rime.TTS`.** Forcing 24000 Hz crashes `livekit_ffi.dll`'s soxr resampler (assertion `FFT_LEN == -1`). The plugin default is the tested path.
 - **If Rime is unavailable the agent is silent** — by design, since a fallback provider would violate the requirement that Rime be the primary output.
+- **The Spoken Ledger records but does not diff.** `truncated_chars_total` is always 0 because `intended` and `spoken` are passed the same string; the interrupted flag is real, the character-level truncation is not yet wired to playback position.
 - Part data is synthetic. No real inventory system is contacted.
 
 ## Repository

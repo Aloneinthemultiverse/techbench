@@ -129,6 +129,13 @@ correctness and is **not** a claimed result; no acceptance test is run for it.
    and used for protocol and terminology. Claims attributed to them should be
    read as "protocol adapted from", not as reproduction of their results.
 
+7. **The Spoken Ledger records, but does not yet diff.** `agent.py` passes the
+   same string as `intended` and `spoken`, so `truncated_chars_total` is always
+   0. The interrupted/not-interrupted flag is real and correct (12 of 40
+   utterances were interrupted); the character-level truncation measurement is
+   not yet wired to LiveKit's playback position. Claimed as instrumented, not
+   as measured.
+
 ## Rime configuration under test
 
     model      coda

@@ -17,12 +17,16 @@ def score(path: Path) -> dict:
              and e.get("turn_id") is not None]
     spoken = [e for e in ev if e["kind"] == "spoken"]
 
-    # time-to-silence: barge-in turn_start -> next tts_stop
+    # Time-to-silence is measured from the acoustic barge-in moment
+    # (OverlappingSpeechEvent) to the agent returning to listening, NOT from
+    # turn_start - the transcript is only final some hundreds of ms after the
+    # user actually starts speaking.
     ttfs = []
-    for t in turns:
-        nxt = next((e for e in ev if e["kind"] == "tts_stop" and e["t_ms"] >= t["t_ms"]), None)
-        if nxt:
-            ttfs.append(round(nxt["t_ms"] - t["t_ms"], 1))
+    for i, e in enumerate(ev):
+        if e["kind"] == "barge_in":
+            nxt = next((x for x in ev[i:] if x["kind"] == "tts_stop"), None)
+            if nxt:
+                ttfs.append(round(nxt["t_ms"] - e["t_ms"], 1))
 
     return {
         "barge_ins": len(turns),
