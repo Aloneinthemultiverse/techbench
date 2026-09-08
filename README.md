@@ -8,6 +8,20 @@ The hard voice problem it solves is not "can it be interrupted" — LiveKit give
 
 Full method, numbers and limitations: **[RIME_EVIDENCE.md](RIME_EVIDENCE.md)**.
 
+## Why this is not a consumer assistant
+
+A general assistant can already be interrupted. What it cannot do is show you
+what happened to work that was already in flight — there is no event log, no
+way to test whether a cancelled tool call re-entered conversation state, and no
+way to audit what the user actually heard.
+
+That inspectability is the point, and it is what the enterprise voice market
+buys: contact centres, field operations, healthcare and public services need
+behaviour that can be tested before deployment and audited afterwards, running
+in infrastructure they control. This project is built for that shape of
+problem — one narrow job, done deterministically, with an append-only record of
+every turn, cancellation and dropped result.
+
 ## The failure being prevented
 
 ```
@@ -49,7 +63,7 @@ quality and are reported, not claimed - no acceptance test is run for them.
 | Multilingual and code-switched speech | implemented - `switch_language` tool; Rime `coda` in eng/hin/spa/fra with per-language speakers pulled from the live catalog; `ink-whisper` is multilingual on input |
 | Expressive and persistent voice identity | partial - one voice, one persona, consistent across turns |
 | Evaluation and observability | built - append-only event log, live console, scorer, ablation harness |
-| Telephony and adverse audio | **not attempted** - no SIP trunk; browser-mic results would not prove telephone performance |
+| Telephony and adverse audio | **not attempted** - no SIP trunk. The brief is explicit that browser-microphone results do not prove telephone performance, so no claim is made. The architecture is transport-agnostic (LiveKit supports SIP), but that is an untested statement of design, not a result. |
 
 ## Results
 
