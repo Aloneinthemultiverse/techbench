@@ -60,7 +60,7 @@ quality and are reported, not claimed - no acceptance test is run for them.
 | Conversation continuity during tool work | implemented - spoken ack before the delay, session stays live, user can revise or cancel mid-flight |
 | Perceived response time | instrumented across all five hops (n=189); geography analysed, not optimised |
 | Pronunciation and controlled delivery | evidence-driven - `normalize_text` / `check_dictionary`; `speed_alpha=0.9`; see `eval/pronunciation_check.md` |
-| Multilingual and code-switched speech | implemented - `switch_language` tool; Rime `coda` in eng/hin/spa/fra with per-language speakers pulled from the live catalog; `ink-whisper` is multilingual on input |
+| Multilingual and code-switched speech | implemented - `switch_language` tool; Rime `coda` in eng/hin/spa/fra with per-language speakers pulled from the live catalog; `ink-whisper` is multilingual on input if swapped in |
 | Expressive and persistent voice identity | partial - one voice, one persona, consistent across turns |
 | Evaluation and observability | built - append-only event log, live console, scorer, ablation harness |
 | Telephony and adverse audio | **not attempted** - no SIP trunk. The brief is explicit that browser-microphone results do not prove telephone performance, so no claim is made. The architecture is transport-agnostic (LiveKit supports SIP), but that is an untested statement of design, not a result. |
@@ -72,13 +72,18 @@ quality and are reported, not claimed - no acceptance test is run for them.
 | Fencing enabled | **0 / 20** |
 | Fencing disabled | **20 / 20** |
 
-Live session (1731 events, 133 utterances, 34 interrupted):
+Live session (1731 events, 133 utterances, 34 interrupted). **That session ran
+with `cartesia/ink-whisper` as STT**; the shipped configuration now uses
+`deepgram/nova-3`, because ink-whisper silently ignores `stt_context_options`
+keyterms (it logs "keyterms are not supported by this STT"). Every other
+component is unchanged, but the transcription figure below belongs to
+ink-whisper, not to the shipped STT.
 
 | Metric | Median |
 |---|---|
 | End-of-utterance | 948 ms |
-| Transcription (Whisper) | 385 ms |
-| LLM TTFT | 1143 ms (gpt-4.1-mini; since replaced — see below) |
+| Transcription (STT) | 385 ms |
+| LLM TTFT | 1143 ms (gpt-4.1-mini) |
 | **Rime TTFB** | **369 ms** |
 | Time to silence | 1053 ms (n=6, noisy — see limitations) |
 
@@ -95,20 +100,23 @@ benchmark rather than reputation (`eval/llm_latency.py`, n=3 each, from India):
 
 | Model | Median TTFT |
 |---|---|
-| **`openai/gpt-oss-120b`** (chosen) | **908 ms** |
+| `openai/gpt-oss-120b` (fastest measured) | **908 ms** |
 | `openai/gpt-4.1-nano` | 1064 ms |
-| `openai/gpt-4.1-mini` (previous) | 1134 ms |
+| **`openai/gpt-4.1-mini`** (shipped) | 1134 ms |
 | `google/gemini-3.1-flash-lite` | 1193 ms |
 | `xai/grok-4-1-fast-non-reasoning` | 4647 ms |
 
-The model branded "fast" was five times slower than the fastest. Note these
+gpt-oss-120b measured fastest, but gpt-4.1-mini is what ships: it is the
+configuration verified across the recorded 1731-event session, and stability
+was preferred over a ~200 ms gain on submission day. The model branded "fast"
+was five times slower than the fastest. Note these
 figures include a ~500 ms India-to-US round trip, so they compress the real
 differences between models and should not be read as provider benchmarks.
 
 ## Architecture
 
 ```
-mic -> LiveKit (WebRTC, India South) -> ink-whisper (STT)
+mic -> LiveKit (WebRTC, India South) -> nova-3 (STT)
                                           |
                                    TURN CONTROLLER  turn_id = N
                                           |
@@ -176,8 +184,8 @@ thread because asyncio cannot attach to a stdin pipe on Windows.
 |---|---|---|
 | **Rime** | text-to-speech (primary spoken output) | yes |
 | LiveKit Cloud | WebRTC transport, VAD, turn detection, barge-in, AEC | yes |
-| `cartesia/ink-whisper` | streaming speech-to-text | via LiveKit Inference |
-| `openai/gpt-oss-120b` | reasoning | via LiveKit Inference |
+| `deepgram/nova-3` (en) | streaming speech-to-text | via LiveKit Inference |
+| `openai/gpt-4.1-mini` | reasoning | via LiveKit Inference |
 | DuckDuckGo HTML | live web search tool | no |
 
 ### Business enquiries — grounded retrieval

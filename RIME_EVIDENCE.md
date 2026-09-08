@@ -73,10 +73,15 @@ Latency figures are LiveKit's own instrumentation, not our timers.
 | Metric                       | Median  | n   |
 |------------------------------|---------|-----|
 | End-of-utterance delay       | 948 ms  | 139 |
-| Transcription (ink-whisper)  | 385 ms  | 139 |
+| Transcription (ink-whisper*) | 385 ms  | 139 |
 | LLM TTFT (gpt-4.1-mini)      | 1143 ms | 185 |
 | **Rime TTFB (coda/lyra)**    | **369 ms** | 189 |
 | Time to silence on barge-in  | 1053 ms (median) | 6 |
+
+\* This session ran with `cartesia/ink-whisper`. The shipped configuration
+uses `deepgram/nova-3` (en), swapped after the session because ink-whisper
+ignores keyterms. The transcription figure is therefore ink-whisper's, not the
+shipped STT's; every other figure applies to the shipped stack.
 
 Barge-ins detected: 6. False interruptions correctly ignored: 3.
 

@@ -922,3 +922,334 @@
 {"t_ms": 411230.92, "kind": "tts_stop", "turn_id": 18}
 {"t_ms": 467757.86, "kind": "turn_start", "turn_id": 19, "superseded": 18, "reason": "user_speech"}
 {"t_ms": 467794.84, "kind": "session_end", "dropped": 0, "committed": 1}
+{"t_ms": 0.41, "kind": "session_start", "room": "console", "tts_provider": "rime", "rime_model": "coda", "rime_speaker": "lyra", "tool_delay_s": 3.0}
+{"t_ms": 2005.89, "kind": "tts_start", "turn_id": 0}
+{"t_ms": 2141.35, "kind": "agent_state", "state": "listening", "turn_id": 0}
+{"t_ms": 2141.47, "kind": "tts_stop", "turn_id": 0}
+{"t_ms": 2153.12, "kind": "agent_state", "state": "thinking", "turn_id": 0}
+{"t_ms": 3592.48, "kind": "lat_llm", "turn_id": 0, "ttft": 1.1827470999996876}
+{"t_ms": 4750.16, "kind": "agent_state", "state": "speaking", "turn_id": 0}
+{"t_ms": 5759.3, "kind": "lat_tts", "turn_id": 0, "ttfb": 1.0242160000052536, "provider": "rime"}
+{"t_ms": 9559.4, "kind": "spoken", "interrupted": false, "intended_chars": 79, "spoken_chars": 79, "truncated_chars": 0}
+{"t_ms": 9560.36, "kind": "agent_state", "state": "listening", "turn_id": 0}
+{"t_ms": 9560.52, "kind": "tts_stop", "turn_id": 0}
+{"t_ms": 14064.44, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "user_speech"}
+{"t_ms": 14071.26, "kind": "tts_start", "turn_id": 1}
+{"t_ms": 15395.07, "kind": "lat_llm", "turn_id": 1, "ttft": 0.998003200002131}
+{"t_ms": 15436.36, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "user_speech"}
+{"t_ms": 15444.13, "kind": "tts_start", "turn_id": 2}
+{"t_ms": 15489.04, "kind": "lat_eou", "turn_id": 2, "end_of_utterance_delay": 0.6157443523406982, "transcription_delay": 0.5789754390716553}
+{"t_ms": 15495.53, "kind": "agent_state", "state": "thinking", "turn_id": 2}
+{"t_ms": 16724.0, "kind": "agent_state", "state": "listening", "turn_id": 2}
+{"t_ms": 16724.17, "kind": "tts_stop", "turn_id": 2}
+{"t_ms": 16822.52, "kind": "lat_llm", "turn_id": 2, "ttft": 1.1009170000033919}
+{"t_ms": 17859.67, "kind": "lat_tts", "turn_id": 2, "ttfb": 0.37088290000974666, "provider": "rime"}
+{"t_ms": 18213.33, "kind": "agent_state", "state": "thinking", "turn_id": 2}
+{"t_ms": 18218.34, "kind": "false_interruption", "turn_id": 2}
+{"t_ms": 18245.32, "kind": "agent_state", "state": "speaking", "turn_id": 2}
+{"t_ms": 18741.4, "kind": "lat_tts", "turn_id": 2, "ttfb": 0.4078697000077227, "provider": "rime"}
+{"t_ms": 22555.54, "kind": "spoken", "interrupted": false, "intended_chars": 68, "spoken_chars": 68, "truncated_chars": 0}
+{"t_ms": 22556.3, "kind": "agent_state", "state": "listening", "turn_id": 2}
+{"t_ms": 22556.46, "kind": "tts_stop", "turn_id": 2}
+{"t_ms": 82033.47, "kind": "turn_start", "turn_id": 3, "superseded": 2, "reason": "user_speech"}
+{"t_ms": 82041.32, "kind": "tts_start", "turn_id": 3}
+{"t_ms": 82077.35, "kind": "lat_eou", "turn_id": 3, "end_of_utterance_delay": 4.206183910369873, "transcription_delay": 4.180978536605835}
+{"t_ms": 82086.04, "kind": "agent_state", "state": "thinking", "turn_id": 3}
+{"t_ms": 82422.97, "kind": "turn_start", "turn_id": 4, "superseded": 3, "reason": "user_speech"}
+{"t_ms": 82423.14, "kind": "agent_state", "state": "listening", "turn_id": 4}
+{"t_ms": 82423.16, "kind": "tts_stop", "turn_id": 4}
+{"t_ms": 82448.25, "kind": "tts_start", "turn_id": 4}
+{"t_ms": 82448.52, "kind": "lat_eou", "turn_id": 4, "end_of_utterance_delay": 0.0, "transcription_delay": 0.0}
+{"t_ms": 82469.52, "kind": "agent_state", "state": "thinking", "turn_id": 4}
+{"t_ms": 83718.74, "kind": "turn_start", "turn_id": 5, "superseded": 4, "reason": "user_speech"}
+{"t_ms": 83719.88, "kind": "agent_state", "state": "listening", "turn_id": 5}
+{"t_ms": 83722.14, "kind": "tts_stop", "turn_id": 5}
+{"t_ms": 83758.32, "kind": "lat_llm", "turn_id": 5, "ttft": 1.1061655999947106}
+{"t_ms": 83762.91, "kind": "tts_start", "turn_id": 5}
+{"t_ms": 83763.06, "kind": "lat_eou", "turn_id": 5, "end_of_utterance_delay": 0.0, "transcription_delay": 0.0}
+{"t_ms": 83783.38, "kind": "agent_state", "state": "thinking", "turn_id": 5}
+{"t_ms": 83812.66, "kind": "turn_start", "turn_id": 6, "superseded": 5, "reason": "user_speech"}
+{"t_ms": 83813.15, "kind": "agent_state", "state": "listening", "turn_id": 6}
+{"t_ms": 83813.27, "kind": "tts_stop", "turn_id": 6}
+{"t_ms": 83831.87, "kind": "tts_start", "turn_id": 6}
+{"t_ms": 83832.03, "kind": "lat_eou", "turn_id": 6, "end_of_utterance_delay": 0.0, "transcription_delay": 0.0}
+{"t_ms": 83858.43, "kind": "agent_state", "state": "thinking", "turn_id": 6}
+{"t_ms": 84722.75, "kind": "turn_start", "turn_id": 7, "superseded": 6, "reason": "user_speech"}
+{"t_ms": 84723.09, "kind": "agent_state", "state": "listening", "turn_id": 7}
+{"t_ms": 84723.17, "kind": "tts_stop", "turn_id": 7}
+{"t_ms": 85871.11, "kind": "turn_start", "turn_id": 8, "superseded": 7, "reason": "user_speech"}
+{"t_ms": 85879.68, "kind": "tts_start", "turn_id": 8}
+{"t_ms": 86761.03, "kind": "turn_start", "turn_id": 9, "superseded": 8, "reason": "user_speech"}
+{"t_ms": 86766.63, "kind": "tts_start", "turn_id": 9}
+{"t_ms": 88288.18, "kind": "lat_llm", "turn_id": 9, "ttft": 1.4583659000054467}
+{"t_ms": 88493.28, "kind": "lat_eou", "turn_id": 9, "end_of_utterance_delay": 2.511772394180298, "transcription_delay": 0.7961773872375488}
+{"t_ms": 88500.84, "kind": "agent_state", "state": "thinking", "turn_id": 9}
+{"t_ms": 88506.94, "kind": "tool_return", "turn_id": 9, "tool": "kb", "grounded": true, "n_sources": 1}
+{"t_ms": 88506.99, "kind": "commit", "what": "kb", "turn_id": 9}
+{"t_ms": 94024.2, "kind": "agent_state", "state": "listening", "turn_id": 9}
+{"t_ms": 94024.49, "kind": "tts_stop", "turn_id": 9}
+{"t_ms": 99010.67, "kind": "agent_state", "state": "thinking", "turn_id": 9}
+{"t_ms": 99018.91, "kind": "false_interruption", "turn_id": 9}
+{"t_ms": 107037.88, "kind": "false_interruption", "turn_id": 9}
+{"t_ms": 111329.44, "kind": "false_interruption", "turn_id": 9}
+{"t_ms": 124048.37, "kind": "turn_start", "turn_id": 10, "superseded": 9, "reason": "user_speech"}
+{"t_ms": 124075.4, "kind": "agent_state", "state": "listening", "turn_id": 10}
+{"t_ms": 124075.54, "kind": "tts_stop", "turn_id": 10}
+{"t_ms": 124075.96, "kind": "tts_start", "turn_id": 10}
+{"t_ms": 124076.22, "kind": "lat_eou", "turn_id": 10, "end_of_utterance_delay": 12.994612216949463, "transcription_delay": 12.985973119735718}
+{"t_ms": 124119.2, "kind": "agent_state", "state": "thinking", "turn_id": 10}
+{"t_ms": 124521.39, "kind": "turn_start", "turn_id": 11, "superseded": 10, "reason": "user_speech"}
+{"t_ms": 124521.85, "kind": "agent_state", "state": "listening", "turn_id": 11}
+{"t_ms": 124521.94, "kind": "tts_stop", "turn_id": 11}
+{"t_ms": 124552.38, "kind": "tts_start", "turn_id": 11}
+{"t_ms": 124552.76, "kind": "lat_eou", "turn_id": 11, "end_of_utterance_delay": 0.0, "transcription_delay": 0.0}
+{"t_ms": 124584.96, "kind": "agent_state", "state": "thinking", "turn_id": 11}
+{"t_ms": 125041.72, "kind": "turn_start", "turn_id": 12, "superseded": 11, "reason": "user_speech"}
+{"t_ms": 125042.2, "kind": "agent_state", "state": "listening", "turn_id": 12}
+{"t_ms": 125042.26, "kind": "tts_stop", "turn_id": 12}
+{"t_ms": 125064.55, "kind": "tts_start", "turn_id": 12}
+{"t_ms": 125064.87, "kind": "lat_eou", "turn_id": 12, "end_of_utterance_delay": 0.0, "transcription_delay": 0.0}
+{"t_ms": 125101.9, "kind": "agent_state", "state": "thinking", "turn_id": 12}
+{"t_ms": 125488.34, "kind": "turn_start", "turn_id": 13, "superseded": 12, "reason": "user_speech"}
+{"t_ms": 125490.78, "kind": "agent_state", "state": "listening", "turn_id": 13}
+{"t_ms": 125490.93, "kind": "tts_stop", "turn_id": 13}
+{"t_ms": 125532.84, "kind": "tts_start", "turn_id": 13}
+{"t_ms": 125533.24, "kind": "lat_eou", "turn_id": 13, "end_of_utterance_delay": 0.0, "transcription_delay": 0.0}
+{"t_ms": 125578.59, "kind": "agent_state", "state": "thinking", "turn_id": 13}
+{"t_ms": 127567.85, "kind": "lat_llm", "turn_id": 13, "ttft": 1.8407512999983737}
+{"t_ms": 128445.61, "kind": "agent_state", "state": "speaking", "turn_id": 13}
+{"t_ms": 128950.28, "kind": "lat_tts", "turn_id": 13, "ttfb": 0.9105251000000862, "provider": "rime"}
+{"t_ms": 129838.26, "kind": "lat_tts", "turn_id": 13, "ttfb": 0.3343170000007376, "provider": "rime"}
+{"t_ms": 133051.06, "kind": "spoken", "interrupted": false, "intended_chars": 65, "spoken_chars": 65, "truncated_chars": 0}
+{"t_ms": 133051.36, "kind": "agent_state", "state": "listening", "turn_id": 13}
+{"t_ms": 133051.41, "kind": "tts_stop", "turn_id": 13}
+{"t_ms": 136898.79, "kind": "turn_start", "turn_id": 14, "superseded": 13, "reason": "user_speech"}
+{"t_ms": 136911.75, "kind": "tts_start", "turn_id": 14}
+{"t_ms": 138226.05, "kind": "lat_llm", "turn_id": 14, "ttft": 1.1194303000083892}
+{"t_ms": 138901.28, "kind": "lat_eou", "turn_id": 14, "end_of_utterance_delay": 2.5104916095733643, "transcription_delay": 0.5391025543212891}
+{"t_ms": 138917.29, "kind": "agent_state", "state": "thinking", "turn_id": 14}
+{"t_ms": 139344.95, "kind": "agent_state", "state": "speaking", "turn_id": 14}
+{"t_ms": 140111.61, "kind": "lat_tts", "turn_id": 14, "ttfb": 0.37157760000263806, "provider": "rime"}
+{"t_ms": 140955.87, "kind": "lat_tts", "turn_id": 14, "ttfb": 0.3800377000006847, "provider": "rime"}
+{"t_ms": 143456.61, "kind": "spoken", "interrupted": false, "intended_chars": 48, "spoken_chars": 48, "truncated_chars": 0}
+{"t_ms": 143457.89, "kind": "agent_state", "state": "listening", "turn_id": 14}
+{"t_ms": 143458.09, "kind": "tts_stop", "turn_id": 14}
+{"t_ms": 147567.35, "kind": "turn_start", "turn_id": 15, "superseded": 14, "reason": "user_speech"}
+{"t_ms": 147578.01, "kind": "tts_start", "turn_id": 15}
+{"t_ms": 149040.38, "kind": "lat_llm", "turn_id": 15, "ttft": 1.2225986999983434}
+{"t_ms": 151201.99, "kind": "turn_start", "turn_id": 16, "superseded": 15, "reason": "user_speech"}
+{"t_ms": 151207.56, "kind": "tts_start", "turn_id": 16}
+{"t_ms": 151561.77, "kind": "lat_eou", "turn_id": 16, "end_of_utterance_delay": 0.8877913951873779, "transcription_delay": 0.5414702892303467}
+{"t_ms": 151569.79, "kind": "agent_state", "state": "thinking", "turn_id": 16}
+{"t_ms": 152702.58, "kind": "tool_return", "turn_id": 16, "tool": "kb", "grounded": true, "n_sources": 3}
+{"t_ms": 152702.71, "kind": "commit", "what": "kb", "turn_id": 16}
+{"t_ms": 152704.29, "kind": "lat_llm", "turn_id": 16, "ttft": 1.4804792999930214}
+{"t_ms": 153916.99, "kind": "lat_llm", "turn_id": 16, "ttft": 1.1073791999951936}
+{"t_ms": 154444.94, "kind": "agent_state", "state": "speaking", "turn_id": 16}
+{"t_ms": 155312.18, "kind": "lat_tts", "turn_id": 16, "ttfb": 0.41902549999940675, "provider": "rime"}
+{"t_ms": 158452.75, "kind": "spoken", "interrupted": false, "intended_chars": 66, "spoken_chars": 66, "truncated_chars": 0}
+{"t_ms": 158453.3, "kind": "agent_state", "state": "listening", "turn_id": 16}
+{"t_ms": 158453.68, "kind": "tts_stop", "turn_id": 16}
+{"t_ms": 160140.6, "kind": "turn_start", "turn_id": 17, "superseded": 16, "reason": "user_speech"}
+{"t_ms": 160151.47, "kind": "tts_start", "turn_id": 17}
+{"t_ms": 160574.29, "kind": "lat_eou", "turn_id": 17, "end_of_utterance_delay": 0.983529806137085, "transcription_delay": 0.5849974155426025}
+{"t_ms": 160592.56, "kind": "agent_state", "state": "thinking", "turn_id": 17}
+{"t_ms": 161024.26, "kind": "agent_state", "state": "listening", "turn_id": 17}
+{"t_ms": 161024.38, "kind": "tts_stop", "turn_id": 17}
+{"t_ms": 165745.5, "kind": "lat_llm", "turn_id": 17, "ttft": 5.364069699993706}
+{"t_ms": 166236.4, "kind": "turn_start", "turn_id": 18, "superseded": 17, "reason": "user_speech"}
+{"t_ms": 166248.78, "kind": "lat_tts", "turn_id": 18, "ttfb": 0.3617473000049358, "provider": "rime"}
+{"t_ms": 167376.64, "kind": "turn_start", "turn_id": 19, "superseded": 18, "reason": "user_speech"}
+{"t_ms": 167382.93, "kind": "tts_start", "turn_id": 19}
+{"t_ms": 171352.13, "kind": "turn_start", "turn_id": 20, "superseded": 19, "reason": "user_speech"}
+{"t_ms": 171362.29, "kind": "tts_start", "turn_id": 20}
+{"t_ms": 173390.72, "kind": "lat_eou", "turn_id": 20, "end_of_utterance_delay": 2.504603385925293, "transcription_delay": 0.4931161403656006}
+{"t_ms": 173402.71, "kind": "agent_state", "state": "thinking", "turn_id": 20}
+{"t_ms": 175565.7, "kind": "tool_return", "turn_id": 20, "tool": "kb", "grounded": true, "n_sources": 3}
+{"t_ms": 175565.82, "kind": "commit", "what": "kb", "turn_id": 20}
+{"t_ms": 175567.18, "kind": "lat_llm", "turn_id": 20, "ttft": 4.184473799992702}
+{"t_ms": 180048.41, "kind": "lat_llm", "turn_id": 20, "ttft": 3.779228300001705}
+{"t_ms": 181046.21, "kind": "agent_state", "state": "speaking", "turn_id": 20}
+{"t_ms": 182461.88, "kind": "lat_tts", "turn_id": 20, "ttfb": 0.9287245000014082, "provider": "rime"}
+{"t_ms": 188554.66, "kind": "spoken", "interrupted": false, "intended_chars": 118, "spoken_chars": 118, "truncated_chars": 0}
+{"t_ms": 188555.53, "kind": "agent_state", "state": "listening", "turn_id": 20}
+{"t_ms": 188555.65, "kind": "tts_stop", "turn_id": 20}
+{"t_ms": 198157.67, "kind": "turn_start", "turn_id": 21, "superseded": 20, "reason": "user_speech"}
+{"t_ms": 198167.47, "kind": "tts_start", "turn_id": 21}
+{"t_ms": 199440.28, "kind": "lat_llm", "turn_id": 21, "ttft": 1.1600105999968946}
+{"t_ms": 199998.58, "kind": "lat_eou", "turn_id": 21, "end_of_utterance_delay": 2.5052759647369385, "transcription_delay": 0.700397253036499}
+{"t_ms": 200026.74, "kind": "agent_state", "state": "thinking", "turn_id": 21}
+{"t_ms": 200446.98, "kind": "agent_state", "state": "speaking", "turn_id": 21}
+{"t_ms": 201163.32, "kind": "lat_tts", "turn_id": 21, "ttfb": 0.3403339000069536, "provider": "rime"}
+{"t_ms": 202432.0, "kind": "barge_in", "turn_id": 21}
+{"t_ms": 203057.01, "kind": "spoken", "interrupted": false, "intended_chars": 28, "spoken_chars": 28, "truncated_chars": 0}
+{"t_ms": 203057.47, "kind": "agent_state", "state": "listening", "turn_id": 21}
+{"t_ms": 203057.55, "kind": "tts_stop", "turn_id": 21}
+{"t_ms": 203057.86, "kind": "turn_start", "turn_id": 22, "superseded": 21, "reason": "user_speech"}
+{"t_ms": 203090.54, "kind": "tts_start", "turn_id": 22}
+{"t_ms": 203094.9, "kind": "lat_eou", "turn_id": 22, "end_of_utterance_delay": 0.9058566093444824, "transcription_delay": 0.8946943283081055}
+{"t_ms": 203147.37, "kind": "agent_state", "state": "thinking", "turn_id": 22}
+{"t_ms": 204431.08, "kind": "lat_llm", "turn_id": 22, "ttft": 1.1849662000022363}
+{"t_ms": 204719.34, "kind": "agent_state", "state": "listening", "turn_id": 22}
+{"t_ms": 204719.82, "kind": "tts_stop", "turn_id": 22}
+{"t_ms": 205614.36, "kind": "lat_tts", "turn_id": 22, "ttfb": 0.34137929999269545, "provider": "rime"}
+{"t_ms": 205660.34, "kind": "turn_start", "turn_id": 23, "superseded": 22, "reason": "user_speech"}
+{"t_ms": 209250.5, "kind": "turn_start", "turn_id": 24, "superseded": 23, "reason": "user_speech"}
+{"t_ms": 209256.59, "kind": "tts_start", "turn_id": 24}
+{"t_ms": 210512.17, "kind": "lat_llm", "turn_id": 24, "ttft": 1.2396314999932656}
+{"t_ms": 212057.84, "kind": "turn_start", "turn_id": 25, "superseded": 24, "reason": "user_speech"}
+{"t_ms": 212064.91, "kind": "tts_start", "turn_id": 25}
+{"t_ms": 212425.63, "kind": "lat_eou", "turn_id": 25, "end_of_utterance_delay": 0.840064525604248, "transcription_delay": 0.4973728656768799}
+{"t_ms": 212450.08, "kind": "agent_state", "state": "thinking", "turn_id": 25}
+{"t_ms": 213477.94, "kind": "tool_return", "turn_id": 25, "tool": "kb", "grounded": true, "n_sources": 2}
+{"t_ms": 213478.1, "kind": "commit", "what": "kb", "turn_id": 25}
+{"t_ms": 213479.38, "kind": "lat_llm", "turn_id": 25, "ttft": 1.3973446000018157}
+{"t_ms": 215158.28, "kind": "lat_llm", "turn_id": 25, "ttft": 1.0852476000000024}
+{"t_ms": 215645.67, "kind": "agent_state", "state": "speaking", "turn_id": 25}
+{"t_ms": 217105.47, "kind": "lat_tts", "turn_id": 25, "ttfb": 0.3851566999946954, "provider": "rime"}
+{"t_ms": 223555.48, "kind": "spoken", "interrupted": false, "intended_chars": 118, "spoken_chars": 118, "truncated_chars": 0}
+{"t_ms": 223555.91, "kind": "agent_state", "state": "listening", "turn_id": 25}
+{"t_ms": 223555.97, "kind": "tts_stop", "turn_id": 25}
+{"t_ms": 229457.08, "kind": "turn_start", "turn_id": 26, "superseded": 25, "reason": "user_speech"}
+{"t_ms": 229464.68, "kind": "tts_start", "turn_id": 26}
+{"t_ms": 230061.64, "kind": "lat_eou", "turn_id": 26, "end_of_utterance_delay": 1.0772147178649902, "transcription_delay": 0.499035120010376}
+{"t_ms": 230075.46, "kind": "agent_state", "state": "thinking", "turn_id": 26}
+{"t_ms": 230955.18, "kind": "tool_dispatch", "turn_id": 26, "tool": "open_app", "target": "calculator"}
+{"t_ms": 230973.88, "kind": "lat_llm", "turn_id": 26, "ttft": 1.4791185000067344}
+{"t_ms": 231372.83, "kind": "tool_return", "turn_id": 26, "tool": "open_app"}
+{"t_ms": 231372.88, "kind": "commit", "what": "open_app", "turn_id": 26}
+{"t_ms": 232739.21, "kind": "lat_llm", "turn_id": 26, "ttft": 1.2278804999950808}
+{"t_ms": 233145.7, "kind": "agent_state", "state": "speaking", "turn_id": 26}
+{"t_ms": 233897.14, "kind": "lat_tts", "turn_id": 26, "ttfb": 0.34302309999475256, "provider": "rime"}
+{"t_ms": 236057.91, "kind": "spoken", "interrupted": false, "intended_chars": 31, "spoken_chars": 31, "truncated_chars": 0}
+{"t_ms": 236058.25, "kind": "agent_state", "state": "listening", "turn_id": 26}
+{"t_ms": 236058.29, "kind": "tts_stop", "turn_id": 26}
+{"t_ms": 238601.4, "kind": "turn_start", "turn_id": 27, "superseded": 26, "reason": "user_speech"}
+{"t_ms": 238616.73, "kind": "tts_start", "turn_id": 27}
+{"t_ms": 239900.4, "kind": "lat_llm", "turn_id": 27, "ttft": 1.1305585999944014}
+{"t_ms": 241237.41, "kind": "turn_start", "turn_id": 28, "superseded": 27, "reason": "user_speech"}
+{"t_ms": 241248.63, "kind": "tts_start", "turn_id": 28}
+{"t_ms": 241537.97, "kind": "lat_eou", "turn_id": 28, "end_of_utterance_delay": 0.8552510738372803, "transcription_delay": 0.5780003070831299}
+{"t_ms": 241550.74, "kind": "agent_state", "state": "thinking", "turn_id": 28}
+{"t_ms": 242830.14, "kind": "lat_llm", "turn_id": 28, "ttft": 1.2556937000044854}
+{"t_ms": 243244.83, "kind": "agent_state", "state": "speaking", "turn_id": 28}
+{"t_ms": 245180.7, "kind": "lat_tts", "turn_id": 28, "ttfb": 0.3363331000000471, "provider": "rime"}
+{"t_ms": 246749.93, "kind": "barge_in", "turn_id": 28}
+{"t_ms": 246750.49, "kind": "agent_state", "state": "listening", "turn_id": 28}
+{"t_ms": 246750.62, "kind": "tts_stop", "turn_id": 28}
+{"t_ms": 248118.86, "kind": "agent_state", "state": "speaking", "turn_id": 28}
+{"t_ms": 248130.08, "kind": "false_interruption", "turn_id": 28}
+{"t_ms": 254955.31, "kind": "spoken", "interrupted": false, "intended_chars": 116, "spoken_chars": 116, "truncated_chars": 0}
+{"t_ms": 254955.69, "kind": "agent_state", "state": "listening", "turn_id": 28}
+{"t_ms": 254955.74, "kind": "tts_stop", "turn_id": 28}
+{"t_ms": 258850.91, "kind": "turn_start", "turn_id": 29, "superseded": 28, "reason": "user_speech"}
+{"t_ms": 258858.88, "kind": "tts_start", "turn_id": 29}
+{"t_ms": 259839.52, "kind": "turn_start", "turn_id": 30, "superseded": 29, "reason": "user_speech"}
+{"t_ms": 259849.4, "kind": "tts_start", "turn_id": 30}
+{"t_ms": 261061.13, "kind": "lat_llm", "turn_id": 30, "ttft": 1.2059146000101464}
+{"t_ms": 261746.76, "kind": "lat_eou", "turn_id": 30, "end_of_utterance_delay": 0.5508823394775391, "transcription_delay": 0.0}
+{"t_ms": 261770.83, "kind": "agent_state", "state": "thinking", "turn_id": 30}
+{"t_ms": 261784.02, "kind": "tool_dispatch", "turn_id": 30, "tool": "open_app", "target": "browser"}
+{"t_ms": 261826.13, "kind": "turn_start", "turn_id": 31, "superseded": 30, "reason": "user_speech"}
+{"t_ms": 261831.33, "kind": "tts_start", "turn_id": 31}
+{"t_ms": 262030.97, "kind": "tool_return", "turn_id": 30, "tool": "open_app"}
+{"t_ms": 262031.11, "kind": "fence_drop", "what": "open_app", "result_turn": 30, "current_turn": 31}
+{"t_ms": 262149.02, "kind": "agent_state", "state": "listening", "turn_id": 31}
+{"t_ms": 262149.15, "kind": "tts_stop", "turn_id": 31}
+{"t_ms": 262185.86, "kind": "tts_start", "turn_id": 31}
+{"t_ms": 262186.27, "kind": "lat_eou", "turn_id": 31, "end_of_utterance_delay": 0.0, "transcription_delay": 0.0}
+{"t_ms": 262227.17, "kind": "agent_state", "state": "thinking", "turn_id": 31}
+{"t_ms": 263536.85, "kind": "tool_dispatch", "turn_id": 31, "tool": "open_app", "target": "browser"}
+{"t_ms": 263575.98, "kind": "tool_dispatch", "turn_id": 31, "tool": "web_search", "query": "Elon Musk"}
+{"t_ms": 263578.94, "kind": "lat_llm", "turn_id": 31, "ttft": 1.33268500000122}
+{"t_ms": 263686.4, "kind": "tool_return", "turn_id": 31, "tool": "open_app"}
+{"t_ms": 263686.53, "kind": "commit", "what": "open_app", "turn_id": 31}
+{"t_ms": 264442.21, "kind": "tool_return", "turn_id": 31, "tool": "web_search", "n": 3}
+{"t_ms": 264442.29, "kind": "commit", "what": "web_search", "turn_id": 31}
+{"t_ms": 265752.37, "kind": "lat_llm", "turn_id": 31, "ttft": 0.9624014000000898}
+{"t_ms": 265945.18, "kind": "agent_state", "state": "speaking", "turn_id": 31}
+{"t_ms": 266756.4, "kind": "lat_tts", "turn_id": 31, "ttfb": 0.34835840000596363, "provider": "rime"}
+{"t_ms": 268006.67, "kind": "lat_tts", "turn_id": 31, "ttfb": 0.3765597000019625, "provider": "rime"}
+{"t_ms": 268802.53, "kind": "lat_tts", "turn_id": 31, "ttfb": 0.3358481000032043, "provider": "rime"}
+{"t_ms": 276258.84, "kind": "spoken", "interrupted": false, "intended_chars": 160, "spoken_chars": 160, "truncated_chars": 0}
+{"t_ms": 276259.89, "kind": "agent_state", "state": "listening", "turn_id": 31}
+{"t_ms": 276260.29, "kind": "tts_stop", "turn_id": 31}
+{"t_ms": 278577.83, "kind": "turn_start", "turn_id": 32, "superseded": 31, "reason": "user_speech"}
+{"t_ms": 278587.49, "kind": "tts_start", "turn_id": 32}
+{"t_ms": 280248.6, "kind": "lat_llm", "turn_id": 32, "ttft": 1.3170557000121335}
+{"t_ms": 280685.1, "kind": "turn_start", "turn_id": 33, "superseded": 32, "reason": "user_speech"}
+{"t_ms": 280693.99, "kind": "tts_start", "turn_id": 33}
+{"t_ms": 282160.51, "kind": "lat_llm", "turn_id": 33, "ttft": 1.1879967999993823}
+{"t_ms": 283369.44, "kind": "turn_start", "turn_id": 34, "superseded": 33, "reason": "user_speech"}
+{"t_ms": 283378.13, "kind": "tts_start", "turn_id": 34}
+{"t_ms": 283461.29, "kind": "lat_eou", "turn_id": 34, "end_of_utterance_delay": 0.5825748443603516, "transcription_delay": 0.5158240795135498}
+{"t_ms": 283477.96, "kind": "agent_state", "state": "thinking", "turn_id": 34}
+{"t_ms": 284840.07, "kind": "tool_dispatch", "turn_id": 34, "tool": "delegate", "task": "Write a web scraper program to extract information from a website, preferably in"}
+{"t_ms": 285432.08, "kind": "lat_llm", "turn_id": 34, "ttft": 1.4448531999951228}
+{"t_ms": 290974.65, "kind": "turn_start", "turn_id": 35, "superseded": 34, "reason": "user_speech"}
+{"t_ms": 290979.8, "kind": "tts_start", "turn_id": 35}
+{"t_ms": 292657.54, "kind": "lat_llm", "turn_id": 35, "ttft": 1.6724285999953281}
+{"t_ms": 296227.74, "kind": "lat_eou", "turn_id": 35, "end_of_utterance_delay": 0.845271110534668, "transcription_delay": 0.6191082000732422}
+{"t_ms": 296240.86, "kind": "tool_dispatch", "turn_id": 35, "tool": "delegate", "task": "Write a Python program that scrapes the web for information from a specified URL"}
+{"t_ms": 302373.27, "kind": "tool_return", "turn_id": 34, "tool": "delegate"}
+{"t_ms": 302373.35, "kind": "fence_drop", "what": "delegate", "result_turn": 34, "current_turn": 35}
+{"t_ms": 320542.71, "kind": "tool_return", "turn_id": 35, "tool": "delegate"}
+{"t_ms": 320542.78, "kind": "commit", "what": "delegate", "turn_id": 35}
+{"t_ms": 322404.06, "kind": "lat_llm", "turn_id": 35, "ttft": 1.3178786999924341}
+{"t_ms": 322645.79, "kind": "agent_state", "state": "speaking", "turn_id": 35}
+{"t_ms": 325309.39, "kind": "lat_tts", "turn_id": 35, "ttfb": 0.36722610000288114, "provider": "rime"}
+{"t_ms": 326881.14, "kind": "lat_tts", "turn_id": 35, "ttfb": 0.3680622999963816, "provider": "rime"}
+{"t_ms": 327689.51, "kind": "lat_tts", "turn_id": 35, "ttfb": 0.3484574000030989, "provider": "rime"}
+{"t_ms": 343432.45, "kind": "barge_in", "turn_id": 35}
+{"t_ms": 344054.64, "kind": "spoken", "interrupted": false, "intended_chars": 250, "spoken_chars": 250, "truncated_chars": 0}
+{"t_ms": 344055.02, "kind": "agent_state", "state": "listening", "turn_id": 35}
+{"t_ms": 344055.13, "kind": "tts_stop", "turn_id": 35}
+{"t_ms": 344055.65, "kind": "turn_start", "turn_id": 36, "superseded": 35, "reason": "user_speech"}
+{"t_ms": 347048.65, "kind": "turn_start", "turn_id": 37, "superseded": 36, "reason": "user_speech"}
+{"t_ms": 347055.98, "kind": "tts_start", "turn_id": 37}
+{"t_ms": 348504.57, "kind": "lat_llm", "turn_id": 37, "ttft": 1.1785041999974055}
+{"t_ms": 348994.93, "kind": "lat_eou", "turn_id": 37, "end_of_utterance_delay": 2.5057454109191895, "transcription_delay": 0.5874478816986084}
+{"t_ms": 349017.49, "kind": "agent_state", "state": "thinking", "turn_id": 37}
+{"t_ms": 349445.58, "kind": "agent_state", "state": "speaking", "turn_id": 37}
+{"t_ms": 350300.1, "kind": "lat_tts", "turn_id": 37, "ttfb": 0.3496060000034049, "provider": "rime"}
+{"t_ms": 351036.45, "kind": "lat_tts", "turn_id": 37, "ttfb": 0.3633693999872776, "provider": "rime"}
+{"t_ms": 355558.77, "kind": "spoken", "interrupted": false, "intended_chars": 92, "spoken_chars": 92, "truncated_chars": 0}
+{"t_ms": 355559.4, "kind": "agent_state", "state": "listening", "turn_id": 37}
+{"t_ms": 355559.55, "kind": "tts_stop", "turn_id": 37}
+{"t_ms": 357538.08, "kind": "turn_start", "turn_id": 38, "superseded": 37, "reason": "user_speech"}
+{"t_ms": 357550.85, "kind": "tts_start", "turn_id": 38}
+{"t_ms": 359207.07, "kind": "lat_eou", "turn_id": 38, "end_of_utterance_delay": 2.5157816410064697, "transcription_delay": 0.8792898654937744}
+{"t_ms": 359232.77, "kind": "agent_state", "state": "thinking", "turn_id": 38}
+{"t_ms": 359403.07, "kind": "tool_dispatch", "turn_id": 38, "tool": "delegate", "task": "Provide the Python scraper code that fetches a webpage, uses BeautifulSoup to pa"}
+{"t_ms": 359443.29, "kind": "lat_llm", "turn_id": 38, "ttft": 1.83563650000724}
+{"t_ms": 369487.84, "kind": "turn_start", "turn_id": 39, "superseded": 38, "reason": "user_speech"}
+{"t_ms": 369490.9, "kind": "tts_start", "turn_id": 39}
+{"t_ms": 370937.1, "kind": "turn_start", "turn_id": 40, "superseded": 39, "reason": "user_speech"}
+{"t_ms": 370945.14, "kind": "tts_start", "turn_id": 40}
+{"t_ms": 370993.74, "kind": "lat_llm", "turn_id": 40, "ttft": 1.3165482999902451}
+{"t_ms": 373589.51, "kind": "lat_llm", "turn_id": 40, "ttft": 1.0597809000028064}
+{"t_ms": 377799.05, "kind": "lat_eou", "turn_id": 40, "end_of_utterance_delay": 2.4996531009674072, "transcription_delay": 0.673140287399292}
+{"t_ms": 377876.81, "kind": "agent_state", "state": "listening", "turn_id": 40}
+{"t_ms": 377876.96, "kind": "tts_stop", "turn_id": 40}
+{"t_ms": 378903.93, "kind": "agent_state", "state": "thinking", "turn_id": 40}
+{"t_ms": 378916.87, "kind": "false_interruption", "turn_id": 40}
+{"t_ms": 378946.25, "kind": "agent_state", "state": "speaking", "turn_id": 40}
+{"t_ms": 380581.59, "kind": "tool_return", "turn_id": 38, "tool": "delegate"}
+{"t_ms": 380581.67, "kind": "fence_drop", "what": "delegate", "result_turn": 38, "current_turn": 40}
+{"t_ms": 388723.09, "kind": "barge_in", "turn_id": 40}
+{"t_ms": 391207.88, "kind": "barge_in", "turn_id": 40}
+{"t_ms": 391208.37, "kind": "agent_state", "state": "listening", "turn_id": 40}
+{"t_ms": 391208.48, "kind": "tts_stop", "turn_id": 40}
+{"t_ms": 391965.25, "kind": "turn_start", "turn_id": 41, "superseded": 40, "reason": "user_speech"}
+{"t_ms": 391996.91, "kind": "lat_tts", "turn_id": 41, "ttfb": 0.3698947000084445, "provider": "rime"}
+{"t_ms": 392013.23, "kind": "spoken", "interrupted": true, "intended_chars": 232, "spoken_chars": 232, "truncated_chars": 0}
+{"t_ms": 393592.1, "kind": "tts_start", "turn_id": 41}
+{"t_ms": 393592.57, "kind": "lat_eou", "turn_id": 41, "end_of_utterance_delay": 2.5092997550964355, "transcription_delay": 0.9022419452667236}
+{"t_ms": 393658.32, "kind": "agent_state", "state": "thinking", "turn_id": 41}
+{"t_ms": 395200.54, "kind": "lat_llm", "turn_id": 41, "ttft": 1.3173896999942372}
+{"t_ms": 396244.37, "kind": "agent_state", "state": "speaking", "turn_id": 41}
+{"t_ms": 396892.45, "kind": "lat_tts", "turn_id": 41, "ttfb": 1.1550348000018857, "provider": "rime"}
+{"t_ms": 398041.12, "kind": "lat_tts", "turn_id": 41, "ttfb": 0.42914989999553654, "provider": "rime"}
+{"t_ms": 401558.14, "kind": "spoken", "interrupted": false, "intended_chars": 87, "spoken_chars": 87, "truncated_chars": 0}
+{"t_ms": 401558.63, "kind": "agent_state", "state": "listening", "turn_id": 41}
+{"t_ms": 401558.71, "kind": "tts_stop", "turn_id": 41}
