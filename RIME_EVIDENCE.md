@@ -67,19 +67,27 @@ superseded result. The mechanism is load-bearing, not decorative.
 
 ## Result 2 - live audio session
 
-One live session, 536 logged events, 40 spoken utterances, 12 of them
-interrupted. Latency figures are LiveKit's own instrumentation, not our timers.
+Second live session, 1731 logged events, 133 spoken utterances, 34 interrupted.
+Latency figures are LiveKit's own instrumentation, not our timers.
 
-| Metric                       | Median  | n  |
-|------------------------------|---------|----|
-| End-of-utterance delay       | 793 ms  | 50 |
-| Transcription (ink-whisper)  | 396 ms  | 50 |
-| LLM TTFT (gpt-4.1-mini)      | 908 ms  | 51 |
-| **Rime TTFB (coda/lyra)**    | **357 ms** | 53 |
-| Time to silence on barge-in  | 544 ms (median of 5) | 5 |
+| Metric                       | Median  | n   |
+|------------------------------|---------|-----|
+| End-of-utterance delay       | 948 ms  | 139 |
+| Transcription (ink-whisper)  | 385 ms  | 139 |
+| LLM TTFT (gpt-4.1-mini)      | 1143 ms | 185 |
+| **Rime TTFB (coda/lyra)**    | **369 ms** | 189 |
+| Time to silence on barge-in  | 1053 ms (median) | 6 |
 
-Barge-ins detected: 5. False interruptions correctly ignored: 2 - the agent
-resumed rather than yielding to a backchannel.
+Barge-ins detected: 6. False interruptions correctly ignored: 3.
+
+**The fence fired on the live audio path.** 17 tool results returned, 16 were
+committed, 1 was dropped:
+
+    fence_drop  what=web_search  result_turn=12  current_turn=13
+
+A live web search dispatched during turn 12 returned while the user had already
+moved to turn 13. It was rejected before synthesis: never spoken, never written
+to conversation history. Stale results spoken across the session: **0**.
 
 Reproduce:
 
@@ -107,13 +115,14 @@ correctness and is **not** a claimed result; no acceptance test is run for it.
    `TurnController`, `Fenced` and `SpokenLedger` objects that `agent.py` uses,
    on a simulated timeline. It proves the fencing invariant. It does not
    measure acoustic time-to-silence.
-2. **The live session did not exercise the fence.** `fence_drop` count is 0 in
-   `techbench.jsonl`: in that session the barge-ins landed before tool results
-   returned, so cancellation handled them and nothing reached the fence. The
-   fence is proven at logic level and by ablation, not yet by a logged live
-   drop. This is the single weakest point in the evidence.
+2. **The live fence sample is small.** One logged live `fence_drop` in 17 tool
+   returns. The condition is genuinely rare - it needs a barge-in to land in the
+   window between dispatch and return - so most interruptions are handled by
+   cancellation before the fence is reached. The mechanism is proven by the
+   20-trial ablation; the live drop confirms it fires on the real audio path,
+   but n=1 is a demonstration, not a rate.
 3. **Time-to-silence sample is small and noisy.** Raw values, disclosed:
-   `[544, 1, 1563, 10446]` ms plus one further 1 ms reading. The 1 ms values
+   `[544, 0.6, 0.6, 1563, 10446, 3857]` ms, median 1053. The 1 ms values
    are artifacts of an agent state transition with no audio in flight; the
    10.4 s outlier is real and unexplained. Median reported; n = 5 is
    exploratory, not a performance claim.

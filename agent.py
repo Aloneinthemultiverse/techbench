@@ -67,6 +67,15 @@ SPOKEN_FORMS = {
     "VX": "V X",
 }
 
+# Rime coda voice catalog, pulled live from Rime's MCP (never hardcoded guesses).
+# Each entry is a (lang, speaker) pair verified to exist for model "coda".
+LANGUAGES = {
+    "english": ("eng", "lyra"),
+    "hindi":   ("hin", "nadi"),
+    "spanish": ("spa", "alba"),
+    "french":  ("fra", "marielle"),
+}
+
 PARTS = {
     "hp-4412": {"torque_nm": 18, "seal": "viton", "temp_max_c": 200},
     "hp-4413": {"torque_nm": 22, "seal": "ptfe", "temp_max_c": 260},
@@ -83,6 +92,8 @@ class TechnicianAgent(Agent):
                 "Say part numbers digit by digit. No markdown, no emoji, no lists. "
                 "When you report search results, give at most two findings and "
                 "keep each to one sentence. "
+                "If the user speaks or asks for Hindi, Spanish or French, call "
+                "switch_language first, then answer in that language. "
                 "If the user interrupts and changes the request, answer only the "
                 "new request and never mention the abandoned one."
             ),
@@ -94,6 +105,25 @@ class TechnicianAgent(Agent):
         self.session.generate_reply(
             instructions="Greet the technician in one short sentence and offer to look up a part."
         )
+
+    @function_tool
+    async def switch_language(self, context: RunContext, language: str) -> str:
+        """Switch the spoken language. Use when the user asks to be spoken to in
+        another language, or starts speaking one.
+
+        Args:
+            language: english, hindi, spanish, or french.
+        """
+        key = language.strip().lower()
+        if key not in LANGUAGES:
+            return f"I can speak {', '.join(LANGUAGES)}. Which would you like?"
+
+        lang, speaker = LANGUAGES[key]
+        # Rime voices are language-specific: the speaker changes with the lang.
+        self.session.tts.update_options(lang=lang, speaker=speaker)
+        self.log.emit("language_switch", turn_id=self.controller.current,
+                      lang=lang, speaker=speaker, provider=ACTIVE_TTS_PROVIDER)
+        return f"Switched to {key}."
 
     @function_tool
     async def search_web(self, context: RunContext, query: str) -> str:

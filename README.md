@@ -35,6 +35,22 @@ A new turn also cancels the previous turn's tasks. The fence catches results tha
 
 A second component, the **Spoken Ledger**, records what was *actually played* when Rime is cut off mid-sentence, not what was intended — so the model's memory matches the user's ears.
 
+## Coverage of the brief's voice problems
+
+One problem is **claimed and measured**. The others are implemented as product
+quality and are reported, not claimed - no acceptance test is run for them.
+
+| Voice problem | Status |
+|---|---|
+| **Interruption and recovery** | **CLAIMED + MEASURED** - turn fencing; 0/20 vs 20/20 ablation; live `fence_drop` logged |
+| Conversation continuity during tool work | implemented - spoken ack before the delay, session stays live, user can revise or cancel mid-flight |
+| Perceived response time | instrumented across all five hops (n=189); geography analysed, not optimised |
+| Pronunciation and controlled delivery | evidence-driven - `normalize_text` / `check_dictionary`; `speed_alpha=0.9`; see `eval/pronunciation_check.md` |
+| Multilingual and code-switched speech | implemented - `switch_language` tool; Rime `coda` in eng/hin/spa/fra with per-language speakers pulled from the live catalog; `ink-whisper` is multilingual on input |
+| Expressive and persistent voice identity | partial - one voice, one persona, consistent across turns |
+| Evaluation and observability | built - append-only event log, live console, scorer, ablation harness |
+| Telephony and adverse audio | **not attempted** - no SIP trunk; browser-mic results would not prove telephone performance |
+
 ## Results
 
 | Condition | Stale results spoken |
@@ -42,17 +58,21 @@ A second component, the **Spoken Ledger**, records what was *actually played* wh
 | Fencing enabled | **0 / 20** |
 | Fencing disabled | **20 / 20** |
 
-Live session (536 events, 40 utterances, 12 interrupted):
+Live session (1731 events, 133 utterances, 34 interrupted):
 
 | Metric | Median |
 |---|---|
-| End-of-utterance | 793 ms |
-| Transcription (Whisper) | 396 ms |
-| LLM TTFT | 908 ms |
-| **Rime TTFB** | **357 ms** |
-| Time to silence | 544 ms (n=5, noisy — see limitations) |
+| End-of-utterance | 948 ms |
+| Transcription (Whisper) | 385 ms |
+| LLM TTFT | 1143 ms |
+| **Rime TTFB** | **369 ms** |
+| Time to silence | 1053 ms (n=6, noisy — see limitations) |
 
-Barge-ins: 5. False interruptions correctly ignored: 2.
+Barge-ins: 6. False interruptions correctly ignored: 3.
+
+**The fence fired live:** of 17 tool results, 16 committed and 1 dropped —
+`fence_drop what=web_search result_turn=12 current_turn=13`. A search from a
+superseded turn was killed before synthesis. Stale results spoken: **0**.
 
 ## Architecture
 
@@ -80,8 +100,8 @@ One append-only JSONL log is the single source of truth. The browser tails it li
 | Field | Value |
 |---|---|
 | Model | `coda` |
-| Speaker | `lyra` |
-| Language | `eng` |
+| Speaker | `lyra` (per-language: `nadi`, `alba`, `marielle`) |
+| Language | `eng` (switchable: `hin`, `spa`, `fra`) |
 | Endpoint | `wss://users-ws.rime.ai` (streaming) |
 | Audio format | PCM, 22050 Hz, mono |
 | Transport | WebRTC via LiveKit Cloud (India South) |
@@ -136,7 +156,7 @@ Test protocol: **[TESTING.md](TESTING.md)**.
 
 ## Known limitations and failure behaviour
 
-- **The live session never exercised the fence** (`fence_drop` = 0). Barge-ins landed before results returned, so cancellation handled them. Proven by ablation and at logic level, not yet by a logged live drop.
+- **The live fence sample is n=1.** One logged live drop in 17 tool returns — the condition is rare, since most interruptions are handled by cancellation before a result reaches the fence. The 20-trial ablation proves the mechanism; the live drop proves it fires on the real audio path. n=1 is a demonstration, not a rate.
 - **Time-to-silence is noisy**, n=5, raw values `[544, 1, 1563, 10446]` ms plus one further 1 ms reading. Median reported; treat as exploratory.
 - **Latency is geography-bound.** Rime resolves to AWS us-west-2 (Oregon); from India there is a ~270 ms RTT floor and no published APAC endpoint.
 - **Do not set `sample_rate` on `rime.TTS`.** Forcing 24000 Hz crashes `livekit_ffi.dll`'s soxr resampler (assertion `FFT_LEN == -1`). The plugin default is the tested path.
