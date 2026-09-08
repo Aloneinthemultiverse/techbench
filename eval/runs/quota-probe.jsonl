@@ -1,0 +1,7 @@
+{"t_ms": 0.4, "kind": "session_start", "room": "quota-probe", "tts_provider": "rime", "rime_model": "coda", "rime_speaker": "lyra", "tool_delay_s": 3.0}
+{"t_ms": 1483.8, "kind": "tts_start", "turn_id": 0}
+{"t_ms": 1584.59, "kind": "agent_state", "state": "thinking", "turn_id": 0}
+{"t_ms": 1846.18, "kind": "agent_state", "state": "listening", "turn_id": 0}
+{"t_ms": 1846.34, "kind": "tts_stop", "turn_id": 0}
+{"t_ms": 3197.42, "kind": "lat_llm", "turn_id": 0, "ttft": 1.3481208000011975}
+{"t_ms": 5585.63, "kind": "lat_tts", "turn_id": 0, "ttfb": 1.3901000000041677, "provider": "rime"}
