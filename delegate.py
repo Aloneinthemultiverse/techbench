@@ -5,9 +5,10 @@ already is an agent with file, shell and editor access. This bridges to it in
 headless mode and returns a short spoken summary.
 
 SAFETY BOUNDARY - deliberate, and documented in the README:
-  * Claude Code runs with its DEFAULT permission model. Permissions are never
-    bypassed from a voice command, because speech recognition is lossy and an
-    unattended agent acting on a misheard instruction is not recoverable.
+  * Claude Code is given an explicit tool ALLOWLIST: it may read, write and
+    edit files, and search them. It is never granted Bash. Permissions are not
+    blanket-bypassed, because speech recognition is lossy and an unattended
+    agent running arbitrary shell on a misheard instruction is not recoverable.
   * The working directory is pinned to a sandbox under the user's home.
   * A wall-clock timeout bounds the call; on timeout the process is killed and
     the turn is reported as failed rather than left hanging.
@@ -56,6 +57,9 @@ async def ask_claude(task: str) -> str:
 
     proc = await asyncio.create_subprocess_exec(
         _claude_exe(), "-p", prompt,
+        # File tools only. Bash is deliberately absent: a voice command must
+        # not be able to reach a shell.
+        "--allowedTools", "Read", "Write", "Edit", "Glob", "Grep",
         cwd=str(SANDBOX),
         stdin=asyncio.subprocess.DEVNULL,   # -p reads stdin otherwise and stalls
         stdout=asyncio.subprocess.PIPE,

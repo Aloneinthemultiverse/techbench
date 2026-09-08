@@ -120,6 +120,21 @@ One append-only JSONL log is the single source of truth. The browser tails it li
 | `openai/gpt-4.1-mini` | reasoning | via LiveKit Inference |
 | DuckDuckGo HTML | live web search tool | no |
 
+### Delegating to Claude Code
+
+`delegate_task` hands a longer task to Claude Code headless. Verified working:
+"create voicecheck7.txt containing 'it works'" produced the real file in ~11 s.
+
+It is given an explicit tool **allowlist — Read, Write, Edit, Glob, Grep — and
+never Bash.** Permissions are not blanket-bypassed: speech recognition is lossy,
+and an unattended agent running arbitrary shell on a misheard instruction is
+not recoverable. The call is sandboxed to `~/voice-workspace`, bounded by a
+wall-clock timeout, killed on interruption, and fenced like any other result.
+
+**Known failure mode:** the delegated agent can report confidently and be
+wrong. In testing it once claimed a file existed when the directory was empty.
+The bridge speaks its summary verbatim and does not verify it.
+
 ### Desktop control — safety
 
 `open_application` uses a strict **allowlist** (`pc.py`). There is deliberately
