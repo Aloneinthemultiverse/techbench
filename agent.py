@@ -99,8 +99,9 @@ class TechnicianAgent(Agent):
                 "Only allowlisted apps open; say what is available otherwise. "
                 "If the user revises mid-answer, answer only the new request "
                 "and never mention the abandoned one. "
-                "Before calling a slow tool, say one short line such as "
-                "'Checking now.' so the caller knows you heard them."
+                "Call the tool FIRST and report only what it returns. Never say "
+                "you have opened, created, drafted or found something unless a "
+                "tool actually returned that result."
             ),
         )
         self.controller = controller
