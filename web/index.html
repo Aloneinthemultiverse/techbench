@@ -70,7 +70,7 @@ h2{margin:0;padding:10px 14px;font-size:12px;letter-spacing:.08em;text-transform
     <h2>Knowledge base <span id="kbcount" style="color:var(--dim);font-weight:400"></span></h2>
     <div class="body">
       <p class="hint" style="padding:0 0 10px">
-        Paste a policy, price list or FAQ — or upload a <code>.md</code> / <code>.txt</code>.
+        Paste a policy, price list or FAQ — or upload a <code>.md</code>, <code>.txt</code> or <code>.pdf</code>.
         The agent picks it up on the next question, no restart.
       </p>
       <input id="kbtitle" placeholder="Title, e.g. Refund policy"
@@ -79,7 +79,7 @@ h2{margin:0;padding:10px 14px;font-size:12px;letter-spacing:.08em;text-transform
              style="width:100%;padding:8px;background:#0d1117;color:var(--fg);border:1px solid var(--line);border-radius:6px;font:inherit;resize:vertical"></textarea>
       <div style="display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap">
         <button id="kbsave">Add to knowledge base</button>
-        <input type="file" id="kbfile" accept=".md,.txt" style="color:var(--dim);font:inherit;font-size:12px">
+        <input type="file" id="kbfile" accept=".md,.txt,.pdf" style="color:var(--dim);font:inherit;font-size:12px">
       </div>
       <div id="kbmsg" style="margin-top:10px;font-size:12px;color:var(--dim)"></div>
     </div>

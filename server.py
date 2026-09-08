@@ -85,11 +85,23 @@ async def kb_add_doc(request: web.Request) -> web.Response:
             if part.name == "title":
                 title = (await part.text()).strip()
             elif part.name == "file":
-                if part.filename and not part.filename.lower().endswith((".md", ".txt")):
+                fname = part.filename or "document"
+                if not fname.lower().endswith((".md", ".txt", ".pdf")):
                     return web.json_response(
-                        {"error": "only .md or .txt files"}, status=400)
-                title = title or Path(part.filename or "document").stem
-                body = (await part.read()).decode("utf-8", "replace")
+                        {"error": "only .md, .txt or .pdf files"}, status=400)
+                title = title or Path(fname).stem
+                raw = await part.read()
+                if fname.lower().endswith(".pdf"):
+                    import io
+                    from pypdf import PdfReader
+                    pages = [pg.extract_text() or "" for pg in PdfReader(io.BytesIO(raw)).pages]
+                    body = "\n\n".join(t.strip() for t in pages if t.strip())
+                    if not body.strip():
+                        return web.json_response(
+                            {"error": "no text found in that PDF - is it a scan?"},
+                            status=400)
+                else:
+                    body = raw.decode("utf-8", "replace")
     else:
         data = await request.json()
         title = (data.get("title") or "").strip()
@@ -121,7 +133,7 @@ async def index(request: web.Request) -> web.Response:
     return web.FileResponse(WEB / "index.html")
 
 
-app = web.Application()
+app = web.Application(client_max_size=25 * 1024 * 1024)   # allow PDF uploads
 app.add_routes([
     web.get("/", index),
     web.get("/api/token", token),

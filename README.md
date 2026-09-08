@@ -234,7 +234,9 @@ behaviour change to be tested before it is claimed, not a transport change.
 Four routes, in order of how much you are adding:
 
 0. **The web console** — an "Add knowledge" panel: paste a policy or price list,
-   or upload a `.md` / `.txt`. Non-text uploads are refused. The panel shows the
+   or upload a `.md`, `.txt` or **`.pdf`** (text extracted with pypdf; a scanned
+   PDF with no text layer is refused with a clear message). Other file types are
+   refused. Upload limit 25 MB. The panel shows the
    live fact count, and the running agent picks the document up on its next
    question via an mtime check — **no restart**. Verified: 29 to 33 facts across
    a pasted document and an uploaded file, both retrievable immediately.

@@ -34,6 +34,25 @@ _STOP = {
 }
 
 
+def read_document(path: Path) -> str:
+    """Plain text from .md, .txt or .pdf. PDFs are extracted with pypdf; a
+    scanned PDF with no text layer yields nothing and is reported as such."""
+    if path.suffix.lower() == ".pdf":
+        try:
+            from pypdf import PdfReader
+        except ImportError:
+            return ""
+        try:
+            pages = [pg.extract_text() or "" for pg in PdfReader(str(path)).pages]
+            return "\n\n".join(t.strip() for t in pages if t.strip())
+        except Exception:
+            return ""
+    try:
+        return path.read_text(encoding="utf-8", errors="replace")
+    except Exception:
+        return ""
+
+
 def _stem(word: str) -> str:
     """Crude suffix stripping. Enough to match 'opening' to 'open' and
     'refunds' to 'refund', which is where most missed retrievals came from."""
@@ -62,9 +81,12 @@ class KnowledgeBase:
         self.df: Counter = Counter()
         if directory.exists():
             for path in sorted(directory.glob("*")):
-                if path.suffix.lower() not in (".md", ".txt"):
+                if path.suffix.lower() not in (".md", ".txt", ".pdf"):
                     continue
-                for raw in re.split(r"(?<=[.!?])\s+|\n{2,}", path.read_text(encoding="utf-8")):
+                text = read_document(path)
+                if not text.strip():
+                    continue
+                for raw in re.split(r"(?<=[.!?])\s+|\n{2,}", text):
                     line = " ".join(raw.split())
                     if len(line) < 20 or line.startswith("#"):
                         continue      # headings are labels, not answers
