@@ -109,6 +109,35 @@ mic -> LiveKit (WebRTC, India South) -> ink-whisper (STT)
 
 One append-only JSONL log is the single source of truth. The browser tails it live over SSE; the scorer reads the same file afterwards. **The demo and the evidence come from identical data.**
 
+## MCP server — plug the business layer into any AI
+
+`mcp_server.py` exposes the same business layer over MCP, so a company can
+connect it to Claude, Cursor or an internal tool without using the voice
+interface at all. Voice and MCP are two front doors onto one state: a fact
+added by voice is immediately visible to the MCP client, and vice versa.
+
+    claude mcp add --transport stdio techbench -- python mcp_server.py
+
+| Tool | Does |
+|---|---|
+| `kb_search` | ask the knowledge base; returns the answer **with source lines** |
+| `kb_add` | teach it a fact; reloads retrieval immediately |
+| `kb_stats` | what it knows and which file each chunk came from |
+| `draft_email` | compose a customer email — **drafts only, never sends** |
+| `list_drafts` | what is waiting for a human to send |
+| `call_metrics` | latency, barge-ins and fence drops from a recorded session |
+
+**Deliberately not exposed:** sending mail, running shell, launching
+applications. An MCP client is another unattended caller, so the same safety
+boundary applies as to the voice path.
+
+`kb_search` returns `NOT IN KNOWLEDGE BASE` when the fact is absent, and the
+server's MCP instructions tell the connecting model to escalate rather than
+substitute its own knowledge — the grounding rule survives the hop to another AI.
+
+No third-party dependency: raw JSON-RPC over stdio, reading stdin on a worker
+thread because asyncio cannot attach to a stdin pipe on Windows.
+
 ## Rime configuration
 
 | Field | Value |
