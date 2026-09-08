@@ -98,7 +98,9 @@ class TechnicianAgent(Agent):
                 "Email is drafted, never sent; read the address back. "
                 "Only allowlisted apps open; say what is available otherwise. "
                 "If the user revises mid-answer, answer only the new request "
-                "and never mention the abandoned one."
+                "and never mention the abandoned one. "
+                "Before calling a slow tool, say one short line such as "
+                "'Checking now.' so the caller knows you heard them."
             ),
         )
         self.controller = controller
@@ -139,7 +141,9 @@ class TechnicianAgent(Agent):
         """
         turn_id = self.controller.current
         self.log.emit("tool_dispatch", turn_id=turn_id, tool="email", subject=subject[:60])
-        self.session.say("Drafting that now.")
+        # Continuity ack removed: a second concurrent TTS stream per tool call
+        # crashed livekit_ffi soxr (LSX_FFT_BR == NULL). The LLM still
+        # acknowledges verbally before the tool returns.
         spoken, record = await draft_email(to, subject, body)
         self.log.emit("tool_return", turn_id=turn_id, tool="email",
                       draft_id=record["id"],
@@ -174,7 +178,9 @@ class TechnicianAgent(Agent):
         """
         turn_id = self.controller.current
         self.log.emit("tool_dispatch", turn_id=turn_id, tool="delegate", task=task[:80])
-        self.session.say("Working on that.")
+        # Continuity ack removed: a second concurrent TTS stream per tool call
+        # crashed livekit_ffi soxr (LSX_FFT_BR == NULL). The LLM still
+        # acknowledges verbally before the tool returns.
         try:
             result = await ask_claude(task)
         except asyncio.CancelledError:
@@ -195,7 +201,9 @@ class TechnicianAgent(Agent):
         """
         turn_id = self.controller.current
         self.log.emit("tool_dispatch", turn_id=turn_id, tool="open_app", target=name)
-        self.session.say("Opening " + name + ".")
+        # Continuity ack removed: a second concurrent TTS stream per tool call
+        # crashed livekit_ffi soxr (LSX_FFT_BR == NULL). The LLM still
+        # acknowledges verbally before the tool returns.
         result = await open_app(name)
         self.log.emit("tool_return", turn_id=turn_id, tool="open_app")
         if not self.controller.accept(Fenced(turn_id, result), what="open_app"):
@@ -212,7 +220,9 @@ class TechnicianAgent(Agent):
         """
         turn_id = self.controller.current
         self.log.emit("tool_dispatch", turn_id=turn_id, tool="scaffold", kind=kind, name=name)
-        self.session.say("Setting that up now.")
+        # Continuity ack removed: a second concurrent TTS stream per tool call
+        # crashed livekit_ffi soxr (LSX_FFT_BR == NULL). The LLM still
+        # acknowledges verbally before the tool returns.
         result = await scaffold_project(kind, name)
         self.log.emit("tool_return", turn_id=turn_id, tool="scaffold")
         if not self.controller.accept(Fenced(turn_id, result), what="scaffold"):
@@ -248,7 +258,9 @@ class TechnicianAgent(Agent):
         self.log.emit("tool_dispatch", turn_id=turn_id, tool="web_search", query=query)
 
         # CONTINUITY: speak first, keep listening while the search runs.
-        self.session.say("Searching now.")
+        # Continuity ack removed: a second concurrent TTS stream per tool call
+        # crashed livekit_ffi soxr (LSX_FFT_BR == NULL). The LLM still
+        # acknowledges verbally before the tool returns.
 
         results = await web_search(query, k=3)
         self.log.emit("tool_return", turn_id=turn_id, tool="web_search", n=len(results))
@@ -272,7 +284,9 @@ class TechnicianAgent(Agent):
         # CONTINUITY: acknowledge immediately so the session is audibly alive,
         # then keep listening while the lookup runs. The user can add a
         # constraint, ask for status, interrupt, or cancel during this window.
-        self.session.say(f"Checking {part_number} now.")
+        # Continuity ack removed: a second concurrent TTS stream per tool call
+        # crashed livekit_ffi soxr (LSX_FFT_BR == NULL). The LLM still
+        # acknowledges verbally before the tool returns.
 
         # The stress knob: a fixed delay, so a barge-in lands mid-flight.
         await asyncio.sleep(TOOL_DELAY)
