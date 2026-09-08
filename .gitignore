@@ -1,0 +1,6 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+# evidence logs ARE committed; only scratch runs are ignored
+eval/runs/scratch/
