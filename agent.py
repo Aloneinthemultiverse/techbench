@@ -40,6 +40,7 @@ from livekit.agents.llm import function_tool
 from livekit.plugins import openai, rime
 
 from fence import EventLog, Fenced, SpokenLedger, TurnController
+from pc import open_app, scaffold_project
 from tools import speakable, web_search
 
 load_dotenv()
@@ -92,6 +93,9 @@ class TechnicianAgent(Agent):
                 "Say part numbers digit by digit. No markdown, no emoji, no lists. "
                 "When you report search results, give at most two findings and "
                 "keep each to one sentence. "
+                "You can also open applications and create projects on the user's "
+                "computer. Only allowlisted applications are permitted; if asked "
+                "for anything else, say what you can open instead. "
                 "If the user speaks or asks for Hindi, Spanish or French, call "
                 "switch_language first, then answer in that language. "
                 "If the user interrupts and changes the request, answer only the "
@@ -105,6 +109,40 @@ class TechnicianAgent(Agent):
         self.session.generate_reply(
             instructions="Greet the technician in one short sentence and offer to look up a part."
         )
+
+    @function_tool
+    async def open_application(self, context: RunContext, name: str) -> str:
+        """Open a desktop application by name.
+
+        Args:
+            name: claude code, vs code, notepad, calculator, file explorer,
+                  browser, or terminal.
+        """
+        turn_id = self.controller.current
+        self.log.emit("tool_dispatch", turn_id=turn_id, tool="open_app", target=name)
+        self.session.say("Opening " + name + ".")
+        result = await open_app(name)
+        self.log.emit("tool_return", turn_id=turn_id, tool="open_app")
+        if not self.controller.accept(Fenced(turn_id, result), what="open_app"):
+            return "(superseded - discarded)"
+        return result
+
+    @function_tool
+    async def make_project(self, context: RunContext, kind: str, name: str) -> str:
+        """Create a new project folder on disk.
+
+        Args:
+            kind: python or web.
+            name: what to call the project.
+        """
+        turn_id = self.controller.current
+        self.log.emit("tool_dispatch", turn_id=turn_id, tool="scaffold", kind=kind, name=name)
+        self.session.say("Setting that up now.")
+        result = await scaffold_project(kind, name)
+        self.log.emit("tool_return", turn_id=turn_id, tool="scaffold")
+        if not self.controller.accept(Fenced(turn_id, result), what="scaffold"):
+            return "(superseded - discarded)"
+        return result
 
     @function_tool
     async def switch_language(self, context: RunContext, language: str) -> str:

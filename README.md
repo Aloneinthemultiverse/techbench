@@ -120,6 +120,15 @@ One append-only JSONL log is the single source of truth. The browser tails it li
 | `openai/gpt-4.1-mini` | reasoning | via LiveKit Inference |
 | DuckDuckGo HTML | live web search tool | no |
 
+### Desktop control — safety
+
+`open_application` uses a strict **allowlist** (`pc.py`). There is deliberately
+no free-form shell tool: speech recognition is lossy, and a misheard word must
+never be able to run an arbitrary command. Anything off the list is refused out
+loud, naming what *is* available. `make_project` writes only under
+`~/voice-projects/` with a sanitised name. Both are cancellable and pass
+through the same turn fence as every other tool.
+
 ## What is live vs simulated
 
 | Component | Status |
@@ -127,6 +136,8 @@ One append-only JSONL log is the single source of truth. The browser tails it li
 | Voice conversation, STT, LLM, Rime TTS | **live** |
 | `search_web` | **live** — real network request, ~1.9 s |
 | `lookup_part` | **synthetic** data, **injected** 3.0 s delay (the stress knob) |
+| `open_application` / `make_project` | **live** — real processes launched, real files written |
+| `switch_language` | **live** — changes Rime lang + speaker mid-session |
 | Latency figures | **measured**, from LiveKit's own instrumentation |
 | 20-trial barge-in result | **logic level** — real fence objects, simulated timeline |
 | Live-session figures | **measured**, single session, small n |
