@@ -41,6 +41,7 @@ from livekit.plugins import openai, rime
 
 from fence import EventLog, Fenced, SpokenLedger, TurnController
 from delegate import ask_claude
+from kb import KnowledgeBase
 from pc import open_app, scaffold_project
 from tools import speakable, web_search
 
@@ -49,6 +50,7 @@ logger = logging.getLogger("tech-assistant")
 
 TOOL_DELAY = float(os.getenv("TOOL_DELAY_SECONDS", "3.0"))
 RUN_DIR = Path("eval/runs")
+KB = KnowledgeBase()   # business facts, loaded once at import
 
 # Active speech provider, surfaced for observability (PS requires this).
 ACTIVE_TTS_PROVIDER = "rime"
@@ -94,6 +96,10 @@ class TechnicianAgent(Agent):
                 "Say part numbers digit by digit. No markdown, no emoji, no lists. "
                 "When you report search results, give at most two findings and "
                 "keep each to one sentence. "
+                "For any question about the business - hours, delivery, returns, "
+                "warranty, payments, complaints - you MUST call answer_enquiry and "
+                "say only what it returns. Never answer those from your own "
+                "knowledge. "
                 "You can also open applications and create projects on the user's "
                 "computer. Only allowlisted applications are permitted; if asked "
                 "for anything else, say what you can open instead. "
@@ -110,6 +116,25 @@ class TechnicianAgent(Agent):
         self.session.generate_reply(
             instructions="Greet the technician in one short sentence and offer to look up a part."
         )
+
+    @function_tool
+    async def answer_enquiry(self, context: RunContext, question: str) -> str:
+        """Answer a customer enquiry or complaint about the business: hours,
+        delivery, returns, refunds, warranty, payment, escalation.
+
+        Always use this for business questions. Never answer them from memory:
+        a confident wrong answer about a refund policy is worse than no answer.
+
+        Args:
+            question: what the caller asked.
+        """
+        turn_id = self.controller.current
+        answer, sources = KB.answer(question)
+        self.log.emit("tool_return", turn_id=turn_id, tool="kb",
+                      grounded=bool(sources), n_sources=len(sources))
+        if not self.controller.accept(Fenced(turn_id, answer), what="kb"):
+            return "(superseded - discarded)"
+        return answer
 
     @function_tool
     async def delegate_task(self, context: RunContext, task: str) -> str:

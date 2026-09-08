@@ -134,6 +134,25 @@ One append-only JSONL log is the single source of truth. The browser tails it li
 | `openai/gpt-4.1-mini` | reasoning | via LiveKit Inference |
 | DuckDuckGo HTML | live web search tool | no |
 
+### Business enquiries — grounded retrieval
+
+`answer_enquiry` answers callers from a folder of plain-text business facts
+(`kb/`) rather than from the model's memory: hours, delivery, returns,
+warranty, payments, escalation.
+
+Retrieval is deliberately simple — TF-IDF over sentence chunks, no embedding
+service, no vector database. That keeps it **inspectable**: every spoken answer
+traces to the exact source line that produced it, which is what a
+compliance-shaped deployment needs.
+
+**Grounding rule:** below a score floor the agent says *"I do not have that in
+our records, I can take a message"* and offers escalation. It does not guess. A
+confident wrong answer about a refund policy is worse than no answer. Verified:
+asked "what is the capital of France", it declines rather than answering.
+
+Business data in `kb/business.md` is **synthetic** — no real company, customer
+or record.
+
 ### Delegating to Claude Code
 
 `delegate_task` hands a longer task to Claude Code headless. Verified working:
@@ -167,6 +186,7 @@ through the same turn fence as every other tool.
 | `lookup_part` | **synthetic** data, **injected** 3.0 s delay (the stress knob) |
 | `open_application` / `make_project` | **live** — real processes launched, real files written |
 | `switch_language` | **live** — changes Rime lang + speaker mid-session |
+| `answer_enquiry` | **live** retrieval over **synthetic** business facts in `kb/` |
 | Latency figures | **measured**, from LiveKit's own instrumentation |
 | 20-trial barge-in result | **logic level** — real fence objects, simulated timeline |
 | Live-session figures | **measured**, single session, small n |
