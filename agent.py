@@ -40,6 +40,7 @@ from livekit.agents.llm import function_tool
 from livekit.plugins import openai, rime
 
 from fence import EventLog, Fenced, SpokenLedger, TurnController
+from delegate import ask_claude
 from pc import open_app, scaffold_project
 from tools import speakable, web_search
 
@@ -109,6 +110,27 @@ class TechnicianAgent(Agent):
         self.session.generate_reply(
             instructions="Greet the technician in one short sentence and offer to look up a part."
         )
+
+    @function_tool
+    async def delegate_task(self, context: RunContext, task: str) -> str:
+        """Hand a longer computing task to Claude Code: writing or editing files,
+        answering questions about code, building something small.
+
+        Args:
+            task: what to do, in plain language.
+        """
+        turn_id = self.controller.current
+        self.log.emit("tool_dispatch", turn_id=turn_id, tool="delegate", task=task[:80])
+        self.session.say("Working on that.")
+        try:
+            result = await ask_claude(task)
+        except asyncio.CancelledError:
+            self.log.emit("tool_cancelled", turn_id=turn_id, tool="delegate")
+            raise
+        self.log.emit("tool_return", turn_id=turn_id, tool="delegate")
+        if not self.controller.accept(Fenced(turn_id, result), what="delegate"):
+            return "(superseded - discarded)"
+        return result
 
     @function_tool
     async def open_application(self, context: RunContext, name: str) -> str:
