@@ -41,7 +41,8 @@ from livekit.plugins import openai, rime
 
 from fence import EventLog, Fenced, SpokenLedger, TurnController
 from delegate import ask_claude
-from kb import KnowledgeBase
+from kb import KnowledgeBase, add_facts
+from mail import draft_email
 from pc import open_app, scaffold_project
 from tools import speakable, web_search
 
@@ -96,6 +97,8 @@ class TechnicianAgent(Agent):
                 "Say part numbers digit by digit. No markdown, no emoji, no lists. "
                 "When you report search results, give at most two findings and "
                 "keep each to one sentence. "
+                "You can draft emails, but you never send them - a person reviews and "
+                "sends. Read the recipient back to the caller. "
                 "For any question about the business - hours, delivery, returns, "
                 "warranty, payments, complaints - you MUST call answer_enquiry and "
                 "say only what it returns. Never answer those from your own "
@@ -135,6 +138,47 @@ class TechnicianAgent(Agent):
         if not self.controller.accept(Fenced(turn_id, answer), what="kb"):
             return "(superseded - discarded)"
         return answer
+
+    @function_tool
+    async def compose_email(self, context: RunContext, to: str, subject: str,
+                            body: str) -> str:
+        """Draft an email to a customer. The draft is saved for a human to
+        review and send; this never sends mail itself.
+
+        Args:
+            to: recipient address as the caller gave it.
+            subject: short subject line.
+            body: what the email should say, in full sentences.
+        """
+        turn_id = self.controller.current
+        self.log.emit("tool_dispatch", turn_id=turn_id, tool="email", subject=subject[:60])
+        self.session.say("Drafting that now.")
+        spoken, record = await draft_email(to, subject, body)
+        self.log.emit("tool_return", turn_id=turn_id, tool="email",
+                      draft_id=record["id"],
+                      address_needs_check=record["address_needs_check"])
+        if not self.controller.accept(Fenced(turn_id, spoken), what="email"):
+            return "(superseded - discarded)"
+        return spoken
+
+    @function_tool
+    async def remember_fact(self, context: RunContext, topic: str, facts: str) -> str:
+        """Add a business fact to the knowledge base so future callers get the
+        right answer. Use when the operator corrects you or tells you something
+        new about the business.
+
+        Args:
+            topic: short heading, e.g. "Holiday hours".
+            facts: the information, in full sentences.
+        """
+        turn_id = self.controller.current
+        result = await asyncio.to_thread(add_facts, topic, facts)
+        KB.__init__()                      # reload so the next caller sees it
+        self.log.emit("kb_updated", turn_id=turn_id, topic=topic[:60],
+                      chunks=len(KB.chunks))
+        if not self.controller.accept(Fenced(turn_id, result), what="kb_write"):
+            return "(superseded - discarded)"
+        return result
 
     @function_tool
     async def delegate_task(self, context: RunContext, task: str) -> str:

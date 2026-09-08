@@ -103,6 +103,27 @@ class KnowledgeBase:
         return spoken[:400], sources
 
 
+def add_facts(topic: str, facts: str, directory: Path = KB_DIR) -> str:
+    """Append business facts to the knowledge base and return a confirmation.
+
+    Three ways information gets in:
+      1. drop a .md or .txt file into kb/  (bulk - the usual way)
+      2. the web console's "Add knowledge" box
+      3. this function, called by voice for a single correction
+    """
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / "learned.md"
+    body = " ".join(facts.split())
+    if not body.endswith("."):
+        body += "."
+    # Blank line between heading and body: chunks split on blank lines, and a
+    # chunk that begins with "#" is treated as a label and skipped.
+    entry = "\n\n## " + topic.strip() + "\n\n" + body + "\n"
+    with path.open("a", encoding="utf-8") as fh:
+        fh.write(entry)
+    return "Added that to the knowledge base under " + topic.strip() + "."
+
+
 if __name__ == "__main__":
     import sys
     kb = KnowledgeBase()

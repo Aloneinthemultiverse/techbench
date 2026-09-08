@@ -153,6 +153,36 @@ asked "what is the capital of France", it declines rather than answering.
 Business data in `kb/business.md` is **synthetic** — no real company, customer
 or record.
 
+### Email — drafted by voice, sent by a human
+
+`compose_email` writes a real `.eml` (plus JSON for the console) into `drafts/`,
+addressed and ready. **It never sends.**
+
+That is a deliberate design decision, not an unfinished feature. Speech
+recognition is lossy — this project observed transcription errors during live
+testing — and a sent email is irreversible: a misheard recipient, figure or
+commitment cannot be recalled. The agent composes; the operator reviews on
+screen and sends. The agent holds no mail credentials, so there is no path from
+a misheard word to a delivered message. A spoken address that does not parse is
+flagged `address_needs_check` and the agent says so out loud.
+
+The honest route to autonomous send is a confirmation turn — read the recipient
+and subject back, require an explicit spoken "send it", log both. That is a
+behaviour change to be tested before it is claimed, not a transport change.
+
+### Getting information into the knowledge base
+
+Three routes, in order of how much you are adding:
+
+1. **Bulk** — drop `.md` or `.txt` files into `kb/`. Sentences become chunks;
+   `##` headings are treated as labels, not answers.
+2. **By voice** — `remember_fact("Holiday hours", "We are closed on the twenty
+   fifth of December.")`. Appends to `kb/learned.md` and reloads immediately,
+   so the next caller gets the new answer. Verified: 27 chunks to 29, both new
+   facts retrievable.
+3. **Correction during a call** — same tool, used when the operator hears the
+   agent get something wrong.
+
 ### Delegating to Claude Code
 
 `delegate_task` hands a longer task to Claude Code headless. Verified working:
@@ -187,6 +217,8 @@ through the same turn fence as every other tool.
 | `open_application` / `make_project` | **live** — real processes launched, real files written |
 | `switch_language` | **live** — changes Rime lang + speaker mid-session |
 | `answer_enquiry` | **live** retrieval over **synthetic** business facts in `kb/` |
+| `compose_email` | **live** — writes a real `.eml` to `drafts/`; **never sends** |
+| `remember_fact` | **live** — appends to `kb/learned.md` and reloads retrieval |
 | Latency figures | **measured**, from LiveKit's own instrumentation |
 | 20-trial barge-in result | **logic level** — real fence objects, simulated timeline |
 | Live-session figures | **measured**, single session, small n |
