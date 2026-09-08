@@ -1777,3 +1777,11 @@
 {"t_ms": 1687.41, "kind": "agent_state", "state": "thinking", "turn_id": 0}
 {"t_ms": 1861.15, "kind": "agent_state", "state": "listening", "turn_id": 0}
 {"t_ms": 1861.26, "kind": "tts_stop", "turn_id": 0}
+{"t_ms": 0.13, "kind": "session_start", "room": "techbench", "tts_provider": "rime", "rime_model": "coda", "rime_speaker": "lyra", "tool_delay_s": 3.0}
+{"t_ms": 873.49, "kind": "tts_start", "turn_id": 0}
+{"t_ms": 915.87, "kind": "agent_state", "state": "thinking", "turn_id": 0}
+{"t_ms": 1200.55, "kind": "agent_state", "state": "listening", "turn_id": 0}
+{"t_ms": 1200.65, "kind": "tts_stop", "turn_id": 0}
+{"t_ms": 3520.44, "kind": "lat_llm", "turn_id": 0, "ttft": 2.2265397000010125}
+{"t_ms": 5568.55, "kind": "lat_tts", "turn_id": 0, "ttfb": 1.0253839000070002, "provider": "rime"}
+{"t_ms": 12598.39, "kind": "session_end", "dropped": 0, "committed": 0}

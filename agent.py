@@ -317,10 +317,12 @@ async def entrypoint(ctx: JobContext) -> None:
              rime_model="coda", rime_speaker="lyra", tool_delay_s=TOOL_DELAY)
 
     session: AgentSession = AgentSession(
-        # Streaming Whisper. Handles accented and code-switched speech better
-        # than nova-3 here; streams, so no chunking latency penalty.
-        # Fallback if accuracy regresses: inference.STT("deepgram/nova-3", language="en")
-        stt=inference.STT("cartesia/ink-whisper"),
+        # Back to nova-3: with ink-whisper no transcription arrived at all, and
+        # its mic-side resampling sits on the same soxr path that was aborting
+        # the process. nova-3 is the configuration that ran a full 1731-event
+        # session. Whisper alternative, if revisiting:
+        #   inference.STT("cartesia/ink-whisper")
+        stt=inference.STT("deepgram/nova-3", language="en"),
         # Chosen by measurement, not reputation. TTFT from India, n=3 each
         # (eval/llm_latency.py): gpt-oss-120b 908ms, gpt-4.1-nano 1064ms,
         # gpt-4.1-mini 1134ms, gemini-3.1-flash-lite 1193ms, and the model
