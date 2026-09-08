@@ -317,12 +317,9 @@ async def entrypoint(ctx: JobContext) -> None:
              rime_model="coda", rime_speaker="lyra", tool_delay_s=TOOL_DELAY)
 
     session: AgentSession = AgentSession(
-        # Back to nova-3: with ink-whisper no transcription arrived at all, and
-        # its mic-side resampling sits on the same soxr path that was aborting
-        # the process. nova-3 is the configuration that ran a full 1731-event
-        # session. Whisper alternative, if revisiting:
-        #   inference.STT("cartesia/ink-whisper")
-        stt=inference.STT("deepgram/nova-3", language="en"),
+        # This is the exact STT from the stable 1731-event session.
+        # Alternative: inference.STT("deepgram/nova-3", language="en")
+        stt=inference.STT("cartesia/ink-whisper"),
         # Chosen by measurement, not reputation. TTFT from India, n=3 each
         # (eval/llm_latency.py): gpt-oss-120b 908ms, gpt-4.1-nano 1064ms,
         # gpt-4.1-mini 1134ms, gemini-3.1-flash-lite 1193ms, and the model
@@ -332,16 +329,10 @@ async def entrypoint(ctx: JobContext) -> None:
         # NOTE: do NOT pass sample_rate. Forcing 24000 crashes livekit_ffi's
         # soxr resampler (assertion FFT_LEN == -1 in fft4g_cache.h). Plugin
         # default (22050) is the tested path.
-        # 48000 Hz is what WebRTC wants, so nothing is resampled and soxr is
-        # never invoked. livekit_ffi's soxr FFT cache crashes when several TTS
-        # streams create and destroy resamplers concurrently - which is what
-        # the per-tool session.say() acks cause (LSX_FFT_BR == NULL,
-        # fft4g_cache.h:13). Rime honours samplingRate=48000; verified against
-        # the API directly, 139244 bytes vs 71046 at 22050 for the same text.
-        # Do NOT set an intermediate rate such as 24000: that still resamples
-        # and crashes differently (FFT_LEN == -1, line 15).
-        tts=rime.TTS(model="coda", speaker="lyra", speed_alpha=0.9,
-                     sample_rate=48000),
+        # No sample_rate override: the stable 1731-event session used the
+        # plugin default. Forcing 24000 crashed soxr (FFT_LEN == -1) and 48000
+        # did not stop the LSX_FFT_BR crash either, so it bought nothing.
+        tts=rime.TTS(model="coda", speaker="lyra", speed_alpha=0.9),
         # Blocks interruptions briefly after the agent starts speaking so the
         # client can calibrate acoustic echo cancellation. Without this the
         # agent hears its own voice and self-interrupts (the "radio" artifact).
