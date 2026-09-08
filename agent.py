@@ -311,18 +311,27 @@ async def entrypoint(ctx: JobContext) -> None:
         # (eval/llm_latency.py): gpt-oss-120b 908ms, gpt-4.1-nano 1064ms,
         # gpt-4.1-mini 1134ms, gemini-3.1-flash-lite 1193ms, and the model
         # branded "fast" - grok-4-1-fast-non-reasoning - was 4647ms.
-        llm=inference.LLM("openai/gpt-oss-120b"),
+        llm=inference.LLM("openai/gpt-4.1-mini"),
         # Rime is the primary spoken output - direct plugin, our own key.
         # NOTE: do NOT pass sample_rate. Forcing 24000 crashes livekit_ffi's
         # soxr resampler (assertion FFT_LEN == -1 in fft4g_cache.h). Plugin
         # default (22050) is the tested path.
-        tts=rime.TTS(model="coda", speaker="lyra", speed_alpha=0.9),
+        # 48000 Hz is what WebRTC wants, so nothing is resampled and soxr is
+        # never invoked. livekit_ffi's soxr FFT cache crashes when several TTS
+        # streams create and destroy resamplers concurrently - which is what
+        # the per-tool session.say() acks cause (LSX_FFT_BR == NULL,
+        # fft4g_cache.h:13). Rime honours samplingRate=48000; verified against
+        # the API directly, 139244 bytes vs 71046 at 22050 for the same text.
+        # Do NOT set an intermediate rate such as 24000: that still resamples
+        # and crashes differently (FFT_LEN == -1, line 15).
+        tts=rime.TTS(model="coda", speaker="lyra", speed_alpha=0.9,
+                     sample_rate=48000),
         # Blocks interruptions briefly after the agent starts speaking so the
         # client can calibrate acoustic echo cancellation. Without this the
         # agent hears its own voice and self-interrupts (the "radio" artifact).
         # 3.0 s felt unresponsive: interruptions are blocked for that whole
         # window while AEC calibrates. 1.5 s still calibrates on a headset.
-        aec_warmup_duration=1.5,
+        aec_warmup_duration=3.0,
         turn_handling=TurnHandlingOptions(
             interruption={
                 "resume_false_interruption": True,

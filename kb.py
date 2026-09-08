@@ -34,8 +34,17 @@ _STOP = {
 }
 
 
+def _stem(word: str) -> str:
+    """Crude suffix stripping. Enough to match 'opening' to 'open' and
+    'refunds' to 'refund', which is where most missed retrievals came from."""
+    for suffix in ("ing", "ies", "ed", "es", "s"):
+        if len(word) > len(suffix) + 2 and word.endswith(suffix):
+            return word[: -len(suffix)] + ("y" if suffix == "ies" else "")
+    return word
+
+
 def _tokens(text: str) -> list[str]:
-    return [w for w in _WORD.findall(text.lower()) if w not in _STOP]
+    return [_stem(w) for w in _WORD.findall(text.lower()) if w not in _STOP]
 
 
 @dataclass

@@ -191,6 +191,11 @@ service, no vector database. That keeps it **inspectable**: every spoken answer
 traces to the exact source line that produced it, which is what a
 compliance-shaped deployment needs.
 
+**Keep the knowledge base clean.** Retrieval is TF-IDF, so a large unrelated
+document dominates by sheer chunk count. During testing an unrelated 6 KB
+review file was uploaded by mistake and contributed 50 of 83 chunks, which
+started pulling answers from it. Only upload customer-facing business facts.
+
 **Grounding rule:** below a score floor the agent says *"I do not have that in
 our records, I can take a message"* and offers escalation. It does not guess. A
 confident wrong answer about a refund policy is worse than no answer. Verified:
