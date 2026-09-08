@@ -135,9 +135,10 @@ def _free_port(start: int = 8080, tries: int = 10) -> int:
     import socket
     for port in range(start, start + tries):
         with socket.socket() as sk:
-            sk.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            # Probe the SAME interface run_app will bind (0.0.0.0), not
+            # 127.0.0.1 - otherwise the probe succeeds and the real bind fails.
             try:
-                sk.bind(("127.0.0.1", port))
+                sk.bind(("0.0.0.0", port))
                 return port
             except OSError:
                 print("port %d busy, trying %d" % (port, port + 1))
