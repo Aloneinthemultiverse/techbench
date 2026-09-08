@@ -53,6 +53,21 @@ def read_document(path: Path) -> str:
         return ""
 
 
+_UNSPEAKABLE = re.compile(r"[•●▪■‣⁃ ​﻿–—]")
+
+
+def clean(text: str) -> str:
+    """Strip characters that would be read aloud as noise.
+
+    PDFs carry bullets, non-breaking spaces and zero-width marks. A chunk is
+    spoken verbatim by Rime, so they have to come out before chunking - not at
+    synthesis time, where they would also corrupt the retrieval index.
+    """
+    text = _UNSPEAKABLE.sub(" ", text)
+    text = text.replace("’", "'").replace("“", '"').replace("”", '"')
+    return text
+
+
 def _stem(word: str) -> str:
     """Crude suffix stripping. Enough to match 'opening' to 'open' and
     'refunds' to 'refund', which is where most missed retrievals came from."""
@@ -79,12 +94,17 @@ class KnowledgeBase:
     def __init__(self, directory: Path = KB_DIR):
         self.chunks: list[Chunk] = []
         self.df: Counter = Counter()
+        self.skipped: list[tuple[str, str]] = []   # (filename, reason)
         if directory.exists():
             for path in sorted(directory.glob("*")):
-                if path.suffix.lower() not in (".md", ".txt", ".pdf"):
+                if path.is_dir():
                     continue
-                text = read_document(path)
+                if path.suffix.lower() not in (".md", ".txt", ".pdf"):
+                    self.skipped.append((path.name, "unsupported type " + (path.suffix or "none")))
+                    continue
+                text = clean(read_document(path))
                 if not text.strip():
+                    self.skipped.append((path.name, "no extractable text - scanned image?"))
                     continue
                 for raw in re.split(r"(?<=[.!?])\s+|\n{2,}", text):
                     line = " ".join(raw.split())
@@ -173,14 +193,38 @@ def add_facts(topic: str, facts: str, directory: Path = KB_DIR) -> str:
     return "Added that to the knowledge base under " + topic.strip() + "."
 
 
+def _report(kb: KnowledgeBase) -> None:
+    """What actually loaded, what was skipped, and whether one file dominates."""
+    by_src = Counter(c.source for c in kb.chunks)
+    print("knowledge base: %d facts from %d file(s)" % (len(kb.chunks), len(by_src)))
+    for name, n in by_src.most_common():
+        share = 100.0 * n / max(len(kb.chunks), 1)
+        # A single large file is normal. A file that is BOTH dominant and not
+        # the smallest source is how unrelated documents hijack retrieval.
+        flag = "   <-- largest source" if n == max(by_src.values()) else ""
+        print("   %-32s %4d facts  %5.1f%%%s" % (name, n, share, flag))
+    for name, reason in kb.skipped:
+        print("   SKIPPED %-24s %s" % (name, reason))
+    if not kb.chunks:
+        print("   nothing loaded. Put .md, .txt or .pdf files in", KB_DIR)
+
+
 if __name__ == "__main__":
     import sys
+
     kb = KnowledgeBase()
-    print("chunks loaded:", len(kb.chunks))
-    q = " ".join(sys.argv[1:]) or "what are your opening hours"
-    answer, sources = kb.answer(q)
-    print("\nQ:", q)
+    _report(kb)
+
+    question = " ".join(a for a in sys.argv[1:] if a != "--list").strip()
+    if not question:
+        raise SystemExit(0)
+
+    answer, sources = kb.answer(question)
+    print()
+    print("Q:", question)
     print("A:", answer)
-    print("\nsources:")
-    for s in sources:
-        print("  -", s)
+    print("sources:")
+    for line in sources:
+        print("   -", line)
+    if not sources:
+        print("   (none - declined rather than guessing)")
