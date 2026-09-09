@@ -6,9 +6,16 @@
     "stale_result_leak_rate": "0/20",
     "correction_handling": "20/20",
     "entity_tracking": "20/20",
-    "ABLATION_fencing_disabled": {
-      "stale_result_leak_rate": "20/20",
-      "note": "same harness, fence removed - isolates the mechanism"
+    "arms": {
+      "techbench_cancel_plus_fence": "0/20",
+      "cancellation_only_no_fence": "0/20",
+      "reference_pattern_neither": "20/20",
+      "note": "reference_pattern mirrors LiveKit's example agent, which has no turn id, fence or task tracking (see eval/baseline/)"
+    },
+    "race_tool_resolves_before_cancellation": {
+      "with_fence": "0/20",
+      "cancellation_only": "20/20",
+      "note": "asyncio cancellation cannot stop a task that has already resolved. This is the case the fence exists for, and the one observed live as fence_drop."
     },
     "by_type": {
       "follow_up": {
@@ -271,7 +278,249 @@
       "heard_chars": 36
     }
   ],
-  "ablation": [
+  "cancellation_only": [
+    {
+      "trial": 0,
+      "type": "follow_up",
+      "initial_part": "HP-4412",
+      "revised_part": "HP-4413",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 36
+    },
+    {
+      "trial": 1,
+      "type": "negation",
+      "initial_part": "HP-4413",
+      "revised_part": "VX-207",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 36
+    },
+    {
+      "trial": 2,
+      "type": "repetition_request",
+      "initial_part": "VX-207",
+      "revised_part": "HP-4412",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 35
+    },
+    {
+      "trial": 3,
+      "type": "topic_switch",
+      "initial_part": "HP-4412",
+      "revised_part": "HP-4413",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 36
+    },
+    {
+      "trial": 4,
+      "type": "follow_up",
+      "initial_part": "HP-4413",
+      "revised_part": "VX-207",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 36
+    },
+    {
+      "trial": 5,
+      "type": "negation",
+      "initial_part": "VX-207",
+      "revised_part": "HP-4412",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 35
+    },
+    {
+      "trial": 6,
+      "type": "repetition_request",
+      "initial_part": "HP-4412",
+      "revised_part": "HP-4413",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 36
+    },
+    {
+      "trial": 7,
+      "type": "topic_switch",
+      "initial_part": "HP-4413",
+      "revised_part": "VX-207",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 36
+    },
+    {
+      "trial": 8,
+      "type": "follow_up",
+      "initial_part": "VX-207",
+      "revised_part": "HP-4412",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 35
+    },
+    {
+      "trial": 9,
+      "type": "negation",
+      "initial_part": "HP-4412",
+      "revised_part": "HP-4413",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 36
+    },
+    {
+      "trial": 10,
+      "type": "repetition_request",
+      "initial_part": "HP-4413",
+      "revised_part": "VX-207",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 36
+    },
+    {
+      "trial": 11,
+      "type": "topic_switch",
+      "initial_part": "VX-207",
+      "revised_part": "HP-4412",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 35
+    },
+    {
+      "trial": 12,
+      "type": "follow_up",
+      "initial_part": "HP-4412",
+      "revised_part": "HP-4413",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 36
+    },
+    {
+      "trial": 13,
+      "type": "negation",
+      "initial_part": "HP-4413",
+      "revised_part": "VX-207",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 36
+    },
+    {
+      "trial": 14,
+      "type": "repetition_request",
+      "initial_part": "VX-207",
+      "revised_part": "HP-4412",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 35
+    },
+    {
+      "trial": 15,
+      "type": "topic_switch",
+      "initial_part": "HP-4412",
+      "revised_part": "HP-4413",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 36
+    },
+    {
+      "trial": 16,
+      "type": "follow_up",
+      "initial_part": "HP-4413",
+      "revised_part": "VX-207",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 36
+    },
+    {
+      "trial": 17,
+      "type": "negation",
+      "initial_part": "VX-207",
+      "revised_part": "HP-4412",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 35
+    },
+    {
+      "trial": 18,
+      "type": "repetition_request",
+      "initial_part": "HP-4412",
+      "revised_part": "HP-4413",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 36
+    },
+    {
+      "trial": 19,
+      "type": "topic_switch",
+      "initial_part": "HP-4413",
+      "revised_part": "VX-207",
+      "stale_leaked": false,
+      "revised_committed": true,
+      "entity_tracking_ok": true,
+      "dropped": 0,
+      "committed_count": 1,
+      "heard_chars": 36
+    }
+  ],
+  "reference_pattern": [
     {
       "trial": 0,
       "type": "follow_up",

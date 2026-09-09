@@ -159,12 +159,28 @@ It is tool-agnostic. The agent grew from two tools to nine without one line of n
 
 ## 4. Evidence
 
-| Condition | Stale results spoken |
-|---|---|
-| Fencing enabled | **0 / 20** |
-| Fencing disabled — ablation, one line removed | **20 / 20** |
+Four arms, one harness. The baseline is not this project with a line deleted — it is the pattern used by **LiveKit's own reference agent**, which has no turn id, no fence and no task tracking (verified by inspection; archived at `eval/baseline/`).
 
-Correction handling 20/20. Entity tracking 20/20. Zero leaks in each of the four interruption types.
+**Scenario 1 — the tool is still running when the user interrupts**
+
+| Arm | Stale results spoken |
+|---|---|
+| Techbench: cancellation + fence | **0 / 20** |
+| Cancellation only, no fence | 0 / 20 |
+| Reference pattern: neither | **20 / 20** |
+
+The fence adds nothing here, and that is reported rather than hidden — a suspended task can simply be cancelled.
+
+**Scenario 2 — the tool resolves before cancellation takes effect**
+
+| Arm | Stale results spoken |
+|---|---|
+| Techbench: cancellation + fence | **0 / 20** |
+| Cancellation only, no fence | **20 / 20** |
+
+`asyncio.Task.cancel()` cannot stop a task that has already produced its result. **This is the case the fence exists for, and the case observed live** — the recorded session contains one `fence_drop` where cancellation had been issued and did not stop the result.
+
+Correction handling 20/20. Entity tracking 20/20. Zero leaks in every interruption type, both scenarios.
 
 Barge-in injected 3.0s into the agent's turn, tool delay fixed at 3.0s so the interruption lands mid-flight. Reproducible offline in one second:
 

@@ -33,7 +33,8 @@ TYPES = ["follow_up", "negation", "repetition_request", "topic_switch"]
 PARTS = ["HP-4412", "HP-4413", "VX-207"]
 
 
-async def trial(n: int, kind: str, log: EventLog, fencing: bool = True) -> dict:
+async def trial(n: int, kind: str, log: EventLog, fencing: bool = True,
+                cancelling: bool = True, race: bool = False) -> dict:
     ctrl = TurnController(log)
     ledger = SpokenLedger(log)
 
@@ -41,13 +42,21 @@ async def trial(n: int, kind: str, log: EventLog, fencing: bool = True) -> dict:
     t1 = ctrl.new_turn(reason=f"trial{n}_initial")
 
     # Agent dispatches a slow lookup for `first`, tagged with turn t1.
+    #
+    # race=True models the case the fence exists for: the tool resolves in the
+    # same scheduler pass as the barge-in. asyncio.Task.cancel() only takes
+    # effect at the next suspension point, so a task that has already produced
+    # its result cannot be cancelled - the result exists, and only a check at
+    # the point of use can stop it being spoken. This is what produced the
+    # fence_drop observed in the live session.
     async def lookup(turn_id: int, part: str):
-        await asyncio.sleep(TOOL_DELAY / SPEEDUP)
+        if not race:
+            await asyncio.sleep(TOOL_DELAY / SPEEDUP)
         return Fenced(turn_id, f"{part}: torque 18 newton meters")
 
     task = asyncio.create_task(lookup(t1, first))
-    if fencing:
-        ctrl.track(t1, task)   # tracked => cancelled on new turn
+    if cancelling:
+        ctrl.track(t1, task)   # tracked => cancelled when the turn is superseded
 
     # Agent starts speaking; user barges in at 3.0s with a revision.
     await asyncio.sleep(BARGE_IN_AT / SPEEDUP * 0.9)
@@ -86,8 +95,20 @@ async def trial(n: int, kind: str, log: EventLog, fencing: bool = True) -> dict:
 async def main() -> None:
     out = Path("eval/runs"); out.mkdir(parents=True, exist_ok=True)
     log = EventLog(out / "bargein_logic.jsonl")
-    rows = [await trial(i, TYPES[i % 4], log, fencing=True) for i in range(20)]
-    abl = [await trial(i, TYPES[i % 4], log, fencing=False) for i in range(20)]
+    # Three arms, same harness, same trials.
+    #   techbench : cancellation + fence   (what ships)
+    #   cancel    : cancellation only, no fence - isolates whether cancelling
+    #               the task is by itself sufficient
+    #   reference : neither. This mirrors LiveKit's own example agent, which
+    #               has no turn id, no fence and no task tracking - verified by
+    #               inspecting examples/voice_agents/basic_agent.py, archived at
+    #               eval/baseline/livekit_basic_agent.py
+    rows = [await trial(i, TYPES[i % 4], log, fencing=True,  cancelling=True)  for i in range(20)]
+    conly = [await trial(i, TYPES[i % 4], log, fencing=False, cancelling=True)  for i in range(20)]
+    abl  = [await trial(i, TYPES[i % 4], log, fencing=False, cancelling=False) for i in range(20)]
+    # The race: tool resolves before cancellation can take effect.
+    race_fenced   = [await trial(i, TYPES[i % 4], log, fencing=True,  cancelling=True, race=True) for i in range(20)]
+    race_unfenced = [await trial(i, TYPES[i % 4], log, fencing=False, cancelling=True, race=True) for i in range(20)]
     log.close()
 
     leaks = sum(r["stale_leaked"] for r in rows)
@@ -101,9 +122,19 @@ async def main() -> None:
         "stale_result_leak_rate": f"{leaks}/{len(rows)}",
         "correction_handling": f"{corr}/{len(rows)}",
         "entity_tracking": f"{ent}/{len(rows)}",
-        "ABLATION_fencing_disabled": {
-            "stale_result_leak_rate": f"{sum(r['stale_leaked'] for r in abl)}/{len(abl)}",
-            "note": "same harness, fence removed - isolates the mechanism",
+        "arms": {
+            "techbench_cancel_plus_fence": f"{leaks}/{len(rows)}",
+            "cancellation_only_no_fence": f"{sum(r['stale_leaked'] for r in conly)}/{len(conly)}",
+            "reference_pattern_neither": f"{sum(r['stale_leaked'] for r in abl)}/{len(abl)}",
+            "note": ("reference_pattern mirrors LiveKit's example agent, which has "
+                     "no turn id, fence or task tracking (see eval/baseline/)"),
+        },
+        "race_tool_resolves_before_cancellation": {
+            "with_fence": f"{sum(r['stale_leaked'] for r in race_fenced)}/{len(race_fenced)}",
+            "cancellation_only": f"{sum(r['stale_leaked'] for r in race_unfenced)}/{len(race_unfenced)}",
+            "note": ("asyncio cancellation cannot stop a task that has already "
+                     "resolved. This is the case the fence exists for, and the "
+                     "one observed live as fence_drop."),
         },
         "by_type": {t: {
             "n": sum(1 for r in rows if r["type"] == t),
@@ -111,7 +142,9 @@ async def main() -> None:
         } for t in TYPES},
     }
     (out / "bargein_summary.json").write_text(
-        json.dumps({"summary": summary, "trials": rows, "ablation": abl}, indent=2), encoding="utf-8")
+        json.dumps({"summary": summary, "trials": rows,
+                    "cancellation_only": conly, "reference_pattern": abl}, indent=2),
+        encoding="utf-8")
     print(json.dumps(summary, indent=2))
     print("\nPASS" if leaks == 0 and corr == len(rows) else "\nFAIL")
 

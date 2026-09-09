@@ -81,11 +81,15 @@ CORPUS = [
     ("gen-2",  "I can take a message and have someone call you back."),
 ]
 
-REPEATS = 3          # warm runs after the first cold run, per provider per item
-PACE_S = float(os.getenv("BENCH_PACE_SECONDS", "2.5"))
+REPEATS = 2          # warm runs after the first cold run, per provider per item
+PACE_S = float(os.getenv("BENCH_PACE_SECONDS", "4.0"))
 # The gateway rate-limits (429) under a tight loop. Pacing keeps every provider
 # on equal footing - each is measured under the same request cadence - and the
 # retry counts are recorded as the reliability signal rather than hidden.
+
+
+_STT: list = [None]      # one recogniser, reused, so fidelity checks do not
+                         # open a fresh connection per clip
 
 
 def wav_seconds(path: Path) -> float:
@@ -150,13 +154,18 @@ def letters_ok(reference: str, heard: str) -> bool | None:
     return all(c.lower() in h for c in codes)
 
 
-async def synth(model: str, text: str, dest: Path) -> dict:
-    """One synthesis. Returns timing, or an error record."""
+async def synth(tts, text: str, dest: Path) -> dict:
+    """One synthesis on an already-open client.
+
+    The client is created once per provider and reused. Creating one per call
+    leaked connections and tripped LiveKit's concurrent-TTS limit, which also
+    made the latency figures meaningless - later calls were queueing behind
+    connections that were never closed.
+    """
     t0 = time.perf_counter()
     first = None
     frames: list[rtc.AudioFrame] = []
     try:
-        tts = inference.TTS(model)
         stream = tts.synthesize(text)
         async for ev in stream:
             if first is None:
@@ -186,7 +195,8 @@ async def transcribe(path: Path) -> str:
         with wave.open(str(path)) as w:
             sr, ch = w.getframerate(), w.getnchannels()
             data = w.readframes(w.getnframes())
-        stt = inference.STT("deepgram/nova-3", language="en")
+        stt = _STT[0] or inference.STT("deepgram/nova-3", language="en")
+        _STT[0] = stt
         stream = stt.stream()
         out: list[str] = []
 
@@ -246,12 +256,14 @@ async def main() -> None:
     async with http_context.open():
         for model, label in PROVIDERS:
             print("\n=== %s (%s) ===" % (label, model))
-            for item_id, text in corpus:
+            tts = inference.TTS(model)
+            try:
+              for item_id, text in corpus:
                 # Cold run: first call to this provider for this item.
                 for run in range(repeats + 1):
                     warm = run > 0
                     dest = CLIPS / ("%s_%s_%d.wav" % (label.lower(), item_id, run))
-                    res = await synth(model, text, dest)
+                    res = await synth(tts, text, dest)
                     await asyncio.sleep(PACE_S)
                     row = {"provider": label, "model": model, "item": item_id,
                            "text": text, "run": run, "warm": warm, **res}
@@ -262,6 +274,13 @@ async def main() -> None:
                     else:
                         print("  %-8s FAILED  %s" % (item_id, res.get("error")))
                     rows.append(row)
+            finally:
+                aclose = getattr(tts, "aclose", None)
+                if aclose:
+                    try:
+                        await aclose()
+                    except Exception:
+                        pass
 
         # Text fidelity: transcribe one warm clip per provider per item.
         print("\n=== text fidelity (STT round-trip, deepgram/nova-3) ===")

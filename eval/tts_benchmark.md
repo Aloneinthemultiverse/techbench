@@ -90,24 +90,65 @@ The providers expose different control surfaces — Rime offers `speed_alpha` an
 a pronunciation dictionary; others expose different parameters. Collapsing that
 into one number would misrepresent all of them. See each provider's docs.
 
-## Preliminary observation
+## Results
 
-From a two-provider smoke run (Rime and Cartesia, two identifier items — **too
-small to be a result**), one difference is worth recording because it is
-qualitative rather than statistical:
+Four providers, nine items, one cold plus two warm runs each, paced identically.
+**Zero failures for any provider.**
 
-| Provider | `HP-4412` rendered as | Identifier recoverable? |
-|---|---|---|
-| **Rime** | "h p four four one two" | **yes** |
-| Cartesia | "h p four thousand four hundred and twelve" | no |
+### Latency (time-to-first-byte, ms)
 
-Cartesia read the code as a cardinal number. For this use case that is a
-correctness failure, not a style difference. Rime was also slower on that same
-smoke run (ttfb p50 1209 ms vs 876 ms), so this is a genuine trade-off rather
-than a clean win, and it is exactly the sort of thing a single score would hide.
+| Provider | cold | warm p50 | warm min | warm max |
+|---|---|---|---|---|
+| Cartesia | 314 | **256** | 186 | 489 |
+| Deepgram | 646 | 427 | 403 | 523 |
+| **Rime** | 574 | **433** | 372 | 564 |
+| Inworld | 613 | 497 | 448 | 646 |
 
-**This is an observation from n=2 items on two providers. It is not a finding.**
-Run the full script for item-level results across all four providers.
+Cartesia is fastest by a clear margin. Rime and Deepgram are level. Inworld is
+slowest.
+
+### Identifier survival
+
+Whether the digits of a part code can be recovered, in order, from an
+independent transcription.
+
+| Provider | `HP-4412` | `VX-207 / VX-270` | `HP-4413` | Score |
+|---|---|---|---|---|
+| Inworld | pass | pass | pass | **3/3** |
+| Rime | fail* | pass | pass | 2/3 |
+| Deepgram | pass | fail | pass | 2/3 |
+| Cartesia | fail | fail | fail | **0/3** |
+
+**Cartesia is the fastest system and the least usable one for this product.** It
+read `HP-4412` as "four four hundred and twelve", dropped a digit from `VX-207`
+("two seven"), and rendered `HP-4413` as "four thousand four". For a listener who
+must write the code down, speed does not compensate.
+
+**Inworld was perfect on identifiers and slowest overall.** A clean trade at
+both ends of the table.
+
+### * The Rime failure did not reproduce
+
+The single Rime failure on `HP-4412` was re-tested five times in isolation
+(`eval/verify_pronunciation.py`): **5/5 pass**, every transcription reading
+"h p four four one two".
+
+**This is a limitation of the benchmark, not a finding about Rime.** One item
+per provider per run is too thin to support a per-item verdict, and this table
+should be read as indicative of gross differences - Cartesia's 0/3 is a pattern,
+a single flip is not.
+
+The same check also tested a hand-written spoken-form map as an alternative. It
+was **worse**: on `HP-4413` the mapped form lost a digit ("four four one") and
+ran 76% longer. The map stays out of the product. An earlier draft of this
+project was about to reinstate it on the strength of that one failed sample.
+
+### What this changed in the product
+
+Nothing. Rime remains the shipped voice: Cartesia's speed advantage is
+unusable at 0/3 on identifiers, Inworld's accuracy costs 64 ms at p50 and it is
+the slowest system, and Deepgram matches Rime on both axes while being the same
+vendor as the recogniser used to score fidelity.
 
 ## Outputs
 

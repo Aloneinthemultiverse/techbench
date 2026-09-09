@@ -1,22 +1,182 @@
 {
   "clip_001.wav": {
-    "provider": "Cartesia",
-    "item": "id-2",
-    "text": "Order VX-207, not VX-270."
+    "provider": "Inworld",
+    "item": "oov-1",
+    "text": "That one uses a viton seal."
   },
   "clip_002.wav": {
+    "provider": "Deepgram",
+    "item": "mix-1",
+    "text": "HP-4413 takes twenty two newton meters and a PTFE seal."
+  },
+  "clip_003.wav": {
+    "provider": "Cartesia",
+    "item": "id-2",
+    "text": "Order VX-207, not VX-270."
+  },
+  "clip_004.wav": {
+    "provider": "Rime",
+    "item": "oov-2",
+    "text": "The PTFE seal is rated higher."
+  },
+  "clip_005.wav": {
+    "provider": "Inworld",
+    "item": "num-1",
+    "text": "Torque to eighteen newton meters."
+  },
+  "clip_006.wav": {
+    "provider": "Inworld",
+    "item": "id-1",
+    "text": "The part is HP-4412."
+  },
+  "clip_007.wav": {
+    "provider": "Rime",
+    "item": "gen-2",
+    "text": "I can take a message and have someone call you back."
+  },
+  "clip_008.wav": {
+    "provider": "Deepgram",
+    "item": "oov-2",
+    "text": "The PTFE seal is rated higher."
+  },
+  "clip_009.wav": {
+    "provider": "Cartesia",
+    "item": "oov-2",
+    "text": "The PTFE seal is rated higher."
+  },
+  "clip_010.wav": {
+    "provider": "Cartesia",
+    "item": "num-2",
+    "text": "Maximum temperature is two hundred degrees celsius."
+  },
+  "clip_011.wav": {
+    "provider": "Inworld",
+    "item": "id-2",
+    "text": "Order VX-207, not VX-270."
+  },
+  "clip_012.wav": {
+    "provider": "Deepgram",
+    "item": "oov-1",
+    "text": "That one uses a viton seal."
+  },
+  "clip_013.wav": {
+    "provider": "Inworld",
+    "item": "gen-1",
+    "text": "I do not have that in our records."
+  },
+  "clip_014.wav": {
+    "provider": "Cartesia",
+    "item": "mix-1",
+    "text": "HP-4413 takes twenty two newton meters and a PTFE seal."
+  },
+  "clip_015.wav": {
+    "provider": "Rime",
+    "item": "id-1",
+    "text": "The part is HP-4412."
+  },
+  "clip_016.wav": {
+    "provider": "Deepgram",
+    "item": "id-2",
+    "text": "Order VX-207, not VX-270."
+  },
+  "clip_017.wav": {
+    "provider": "Inworld",
+    "item": "num-2",
+    "text": "Maximum temperature is two hundred degrees celsius."
+  },
+  "clip_018.wav": {
+    "provider": "Rime",
+    "item": "gen-1",
+    "text": "I do not have that in our records."
+  },
+  "clip_019.wav": {
+    "provider": "Deepgram",
+    "item": "num-2",
+    "text": "Maximum temperature is two hundred degrees celsius."
+  },
+  "clip_020.wav": {
+    "provider": "Inworld",
+    "item": "gen-2",
+    "text": "I can take a message and have someone call you back."
+  },
+  "clip_021.wav": {
+    "provider": "Cartesia",
+    "item": "oov-1",
+    "text": "That one uses a viton seal."
+  },
+  "clip_022.wav": {
+    "provider": "Rime",
+    "item": "num-1",
+    "text": "Torque to eighteen newton meters."
+  },
+  "clip_023.wav": {
+    "provider": "Inworld",
+    "item": "mix-1",
+    "text": "HP-4413 takes twenty two newton meters and a PTFE seal."
+  },
+  "clip_024.wav": {
+    "provider": "Rime",
+    "item": "mix-1",
+    "text": "HP-4413 takes twenty two newton meters and a PTFE seal."
+  },
+  "clip_025.wav": {
+    "provider": "Cartesia",
+    "item": "gen-1",
+    "text": "I do not have that in our records."
+  },
+  "clip_026.wav": {
     "provider": "Rime",
     "item": "id-2",
     "text": "Order VX-207, not VX-270."
   },
-  "clip_003.wav": {
-    "provider": "Rime",
+  "clip_027.wav": {
+    "provider": "Deepgram",
     "item": "id-1",
     "text": "The part is HP-4412."
   },
-  "clip_004.wav": {
+  "clip_028.wav": {
+    "provider": "Cartesia",
+    "item": "num-1",
+    "text": "Torque to eighteen newton meters."
+  },
+  "clip_029.wav": {
+    "provider": "Inworld",
+    "item": "oov-2",
+    "text": "The PTFE seal is rated higher."
+  },
+  "clip_030.wav": {
+    "provider": "Cartesia",
+    "item": "gen-2",
+    "text": "I can take a message and have someone call you back."
+  },
+  "clip_031.wav": {
+    "provider": "Deepgram",
+    "item": "gen-2",
+    "text": "I can take a message and have someone call you back."
+  },
+  "clip_032.wav": {
+    "provider": "Rime",
+    "item": "oov-1",
+    "text": "That one uses a viton seal."
+  },
+  "clip_033.wav": {
+    "provider": "Rime",
+    "item": "num-2",
+    "text": "Maximum temperature is two hundred degrees celsius."
+  },
+  "clip_034.wav": {
+    "provider": "Deepgram",
+    "item": "gen-1",
+    "text": "I do not have that in our records."
+  },
+  "clip_035.wav": {
     "provider": "Cartesia",
     "item": "id-1",
     "text": "The part is HP-4412."
+  },
+  "clip_036.wav": {
+    "provider": "Deepgram",
+    "item": "num-1",
+    "text": "Torque to eighteen newton meters."
   }
 }

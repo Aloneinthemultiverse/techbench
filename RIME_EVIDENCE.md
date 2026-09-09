@@ -51,20 +51,49 @@ Reproduce:
 
     .venv\Scripts\python.exe eval/run_bargein.py
 
-## Result 1 - logic level, with ablation
+## Result 1 - four arms, one harness
 
-Same harness, same 20 trials, one variable changed: the fence.
+Same 20 trials, same four interruption types, one variable changed per arm.
+The baseline is not a version of this project with a line deleted: it is the
+pattern used by LiveKit's own reference agent, which has no turn id, no fence
+and no task tracking. That was verified by inspecting
+`examples/voice_agents/basic_agent.py`, archived at
+`eval/baseline/livekit_basic_agent.py`.
 
-| Condition           | Stale results spoken |
-|---------------------|----------------------|
-| Fencing enabled     | **0 / 20**           |
-| Fencing disabled    | **20 / 20**          |
+### Scenario 1 - the tool is still running when the user interrupts
+
+| Arm | Stale results spoken |
+|-----|----------------------|
+| Techbench: cancellation + fence | **0 / 20** |
+| Cancellation only, no fence     | **0 / 20** |
+| Reference pattern: neither      | **20 / 20** |
+
+**The fence adds nothing here, and that is reported rather than hidden.** When a
+task is still suspended, cancelling it is sufficient; the fence never fires
+because no result is ever produced.
+
+### Scenario 2 - the tool resolves before cancellation takes effect
+
+| Arm | Stale results spoken |
+|-----|----------------------|
+| Techbench: cancellation + fence | **0 / 20** |
+| Cancellation only, no fence     | **20 / 20** |
+
+`asyncio.Task.cancel()` only takes effect at the next suspension point. A task
+that has already produced its result cannot be cancelled - the value exists, and
+nothing but a check at the point of use can stop it being spoken.
+
+**This is the case the fence exists for, and it is the case observed live**: the
+recorded session contains one `fence_drop`, a `web_search` result from turn 12
+arriving during turn 13. Cancellation had already been issued and had not
+stopped it.
 
 Correction handling 20/20. Entity tracking 20/20. Zero leaks in every
-interruption type (5 trials each).
+interruption type, in both scenarios, with the fence in place.
 
-The ablation is the point: without the fence, *every* interrupted turn leaks a
-superseded result. The mechanism is load-bearing, not decorative.
+Reproduce, offline, in about a second:
+
+    python eval/run_bargein.py
 
 ## Result 2 - live audio session
 
