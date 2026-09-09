@@ -204,9 +204,32 @@ Checked with Rime's own `normalize_text` and `check_dictionary` before writing a
 - Part codes need no intervention — Rime already renders `HP-4412` as *"H-P, four four one two"*. A hand-written spoken-form map was written, tested, found redundant and **deleted**.
 - The real risk is domain vocabulary: `viton`, `ptfe`, `vx` are out-of-dictionary. A mispronounced seal material means the technician fits the wrong part.
 
+**Delivery was A/B tested with rendered clips** ([`eval/delivery_variants.md`](eval/delivery_variants.md), audio in [`eval/audio/delivery/`](eval/audio/delivery)). Model and voice held constant; only the text changed:
+
+| Change | Effect | Shipped? |
+|---|---|---|
+| Pre-spacing a part code | **+33% duration**, identical rendering | no — removed |
+| Chunking a spec readout with full stops | +11% duration, a boundary per value | yes |
+| Respelling `viton` → `vye-tonn` | **-4% duration**, guaranteed pronunciation | yes |
+| Adding a filler to an acknowledgement | **+44% duration**, no benefit | no |
+
 ---
 
-## 6. Coverage of the brief's voice problems
+## 6. Relation to what has already shipped
+
+The brief asks that the Rime project catalog be reviewed first, and that
+submissions not be close reproductions. The published examples are
+`rimelabs/rime-livekit-agents` (a basic STT to LLM to TTS loop),
+`livekit-examples/rime-multilingual-demo` (automatic language detection and
+dynamic voice switching across four languages), and several full-stack
+conversational demos.
+
+**This project's multilingual switching overlaps that second example and is
+therefore not claimed as a contribution.** None of the shipped examples address
+what happens to in-flight tool results when a user interrupts, which is the one
+thing measured here.
+
+## 7. Coverage of the brief's voice problems
 
 One problem is claimed and measured. The others are product quality, reported without a claim.
 
@@ -223,7 +246,7 @@ One problem is claimed and measured. The others are product quality, reported wi
 
 ---
 
-## 7. Setup
+## 8. Setup
 
 ```
 py -3.12 -m venv .venv
@@ -252,7 +275,7 @@ Test protocol: **[TESTING.md](TESTING.md)**.
 
 ---
 
-## 8. Third-party services
+## 9. Third-party services
 
 | Service | Role | Key |
 |---|---|---|
@@ -265,7 +288,7 @@ Test protocol: **[TESTING.md](TESTING.md)**.
 
 ---
 
-## 9. What is live, synthetic or simulated
+## 10. What is live, synthetic or simulated
 
 | Component | Status |
 |---|---|
@@ -283,7 +306,7 @@ Nothing here is animated or scripted.
 
 ---
 
-## 10. Known limitations and failure behaviour
+## 11. Known limitations and failure behaviour
 
 - **The live fence sample is n=1.** Most interruptions are caught by cancellation before a result reaches the fence. The 20-trial ablation proves the mechanism; the live drop proves it fires on the real audio path.
 - **The 20-trial result is logic-level.** It drives the real `TurnController`, `Fenced` and `SpokenLedger` objects on a simulated timeline. It proves the invariant; it does not measure acoustic timing.
@@ -299,7 +322,7 @@ Nothing here is animated or scripted.
 
 ---
 
-## 11. Repository
+## 12. Repository
 
 ```
 agent.py       the voice agent: STT/LLM/TTS wiring, nine tools, event hooks
@@ -324,7 +347,7 @@ eval/
 
 ---
 
-## 12. Credits, licences and AI assistance
+## 13. Credits, licences and AI assistance
 
 - Built on [LiveKit Agents](https://github.com/livekit/agents) (Apache-2.0).
 - Speech synthesis by [Rime](https://rime.ai).
