@@ -7,8 +7,9 @@ SCOPE (labeled honestly, per the PS):
   It proves the fencing invariant. It does NOT measure acoustic
   time-to-silence; that requires the audio-level run (see README).
 
-PROTOCOL (Instruct-FD, arXiv:2607.20460):
-  user audio is injected 3.0s after the agent begins speaking.
+PROTOCOL: user audio is injected 3.0s after the agent begins speaking. The
+  3.0s value is our own choice - a fixed mid-utterance injection so the
+  barge-in lands while the tool call is in flight - not a figure from a paper.
 TYPES (HumDial Track II, arXiv:2601.05564):
   follow_up | negation | repetition_request | topic_switch
 METRIC NAMES (Full-Duplex-Bench v2, arXiv:2510.07838):
@@ -95,7 +96,7 @@ async def main() -> None:
 
     summary = {
         "trials": len(rows),
-        "protocol": "Instruct-FD 3.0s injection; HumDial 4 interruption types",
+        "protocol": "fixed 3.0s mid-utterance injection; 4 interruption types",
         "level": "logic (no audio); see README for audio-level run",
         "stale_result_leak_rate": f"{leaks}/{len(rows)}",
         "correction_handling": f"{corr}/{len(rows)}",

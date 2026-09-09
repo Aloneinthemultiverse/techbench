@@ -1,7 +1,7 @@
 {
   "summary": {
     "trials": 20,
-    "protocol": "Instruct-FD 3.0s injection; HumDial 4 interruption types",
+    "protocol": "fixed 3.0s mid-utterance injection; 4 interruption types",
     "level": "logic (no audio); see README for audio-level run",
     "stale_result_leak_rate": "0/20",
     "correction_handling": "20/20",

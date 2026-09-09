@@ -38,8 +38,9 @@ that win the race against cancellation.
 
 ## Procedure
 
-Barge-in injected 3.0 s after the agent begins speaking, matching the protocol
-used by Instruct-FD; tool delay fixed at 3.0 s so the interruption lands while
+Barge-in injected 3.0 s after the agent begins speaking - a fixed
+mid-utterance injection of our own choosing, so it reliably lands while a tool
+call is in flight; tool delay fixed at 3.0 s so the interruption lands while
 work is in flight. Trials split evenly across four interruption types
 (follow-up, negation, repetition request, topic switch) following the HumDial
 Track II taxonomy. Metric names follow Full-Duplex-Bench v2 (correction
@@ -139,9 +140,23 @@ correctness and is **not** a claimed result; no acceptance test is run for it.
    published.
 5. **Single operator, single machine, single network.** No cross-device or
    cross-network replication.
-6. **Citations are secondary.** The four papers above were located via search
-   and used for protocol and terminology. Claims attributed to them should be
-   read as "protocol adapted from", not as reproduction of their results.
+6. **Citation verification status, stated explicitly.**
+   - *EchoChain* (arXiv:2604.16456) - **verified**. Title and abstract confirm
+     it is a full-duplex benchmark for state-update reasoning under
+     interruptions. This is the paper whose framing this project follows: that
+     the thing to measure is state correctness after an interruption, not audio
+     timing alone.
+   - *Instruct-FD* (arXiv:2607.20460) - **title and topic verified** as an
+     instruction-conditioned benchmark for controllable turn management. Its
+     specific barge-in injection timing was **not** verified against the paper,
+     so no numeric protocol is attributed to it here.
+   - *Full-Duplex-Bench v2* (arXiv:2510.07838) and the *HumDial Challenge*
+     (arXiv:2601.05564) - pages resolve; used for metric vocabulary
+     (correction handling, entity tracking) and the interruption taxonomy.
+     Not independently verified beyond that.
+
+   None of these results are reproduced here. Where terminology is borrowed it
+   is named as borrowed.
 
 7. **The Spoken Ledger records, but does not yet diff.** `agent.py` passes the
    same string as `intended` and `spoken`, so `truncated_chars_total` is always
