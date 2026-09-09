@@ -1,0 +1,22 @@
+{
+  "clip_001.wav": {
+    "provider": "Cartesia",
+    "item": "id-2",
+    "text": "Order VX-207, not VX-270."
+  },
+  "clip_002.wav": {
+    "provider": "Rime",
+    "item": "id-2",
+    "text": "Order VX-207, not VX-270."
+  },
+  "clip_003.wav": {
+    "provider": "Rime",
+    "item": "id-1",
+    "text": "The part is HP-4412."
+  },
+  "clip_004.wav": {
+    "provider": "Cartesia",
+    "item": "id-1",
+    "text": "The part is HP-4412."
+  }
+}
