@@ -4,6 +4,9 @@ A hands-busy voice assistant for field and counter work. Speech is the only inte
 
 Built for DataForge 2026, Rime track. Hard voice problem: **interruption and recovery during in-flight tool work.**
 
+**Demo:** _<!-- DEMO_LINK -->paste the recording link here<!-- /DEMO_LINK -->_
+**Repository:** https://github.com/Aloneinthemultiverse/techbench
+
 ---
 
 ## 1. What it can do
