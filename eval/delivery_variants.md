@@ -82,6 +82,30 @@ one or two short sentences and no conversational padding.
 
 ---
 
+## Against Rime's own guidance
+
+Rime's "Writing for the ear" guide (Brooke Larson) recommends writing the way
+people speak: contractions, starting sentences with "and" or "but", and **light
+disfluencies where a person would pause to think** - "um", "well", "I mean". It
+also notes that punctuation is the only prosody control available: commas for
+short pauses, periods for sentence-ending pauses, ellipses for hesitation.
+
+Two of those were adopted and one was deliberately rejected, on evidence:
+
+- **Punctuation as prosody: adopted.** §2 uses full stops between specification
+  fields precisely because they are the available pause control. The measured
+  cost is +11%.
+- **Short sentences: adopted**, and enforced in the agent's system prompt.
+- **Light disfluencies: rejected for this product.** §4 measures a filler at
+  **+44% on an acknowledgement**. The guide's advice is aimed at conversational
+  naturalness; this product's acknowledgement exists to tell a technician with
+  both hands occupied that they were heard, as fast as possible. Naturalness is
+  not the goal there, and 0.62 s is a large fraction of a barge-in window.
+
+That is a disagreement with the vendor's guidance made on measurement, for one
+narrow use case. In a coaching, role-play or storytelling product the guide's
+recommendation would very likely be the right call.
+
 ## What this changed in the shipped product
 
 1. **Removed** the spoken-form map for part codes. Measured as redundant and 33% slower.

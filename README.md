@@ -211,6 +211,16 @@ Full method, procedure and limitations: **[RIME_EVIDENCE.md](RIME_EVIDENCE.md)**
 | Integration | `livekit-plugins-rime` 1.8.0, direct plugin, own API key |
 | Controls | `speed_alpha=0.9` |
 
+### Preflight
+
+Everything an organizer preflight needs is above and machine-checkable from the
+running agent: model `coda`, speaker `lyra`, language `eng`, endpoint
+`wss://users-ws.rime.ai`, PCM 22050 Hz mono, WebRTC via LiveKit Cloud, using
+`livekit-plugins-rime` 1.8.0 with our own key. Speaker and language were pulled
+from Rime's live catalog at build time via Rime's MCP `list_voices`, not copied
+from a stale list. `.env.example` contains placeholders only and no credential
+appears in any tracked file.
+
 **No TTS fallback.** Rime is the only speech provider in the judged flow; if it fails the agent is silent. The active provider is displayed in the console header at all times.
 
 ### Pronunciation was measured, not assumed
