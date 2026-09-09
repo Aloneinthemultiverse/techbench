@@ -1,0 +1,9 @@
+# Pinned to the versions this project was built and measured against.
+# Python 3.12 (3.13+ untested; some audio deps lag new releases).
+
+livekit-agents==1.8.0
+livekit-plugins-rime==1.8.0
+livekit-plugins-openai==1.8.0
+python-dotenv==1.2.3
+pypdf==6.18.0
+aiohttp==3.14.3

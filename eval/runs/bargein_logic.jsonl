@@ -3178,3 +3178,543 @@
 {"t_ms": 5442.97, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial19_topic_switch"}
 {"t_ms": 5443.05, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
 {"t_ms": 5443.08, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 0.36, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial0_initial"}
+{"t_ms": 48.94, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 49.25, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial0_follow_up"}
+{"t_ms": 49.34, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 49.54, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 49.62, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 49.7, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial1_initial"}
+{"t_ms": 110.58, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 110.74, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial1_negation"}
+{"t_ms": 110.79, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 110.86, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 110.9, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 110.94, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial2_initial"}
+{"t_ms": 156.47, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 156.81, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial2_repetition_request"}
+{"t_ms": 156.89, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 157.0, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 157.05, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 157.1, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial3_initial"}
+{"t_ms": 218.17, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 218.33, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial3_topic_switch"}
+{"t_ms": 218.38, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 218.46, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 218.49, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 218.54, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial4_initial"}
+{"t_ms": 280.89, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 281.02, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial4_follow_up"}
+{"t_ms": 281.18, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 281.3, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 281.52, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 281.93, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial5_initial"}
+{"t_ms": 342.26, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 342.39, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial5_negation"}
+{"t_ms": 342.42, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 342.48, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 342.51, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 342.56, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial6_initial"}
+{"t_ms": 388.12, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 388.26, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial6_repetition_request"}
+{"t_ms": 388.3, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 388.36, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 388.38, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 388.42, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial7_initial"}
+{"t_ms": 435.12, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 435.32, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial7_topic_switch"}
+{"t_ms": 435.51, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 435.77, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 435.88, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 435.93, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial8_initial"}
+{"t_ms": 482.57, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 482.73, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial8_follow_up"}
+{"t_ms": 482.78, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 482.86, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 482.9, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 483.06, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial9_initial"}
+{"t_ms": 530.84, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 530.98, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial9_negation"}
+{"t_ms": 531.02, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 531.12, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 531.15, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 531.3, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial10_initial"}
+{"t_ms": 591.97, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 592.31, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial10_repetition_request"}
+{"t_ms": 592.38, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 592.48, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 592.51, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 592.56, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial11_initial"}
+{"t_ms": 654.77, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 654.91, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial11_topic_switch"}
+{"t_ms": 654.94, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 655.01, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 655.04, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 655.08, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial12_initial"}
+{"t_ms": 701.88, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 702.01, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial12_follow_up"}
+{"t_ms": 702.05, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 702.13, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 702.16, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 702.19, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial13_initial"}
+{"t_ms": 748.44, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 748.67, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial13_negation"}
+{"t_ms": 748.75, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 749.14, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 749.27, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 749.32, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial14_initial"}
+{"t_ms": 810.43, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 810.64, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial14_repetition_request"}
+{"t_ms": 810.69, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 810.8, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 810.84, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 810.89, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial15_initial"}
+{"t_ms": 872.33, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 872.54, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial15_topic_switch"}
+{"t_ms": 872.6, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 872.68, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 872.71, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 872.75, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial16_initial"}
+{"t_ms": 934.05, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 934.21, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial16_follow_up"}
+{"t_ms": 934.24, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 934.31, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 934.33, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 934.37, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial17_initial"}
+{"t_ms": 995.38, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 995.53, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial17_negation"}
+{"t_ms": 995.56, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 995.62, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 995.65, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 995.69, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial18_initial"}
+{"t_ms": 1057.56, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 1057.83, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial18_repetition_request"}
+{"t_ms": 1057.97, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1058.08, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1058.11, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1058.15, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial19_initial"}
+{"t_ms": 1120.54, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 1120.68, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial19_topic_switch"}
+{"t_ms": 1120.71, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1120.87, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1121.13, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1121.19, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial0_initial"}
+{"t_ms": 1182.15, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 1182.62, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial0_follow_up"}
+{"t_ms": 1182.69, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1182.77, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1182.8, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1182.84, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial1_initial"}
+{"t_ms": 1244.11, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 1244.25, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial1_negation"}
+{"t_ms": 1244.29, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1244.35, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1244.38, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1244.42, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial2_initial"}
+{"t_ms": 1290.82, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 1290.97, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial2_repetition_request"}
+{"t_ms": 1291.0, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1291.07, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1291.11, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1291.15, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial3_initial"}
+{"t_ms": 1337.26, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 1337.41, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial3_topic_switch"}
+{"t_ms": 1337.44, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1337.51, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1337.55, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1337.59, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial4_initial"}
+{"t_ms": 1384.02, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 1384.16, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial4_follow_up"}
+{"t_ms": 1384.2, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1384.27, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1384.31, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1384.35, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial5_initial"}
+{"t_ms": 1447.74, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 1447.97, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial5_negation"}
+{"t_ms": 1448.03, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1448.19, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1448.6, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1448.86, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial6_initial"}
+{"t_ms": 1509.77, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 1509.93, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial6_repetition_request"}
+{"t_ms": 1509.98, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1510.06, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1510.13, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1510.17, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial7_initial"}
+{"t_ms": 1572.04, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 1572.18, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial7_topic_switch"}
+{"t_ms": 1572.22, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1572.29, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1572.32, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1572.35, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial8_initial"}
+{"t_ms": 1632.79, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 1633.31, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial8_follow_up"}
+{"t_ms": 1633.5, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1633.61, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1633.64, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1633.68, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial9_initial"}
+{"t_ms": 1681.58, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 1681.87, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial9_negation"}
+{"t_ms": 1682.1, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1682.44, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1682.57, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1682.65, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial10_initial"}
+{"t_ms": 1742.65, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 1742.8, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial10_repetition_request"}
+{"t_ms": 1742.86, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1742.95, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1742.99, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1743.05, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial11_initial"}
+{"t_ms": 1804.03, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 1804.29, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial11_topic_switch"}
+{"t_ms": 1804.42, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1804.54, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1804.57, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1804.62, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial12_initial"}
+{"t_ms": 1850.68, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 1850.84, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial12_follow_up"}
+{"t_ms": 1850.88, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1850.98, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1851.0, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1851.04, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial13_initial"}
+{"t_ms": 1914.67, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 1914.88, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial13_negation"}
+{"t_ms": 1915.09, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1915.54, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1915.63, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1915.68, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial14_initial"}
+{"t_ms": 1974.3, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 1974.45, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial14_repetition_request"}
+{"t_ms": 1974.48, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 1974.55, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 1974.58, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 1974.62, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial15_initial"}
+{"t_ms": 2036.07, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 2036.21, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial15_topic_switch"}
+{"t_ms": 2036.25, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 2036.31, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 2036.34, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2036.38, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial16_initial"}
+{"t_ms": 2083.67, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 2083.81, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial16_follow_up"}
+{"t_ms": 2083.84, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 2083.91, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 2083.95, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2083.99, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial17_initial"}
+{"t_ms": 2145.32, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 2145.47, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial17_negation"}
+{"t_ms": 2145.51, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 2145.57, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 2145.6, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2145.64, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial18_initial"}
+{"t_ms": 2193.13, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 2228.3, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial18_repetition_request"}
+{"t_ms": 2228.42, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 2228.53, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 2228.56, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2228.62, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial19_initial"}
+{"t_ms": 2287.54, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 2287.68, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial19_topic_switch"}
+{"t_ms": 2287.72, "kind": "tool_cancelled", "turn_id": 1}
+{"t_ms": 2287.8, "kind": "tool_cancelled_await", "turn_id": 1}
+{"t_ms": 2287.83, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2287.9, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial0_initial"}
+{"t_ms": 2349.22, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 2349.89, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial0_follow_up"}
+{"t_ms": 2350.23, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 2350.42, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2350.6, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial1_initial"}
+{"t_ms": 2410.71, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 2410.84, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial1_negation"}
+{"t_ms": 2410.92, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 2410.96, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2410.99, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial2_initial"}
+{"t_ms": 2457.66, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 2457.79, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial2_repetition_request"}
+{"t_ms": 2457.86, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 2457.89, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2457.94, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial3_initial"}
+{"t_ms": 2519.16, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 2519.3, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial3_topic_switch"}
+{"t_ms": 2519.36, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 2519.39, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2519.44, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial4_initial"}
+{"t_ms": 2566.25, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 2566.55, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial4_follow_up"}
+{"t_ms": 2566.73, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 2566.77, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2566.8, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial5_initial"}
+{"t_ms": 2628.45, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 2628.69, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial5_negation"}
+{"t_ms": 2628.76, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 2628.78, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2628.82, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial6_initial"}
+{"t_ms": 2689.87, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 2690.06, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial6_repetition_request"}
+{"t_ms": 2690.15, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 2690.34, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2690.42, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial7_initial"}
+{"t_ms": 2736.58, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 2736.7, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial7_topic_switch"}
+{"t_ms": 2736.76, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 2736.79, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2736.83, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial8_initial"}
+{"t_ms": 2784.1, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 2784.37, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial8_follow_up"}
+{"t_ms": 2784.51, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 2784.55, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2784.58, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial9_initial"}
+{"t_ms": 2830.94, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 2831.69, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial9_negation"}
+{"t_ms": 2832.11, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 2832.32, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2832.43, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial10_initial"}
+{"t_ms": 2893.37, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 2893.58, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial10_repetition_request"}
+{"t_ms": 2893.71, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 2893.79, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2893.87, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial11_initial"}
+{"t_ms": 2955.39, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 2955.58, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial11_topic_switch"}
+{"t_ms": 2955.67, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 2955.73, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 2955.79, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial12_initial"}
+{"t_ms": 3002.52, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 3002.65, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial12_follow_up"}
+{"t_ms": 3002.71, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 3002.74, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3002.77, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial13_initial"}
+{"t_ms": 3049.58, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 3049.72, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial13_negation"}
+{"t_ms": 3049.79, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 3050.03, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3050.18, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial14_initial"}
+{"t_ms": 3112.2, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 3112.36, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial14_repetition_request"}
+{"t_ms": 3112.42, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 3112.45, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3112.49, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial15_initial"}
+{"t_ms": 3173.67, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 3173.8, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial15_topic_switch"}
+{"t_ms": 3173.86, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 3173.89, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3173.93, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial16_initial"}
+{"t_ms": 3220.39, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 3220.52, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial16_follow_up"}
+{"t_ms": 3220.58, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 3220.61, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3220.65, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial17_initial"}
+{"t_ms": 3267.84, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 3267.96, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial17_negation"}
+{"t_ms": 3268.02, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 3268.05, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3268.08, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial18_initial"}
+{"t_ms": 3315.21, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 3315.58, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial18_repetition_request"}
+{"t_ms": 3316.14, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 3316.22, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3316.29, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial19_initial"}
+{"t_ms": 3375.81, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 3376.0, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial19_topic_switch"}
+{"t_ms": 3376.11, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 3376.14, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3376.18, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial0_initial"}
+{"t_ms": 3437.75, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 3437.9, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial0_follow_up"}
+{"t_ms": 3437.94, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 3437.97, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3438.02, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial1_initial"}
+{"t_ms": 3484.58, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 3484.72, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial1_negation"}
+{"t_ms": 3484.77, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 3484.8, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3484.85, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial2_initial"}
+{"t_ms": 3532.64, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 3532.86, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial2_repetition_request"}
+{"t_ms": 3532.95, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 3533.01, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3533.17, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial3_initial"}
+{"t_ms": 3592.53, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 3592.71, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial3_topic_switch"}
+{"t_ms": 3592.76, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 3592.98, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3593.08, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial4_initial"}
+{"t_ms": 3640.07, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 3640.2, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial4_follow_up"}
+{"t_ms": 3640.25, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 3640.27, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3640.32, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial5_initial"}
+{"t_ms": 3687.98, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 3688.2, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial5_negation"}
+{"t_ms": 3688.3, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 3688.36, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3688.42, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial6_initial"}
+{"t_ms": 3749.59, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 3749.75, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial6_repetition_request"}
+{"t_ms": 3749.91, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 3749.95, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3750.02, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial7_initial"}
+{"t_ms": 3811.41, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 3811.56, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial7_topic_switch"}
+{"t_ms": 3811.62, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 3811.66, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3811.71, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial8_initial"}
+{"t_ms": 3858.82, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 3858.99, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial8_follow_up"}
+{"t_ms": 3859.04, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 3859.07, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3859.13, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial9_initial"}
+{"t_ms": 3907.21, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 3907.35, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial9_negation"}
+{"t_ms": 3907.39, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 3907.42, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3907.46, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial10_initial"}
+{"t_ms": 3955.0, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 3955.13, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial10_repetition_request"}
+{"t_ms": 3955.18, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 3955.25, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 3955.31, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial11_initial"}
+{"t_ms": 4001.6, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 4001.76, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial11_topic_switch"}
+{"t_ms": 4001.8, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 4001.83, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4001.88, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial12_initial"}
+{"t_ms": 4049.91, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 4050.11, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial12_follow_up"}
+{"t_ms": 4050.33, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 4050.38, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4050.44, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial13_initial"}
+{"t_ms": 4098.95, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 4099.21, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial13_negation"}
+{"t_ms": 4099.48, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 4099.63, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4099.74, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial14_initial"}
+{"t_ms": 4158.91, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 4159.16, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial14_repetition_request"}
+{"t_ms": 4159.29, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 4159.33, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4159.38, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial15_initial"}
+{"t_ms": 4205.7, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 4205.85, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial15_topic_switch"}
+{"t_ms": 4205.89, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 4205.92, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4205.97, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial16_initial"}
+{"t_ms": 4252.53, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 4252.65, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial16_follow_up"}
+{"t_ms": 4252.69, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 4252.72, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4252.76, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial17_initial"}
+{"t_ms": 4308.6, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 4308.73, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial17_negation"}
+{"t_ms": 4308.77, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 4308.8, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4308.85, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial18_initial"}
+{"t_ms": 4362.42, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 4362.58, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial18_repetition_request"}
+{"t_ms": 4362.61, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 4362.64, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4362.68, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial19_initial"}
+{"t_ms": 4409.61, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 4409.8, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial19_topic_switch"}
+{"t_ms": 4409.86, "kind": "fence_drop", "what": "tool_result", "result_turn": 1, "current_turn": 2}
+{"t_ms": 4409.9, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4409.94, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial0_initial"}
+{"t_ms": 4470.63, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 4470.77, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial0_follow_up"}
+{"t_ms": 4470.81, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 4470.84, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4470.89, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial1_initial"}
+{"t_ms": 4532.17, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 4532.46, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial1_negation"}
+{"t_ms": 4532.57, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 4532.63, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4532.7, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial2_initial"}
+{"t_ms": 4594.51, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 4594.64, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial2_repetition_request"}
+{"t_ms": 4594.68, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 4594.71, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4594.76, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial3_initial"}
+{"t_ms": 4640.32, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 4640.54, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial3_topic_switch"}
+{"t_ms": 4640.64, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 4640.67, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4640.73, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial4_initial"}
+{"t_ms": 4686.87, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 4687.01, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial4_follow_up"}
+{"t_ms": 4687.05, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 4687.08, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4687.13, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial5_initial"}
+{"t_ms": 4733.47, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 4733.66, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial5_negation"}
+{"t_ms": 4733.87, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 4734.12, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4734.25, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial6_initial"}
+{"t_ms": 4795.19, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 4795.33, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial6_repetition_request"}
+{"t_ms": 4795.37, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 4795.4, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4795.45, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial7_initial"}
+{"t_ms": 4841.62, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 4841.75, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial7_topic_switch"}
+{"t_ms": 4841.8, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 4841.83, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4841.87, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial8_initial"}
+{"t_ms": 4902.95, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 4903.07, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial8_follow_up"}
+{"t_ms": 4903.12, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 4903.15, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4903.19, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial9_initial"}
+{"t_ms": 4951.45, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 4954.46, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial9_negation"}
+{"t_ms": 4954.59, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 4954.63, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 4954.68, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial10_initial"}
+{"t_ms": 5015.55, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 5015.82, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial10_repetition_request"}
+{"t_ms": 5015.93, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 5015.99, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 5016.07, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial11_initial"}
+{"t_ms": 5075.99, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 5076.14, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial11_topic_switch"}
+{"t_ms": 5076.19, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 5076.21, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 5076.26, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial12_initial"}
+{"t_ms": 5122.84, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 5122.98, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial12_follow_up"}
+{"t_ms": 5123.03, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 5123.06, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 5123.1, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial13_initial"}
+{"t_ms": 5169.07, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 5169.21, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial13_negation"}
+{"t_ms": 5169.26, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 5169.29, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 5169.34, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial14_initial"}
+{"t_ms": 5217.03, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 5217.17, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial14_repetition_request"}
+{"t_ms": 5217.21, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 5217.24, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 5217.29, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial15_initial"}
+{"t_ms": 5264.82, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 5264.94, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial15_topic_switch"}
+{"t_ms": 5264.99, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 5265.04, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 5265.09, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial16_initial"}
+{"t_ms": 5326.82, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 5326.96, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial16_follow_up"}
+{"t_ms": 5327.0, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 5327.03, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 5327.11, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial17_initial"}
+{"t_ms": 5389.05, "kind": "spoken", "interrupted": true, "intended_chars": 52, "spoken_chars": 35, "truncated_chars": 17}
+{"t_ms": 5389.19, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial17_negation"}
+{"t_ms": 5389.23, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 5389.26, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 5389.31, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial18_initial"}
+{"t_ms": 5450.59, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 5450.85, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial18_repetition_request"}
+{"t_ms": 5450.92, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 5451.15, "kind": "commit", "what": "tool_result", "turn_id": 2}
+{"t_ms": 5451.27, "kind": "turn_start", "turn_id": 1, "superseded": 0, "reason": "trial19_initial"}
+{"t_ms": 5511.6, "kind": "spoken", "interrupted": true, "intended_chars": 53, "spoken_chars": 36, "truncated_chars": 17}
+{"t_ms": 5511.77, "kind": "turn_start", "turn_id": 2, "superseded": 1, "reason": "trial19_topic_switch"}
+{"t_ms": 5511.88, "kind": "commit_unfenced", "what": "tool_result", "result_turn": 1}
+{"t_ms": 5511.94, "kind": "commit", "what": "tool_result", "turn_id": 2}

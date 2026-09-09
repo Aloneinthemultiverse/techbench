@@ -9,7 +9,46 @@ Built for DataForge 2026, Rime track. Hard voice problem: **interruption and rec
 
 ---
 
-## 1. What it can do
+---
+
+## Quickstart
+
+```
+py -3.12 -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+copy .env.example .env
+```
+
+`.env` needs `RIME_API_KEY`, `LIVEKIT_URL`, `LIVEKIT_API_KEY`, `LIVEKIT_API_SECRET`. Never commit it; `.gitignore` excludes it.
+
+**Terminal only** (simplest — local mic, no browser):
+
+```
+.venv\Scripts\python.exe agent.py console
+```
+
+**With the web console:**
+
+```
+.venv\Scripts\python.exe agent.py dev
+.venv\Scripts\python.exe server.py
+```
+
+Open the URL the server prints, click **Connect mic**. Use a headset — on laptop speakers the agent hears itself and self-interrupts.
+
+Test protocol: **[TESTING.md](TESTING.md)**.
+
+No microphone? The evidence harness runs offline in about a second:
+
+```
+.venv\Scripts\python.exe eval/run_bargein.py
+```
+
+---
+
+---
+
+## What it can do
 
 ### Interruption and recovery ⭐ *the claimed capability*
 
@@ -78,41 +117,9 @@ Exposed: `kb_search` · `kb_add` · `kb_stats` · `draft_email` · `list_drafts`
 
 ---
 
-## 2. Latency
-
-Measured across a live 1731-event session, using LiveKit's own instrumentation rather than our timers.
-
-| Hop | Median | n |
-|---|---|---|
-| End-of-utterance detection | 948 ms | 139 |
-| Transcription | 385 ms | 139 |
-| LLM first token | 1143 ms | 185 |
-| **Rime time-to-first-byte** | **369 ms** | 189 |
-| Time to silence on barge-in | 1053 ms | 6 |
-
-**Rime is the fastest hop in the pipeline**, despite being the furthest away.
-
-### Why the numbers look like this
-
-DNS resolves both Rime hosts to **AWS us-west-2 (Oregon)**. From India that imposes a **~270 ms round-trip floor**, and no APAC endpoint is published. One-shot HTTP measured ~915 ms TTFB warm, of which ~547 ms was TCP+TLS. The shipped path holds a persistent WebSocket, which is why in-session TTFB is 369 ms — the handshake is paid once per session, not per utterance.
-
-### The model was chosen by measurement
-
-TTFT benchmark from India, n=3 each (`eval/llm_latency.py`):
-
-| Model | Median TTFT |
-|---|---|
-| `openai/gpt-oss-120b` | 908 ms |
-| `openai/gpt-4.1-nano` | 1064 ms |
-| **`openai/gpt-4.1-mini`** *(shipped)* | 1134 ms |
-| `google/gemini-3.1-flash-lite` | 1193 ms |
-| `xai/grok-4-1-fast-non-reasoning` | 4647 ms |
-
-The model branded *"fast"* was five times slower than the fastest. `gpt-4.1-mini` ships because it is the configuration verified across the full recorded session; stability was preferred over ~200 ms.
-
 ---
 
-## 3. How it works
+## How it works
 
 ```mermaid
 flowchart TD
@@ -160,7 +167,9 @@ It is tool-agnostic. The agent grew from two tools to nine without one line of n
 
 ---
 
-## 4. Evidence
+---
+
+## Evidence
 
 Four arms, one harness. The baseline is not this project with a line deleted — it is the pattern used by **LiveKit's own reference agent**, which has no turn id, no fence and no task tracking (verified by inspection; archived at `eval/baseline/`).
 
@@ -201,7 +210,45 @@ Full method, procedure and limitations: **[RIME_EVIDENCE.md](RIME_EVIDENCE.md)**
 
 ---
 
-## 5. Rime configuration
+---
+
+## Latency
+
+Measured across a live 1731-event session, using LiveKit's own instrumentation rather than our timers.
+
+| Hop | Median | n |
+|---|---|---|
+| End-of-utterance detection | 948 ms | 139 |
+| Transcription | 385 ms | 139 |
+| LLM first token | 1143 ms | 185 |
+| **Rime time-to-first-byte** | **369 ms** | 189 |
+| Time to silence on barge-in | 1053 ms | 6 |
+
+**Rime is the fastest hop in the pipeline**, despite being the furthest away.
+
+### Why the numbers look like this
+
+DNS resolves both Rime hosts to **AWS us-west-2 (Oregon)**. From India that imposes a **~270 ms round-trip floor**, and no APAC endpoint is published. One-shot HTTP measured ~915 ms TTFB warm, of which ~547 ms was TCP+TLS. The shipped path holds a persistent WebSocket, which is why in-session TTFB is 369 ms — the handshake is paid once per session, not per utterance.
+
+### The model was chosen by measurement
+
+TTFT benchmark from India, n=3 each (`eval/llm_latency.py`):
+
+| Model | Median TTFT |
+|---|---|
+| `openai/gpt-oss-120b` | 908 ms |
+| `openai/gpt-4.1-nano` | 1064 ms |
+| **`openai/gpt-4.1-mini`** *(shipped)* | 1134 ms |
+| `google/gemini-3.1-flash-lite` | 1193 ms |
+| `xai/grok-4-1-fast-non-reasoning` | 4647 ms |
+
+The model branded *"fast"* was five times slower than the fastest. `gpt-4.1-mini` ships because it is the configuration verified across the full recorded session; stability was preferred over ~200 ms.
+
+---
+
+---
+
+## Rime configuration
 
 | Field | Value |
 |---|---|
@@ -244,21 +291,9 @@ Checked with Rime's own `normalize_text` and `check_dictionary` before writing a
 
 ---
 
-## 6. Relation to what has already shipped
+---
 
-The brief asks that the Rime project catalog be reviewed first, and that
-submissions not be close reproductions. The published examples are
-`rimelabs/rime-livekit-agents` (a basic STT to LLM to TTS loop),
-`livekit-examples/rime-multilingual-demo` (automatic language detection and
-dynamic voice switching across four languages), and several full-stack
-conversational demos.
-
-**This project's multilingual switching overlaps that second example and is
-therefore not claimed as a contribution.** None of the shipped examples address
-what happens to in-flight tool results when a user interrupts, which is the one
-thing measured here.
-
-## 7. Coverage of the brief's voice problems
+## Coverage of the brief's voice problems
 
 One problem is claimed and measured. The others are product quality, reported without a claim.
 
@@ -275,36 +310,25 @@ One problem is claimed and measured. The others are product quality, reported wi
 
 ---
 
-## 8. Setup
+---
 
-```
-py -3.12 -m venv .venv
-.venv\Scripts\python.exe -m pip install "livekit-agents[rime,openai]~=1.6" python-dotenv pypdf
-copy .env.example .env
-```
+## Relation to what has already shipped
 
-`.env` needs `RIME_API_KEY`, `LIVEKIT_URL`, `LIVEKIT_API_KEY`, `LIVEKIT_API_SECRET`. Never commit it; `.gitignore` excludes it.
+The brief asks that the Rime project catalog be reviewed first, and that
+submissions not be close reproductions. The published examples are
+`rimelabs/rime-livekit-agents` (a basic STT to LLM to TTS loop),
+`livekit-examples/rime-multilingual-demo` (automatic language detection and
+dynamic voice switching across four languages), and several full-stack
+conversational demos.
 
-**Terminal only** (simplest — local mic, no browser):
-
-```
-.venv\Scripts\python.exe agent.py console
-```
-
-**With the web console:**
-
-```
-.venv\Scripts\python.exe agent.py dev
-.venv\Scripts\python.exe server.py
-```
-
-Open the URL the server prints, click **Connect mic**. Use a headset — on laptop speakers the agent hears itself and self-interrupts.
-
-Test protocol: **[TESTING.md](TESTING.md)**.
+**This project's multilingual switching overlaps that second example and is
+therefore not claimed as a contribution.** None of the shipped examples address
+what happens to in-flight tool results when a user interrupts, which is the one
+thing measured here.
 
 ---
 
-## 9. Third-party services
+## Third-party services
 
 | Service | Role | Key |
 |---|---|---|
@@ -317,7 +341,9 @@ Test protocol: **[TESTING.md](TESTING.md)**.
 
 ---
 
-## 10. What is live, synthetic or simulated
+---
+
+## What is live, synthetic or simulated
 
 | Component | Status |
 |---|---|
@@ -335,7 +361,9 @@ Nothing here is animated or scripted.
 
 ---
 
-## 11. Known limitations and failure behaviour
+---
+
+## Known limitations and failure behaviour
 
 - **The live fence sample is n=1.** Most interruptions are caught by cancellation before a result reaches the fence. The 20-trial ablation proves the mechanism; the live drop proves it fires on the real audio path.
 - **The 20-trial result is logic-level.** It drives the real `TurnController`, `Fenced` and `SpokenLedger` objects on a simulated timeline. It proves the invariant; it does not measure acoustic timing.
@@ -351,10 +379,12 @@ Nothing here is animated or scripted.
 
 ---
 
-## 12. Repository
+---
+
+## Repository
 
 ```
-agent.py       the voice agent: STT/LLM/TTS wiring, nine tools, event hooks
+agent.py       the voice agent: STT/LLM/TTS wiring, tools, event hooks
 fence.py       TurnController, Fenced, SpokenLedger, EventLog
 kb.py          retrieval over the business knowledge base (PDF/MD/TXT)
 tools.py       live web search
@@ -364,6 +394,7 @@ mail.py        email drafting (never sends)
 mcp_server.py  MCP server exposing the business layer
 server.py      LiveKit token minting, static serving, SSE event stream
 web/           browser client + live metrics console
+docs/deck.html the project deck
 kb/            business documents - drop PDFs here
 eval/
   run_bargein.py          20 trials + ablation (no microphone needed)
@@ -376,9 +407,13 @@ eval/
 
 ---
 
-## 13. Credits, licences and AI assistance
+---
+
+## Credits, licences and AI assistance
 
 - Built on [LiveKit Agents](https://github.com/livekit/agents) (Apache-2.0).
 - Speech synthesis by [Rime](https://rime.ai).
 - Prior art and terminology from the papers listed in [RIME_EVIDENCE.md](RIME_EVIDENCE.md). Those citations were located by search and used for protocol and vocabulary; they are not reproduced.
+- **Licence:** MIT, see [LICENSE](LICENSE). Dependencies are pinned in
+  [requirements.txt](requirements.txt).
 - **AI assistance:** built with Claude Code. Architecture, scoping and code were produced in dialogue; the author reviewed, ran and can defend every component. The pronunciation map was written, tested against Rime's normalizer, found redundant and removed — an example of the review process rather than acceptance of generated output.
