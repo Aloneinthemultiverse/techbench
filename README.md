@@ -9,8 +9,6 @@ Built for DataForge 2026, Rime track. Hard voice problem: **interruption and rec
 
 ---
 
----
-
 ## Who this is for
 
 The mechanism is a voice agent that answers from a business's own documents and
@@ -84,8 +82,6 @@ No microphone? The evidence harness runs offline in about a second:
 ```
 .venv\Scripts\python.exe eval/run_bargein.py
 ```
-
----
 
 ---
 
@@ -190,8 +186,6 @@ Exposed: `kb_search` · `kb_add` · `kb_stats` · `draft_email` · `list_drafts`
 
 ---
 
----
-
 ## How it works
 
 ```mermaid
@@ -240,8 +234,6 @@ It is tool-agnostic. The agent grew from two tools to nine without one line of n
 
 ---
 
----
-
 ## Evidence
 
 Four arms, one harness. The baseline is not this project with a line deleted — it is the pattern used by **LiveKit's own reference agent**, which has no turn id, no fence and no task tracking (verified by inspection; archived at `eval/baseline/`).
@@ -283,8 +275,6 @@ Full method, procedure and limitations: **[RIME_EVIDENCE.md](RIME_EVIDENCE.md)**
 
 ---
 
----
-
 ## Latency
 
 Measured across a live 1731-event session, using LiveKit's own instrumentation rather than our timers.
@@ -316,8 +306,6 @@ TTFT benchmark from India, n=3 each (`eval/llm_latency.py`):
 | `xai/grok-4-1-fast-non-reasoning` | 4647 ms |
 
 The model branded *"fast"* was five times slower than the fastest. `gpt-4.1-mini` ships because it is the configuration verified across the full recorded session; stability was preferred over ~200 ms.
-
----
 
 ---
 
@@ -364,8 +352,6 @@ Checked with Rime's own `normalize_text` and `check_dictionary` before writing a
 
 ---
 
----
-
 ## Coverage of the brief's voice problems
 
 One problem is claimed and measured. The others are product quality, reported without a claim.
@@ -380,8 +366,6 @@ One problem is claimed and measured. The others are product quality, reported wi
 | Evaluation and observability | built — event log, console, scorer, ablation harness, MCP server |
 | Expressive and persistent voice identity | partial — one voice, one persona, consistent across turns |
 | Telephony and adverse audio | **not attempted** — no SIP trunk, and browser-mic results do not prove telephone performance |
-
----
 
 ---
 
@@ -414,8 +398,6 @@ thing measured here.
 
 ---
 
----
-
 ## What is live, synthetic or simulated
 
 | Component | Status |
@@ -435,8 +417,6 @@ Nothing here is animated or scripted.
 
 ---
 
----
-
 ## Known limitations and failure behaviour
 
 - **The live fence sample is n=1.** Most interruptions are caught by cancellation before a result reaches the fence. The 20-trial ablation proves the mechanism; the live drop proves it fires on the real audio path.
@@ -451,8 +431,6 @@ Nothing here is animated or scripted.
 - **If Rime is unavailable the agent is silent** — by design, since a fallback provider would violate the requirement that Rime be the primary output.
 - **The Android bridge has never worked end to end.** ARTEMIS's model calls time out on a free-tier key, and its per-task time is minutes rather than seconds. It is wired in and fenced, but it is not a working feature.
 - **Telephony is untested and not claimed.** The architecture is transport-agnostic (LiveKit supports SIP), but that is a statement of design, not a result.
-
----
 
 ---
 
@@ -480,8 +458,6 @@ eval/
   runs/                   event logs and result JSON
   audio/                  sample Rime output
 ```
-
----
 
 ---
 
