@@ -88,25 +88,37 @@ Tools granted: **Read, Write, Edit, Glob, Grep — never Bash.** Speech recognit
 
 *"Make me a python project called scraper."* Real folders and files on disk — `main.py`, `requirements.txt`, `README.md`, or `index.html` / `style.css` for a web project.
 
-### It can drive an Android phone — experimental, unverified
+### It can control your Android phone by voice
 
-Bridges a spoken instruction to [ARTEMIS](https://github.com/google/artemis),
-Google's natural-language Android automation, over ADB:
-*"open the manual app and search for HP-4412."*
+Connect a phone over USB or wireless ADB and drive it by speaking. The
+instruction goes to [ARTEMIS](https://github.com/google/artemis), Google's
+natural-language Android automation, which uses an LLM to read the screen and
+decide what to tap:
 
-**This is not a working feature and is not claimed as one.** It is wired in
-behind the same fence as every other tool, but it has never completed a task
-end to end on this machine. Two things block it, both recorded honestly:
+> *"Open the manual app and search for HP-4412."*
+> *"What's the battery level on the phone?"*
+
+No scripting, no per-app integration — the model looks at the screen and works
+out the taps. The point for this product is direct: a technician with both
+hands inside a machine cannot pick up a phone, and this is the one capability
+where that is literally true.
+
+**Setup:** install ARTEMIS, connect a device (`adb devices` shows it), set a
+Gemini key. `ARTEMIS_DIR` points at the install; defaults to `~/artemis`.
+
+**Status: experimental, and not claimed as a result.** It is wired in behind
+the same fence as every other tool, and the bridge is correct — but it has not
+completed a task end to end on this machine. Two things block it:
 
 - ARTEMIS's model calls time out (`TimeoutError: LLM call timed out after 180
   seconds`) on a free-tier key under rate limiting.
 - Even working, ARTEMIS takes **minutes** per task. That is a background job,
-  not a voice turn — three minutes of silence is not a conversation. Making
-  this usable would mean reporting asynchronously, which is a design change,
-  not a configuration one.
+  not a voice turn — three minutes of silence is not a conversation. Making it
+  usable means reporting asynchronously, which is a design change rather than
+  a configuration one.
 
-It is included because the direction is right for the product — a technician
-with both hands occupied cannot pick up a phone — not because it works today.
+Included because the direction is right, and labelled honestly because it has
+not been demonstrated.
 
 ### It can operate your computer
 
