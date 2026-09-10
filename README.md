@@ -16,6 +16,11 @@ never speaks an answer the caller has withdrawn. That shape fits anywhere a
 person needs a spoken answer they can act on, and where a confident wrong answer
 is worse than no answer.
 
+It is not built for one company or one trade. Anyone with a folder of documents
+and people who need answers out of them can run it: a workshop, a service desk,
+a clinic reception, a housing office, a college department, a two-person
+business. The documents change; the agent does not.
+
 | Deployment | What changes | What stays |
 |---|---|---|
 | **Hands-busy field or workshop work** — the case built and demoed here: gloves on, no free hand for a screen | the knowledge base is the parts catalogue and service policy | everything |
@@ -28,6 +33,30 @@ is worse than no answer.
 **Nothing in the agent is domain-specific.** Changing use case means changing the
 documents in `kb/`, not changing code. The one bundled tool that is domain-shaped
 is `lookup_part`, which exists as the stress case for the interruption test.
+
+### What voice control of a phone unlocks
+
+The Android bridge (experimental — see below) points at a second set of users,
+where the phone itself is the thing that cannot be reached:
+
+- **Accessibility.** Someone with limited hand mobility operating a phone
+  entirely by speech, on apps that were never built for voice control. This is
+  the use case with the largest gap between what people need and what exists,
+  because it needs no cooperation from the app author.
+- **Gloved and contaminated work.** A technician, a mechanic, a lab worker or a
+  surgeon's assistant cannot touch a screen and cannot take the gloves off.
+  Pulling up a manual, a schematic or a part number by voice is the difference
+  between checking and guessing.
+- **Eyes-on-the-task work.** Driving, machinery, a patient in front of you.
+  Anything where looking away has a cost.
+- **Field operations with one device.** Warehouse picking, delivery, utilities
+  inspection — where the phone is the system of record and the hands are full.
+- **Testing and QA.** Driving an app through a spoken scenario, which is what
+  ARTEMIS was built for in the first place.
+
+The general point: **it needs no integration from the app being controlled.**
+The model reads the screen and decides the taps, so it works with software that
+has no API and no voice support of its own — which is most software.
 
 ### What makes it suitable for these, specifically
 
