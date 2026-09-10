@@ -88,6 +88,26 @@ Tools granted: **Read, Write, Edit, Glob, Grep — never Bash.** Speech recognit
 
 *"Make me a python project called scraper."* Real folders and files on disk — `main.py`, `requirements.txt`, `README.md`, or `index.html` / `style.css` for a web project.
 
+### It can drive an Android phone — experimental, unverified
+
+Bridges a spoken instruction to [ARTEMIS](https://github.com/google/artemis),
+Google's natural-language Android automation, over ADB:
+*"open the manual app and search for HP-4412."*
+
+**This is not a working feature and is not claimed as one.** It is wired in
+behind the same fence as every other tool, but it has never completed a task
+end to end on this machine. Two things block it, both recorded honestly:
+
+- ARTEMIS's model calls time out (`TimeoutError: LLM call timed out after 180
+  seconds`) on a free-tier key under rate limiting.
+- Even working, ARTEMIS takes **minutes** per task. That is a background job,
+  not a voice turn — three minutes of silence is not a conversation. Making
+  this usable would mean reporting asynchronously, which is a design change,
+  not a configuration one.
+
+It is included because the direction is right for the product — a technician
+with both hands occupied cannot pick up a phone — not because it works today.
+
 ### It can operate your computer
 
 Opens Claude Code, VS Code, Notepad, Calculator, File Explorer, the terminal or a browser. **Allowlist only** — anything else is refused out loud, naming what *is* available.
@@ -352,6 +372,7 @@ thing measured here.
 | `answer_enquiry` | **live** retrieval over **synthetic** business facts in `kb/` |
 | `compose_email` | **live** — writes a real `.eml`; **never sends** |
 | `open_application`, `make_project`, `delegate_task` | **live** — real processes, real files |
+| `phone` (ARTEMIS bridge) | **experimental** — wired in, never completed a task end to end |
 | `lookup_part` | **synthetic** data, **injected** 3.0s delay (the stress knob) |
 | Latency figures | **measured**, from LiveKit's own instrumentation |
 | 20-trial barge-in result | **logic level** — real fence objects, simulated timeline |
@@ -375,6 +396,7 @@ Nothing here is animated or scripted.
 - **The delegated agent can report confidently and be wrong.** In testing it once claimed a file existed when the directory was empty. The bridge speaks its summary verbatim and does not verify it.
 - **Keep the knowledge base clean.** Retrieval is TF-IDF, so a large unrelated document dominates by chunk count. During testing an unrelated 6 KB file contributed 50 of 83 chunks and started answering business questions from a code review. Only upload customer-facing business facts.
 - **If Rime is unavailable the agent is silent** — by design, since a fallback provider would violate the requirement that Rime be the primary output.
+- **The Android bridge has never worked end to end.** ARTEMIS's model calls time out on a free-tier key, and its per-task time is minutes rather than seconds. It is wired in and fenced, but it is not a working feature.
 - **Telephony is untested and not claimed.** The architecture is transport-agnostic (LiveKit supports SIP), but that is a statement of design, not a result.
 
 ---
@@ -390,6 +412,7 @@ kb.py          retrieval over the business knowledge base (PDF/MD/TXT)
 tools.py       live web search
 pc.py          allowlisted application launching, project scaffolding
 delegate.py    bridge to Claude Code headless
+android.py     bridge to ARTEMIS for phone automation (experimental)
 mail.py        email drafting (never sends)
 mcp_server.py  MCP server exposing the business layer
 server.py      LiveKit token minting, static serving, SSE event stream

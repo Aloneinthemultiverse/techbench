@@ -40,6 +40,7 @@ from livekit.agents.llm import function_tool
 from livekit.plugins import openai, rime
 
 from fence import EventLog, Fenced, SpokenLedger, TurnController
+from android import phone_task
 from delegate import ask_claude
 from kb import KnowledgeBase, add_facts
 from mail import draft_email
@@ -167,6 +168,27 @@ class TechnicianAgent(Agent):
         self.log.emit("kb_updated", turn_id=turn_id, topic=topic[:60],
                       chunks=len(KB.chunks))
         if not self.controller.accept(Fenced(turn_id, result), what="kb_write"):
+            return "(superseded - discarded)"
+        return result
+
+    @function_tool
+    async def phone(self, context: RunContext, task: str) -> str:
+        """Drive the connected Android phone by voice, via ARTEMIS.
+
+        EXPERIMENTAL. Slow (minutes) and unverified end to end - see README.
+
+        Args:
+            task: what to do on the phone, in plain language.
+        """
+        turn_id = self.controller.current
+        self.log.emit("tool_dispatch", turn_id=turn_id, tool="phone", task=task[:80])
+        try:
+            result = await phone_task(task)
+        except asyncio.CancelledError:
+            self.log.emit("tool_cancelled", turn_id=turn_id, tool="phone")
+            raise
+        self.log.emit("tool_return", turn_id=turn_id, tool="phone")
+        if not self.controller.accept(Fenced(turn_id, result), what="phone"):
             return "(superseded - discarded)"
         return result
 
