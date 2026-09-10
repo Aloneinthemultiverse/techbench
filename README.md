@@ -11,6 +11,47 @@ Built for DataForge 2026, Rime track. Hard voice problem: **interruption and rec
 
 ---
 
+## Who this is for
+
+The mechanism is a voice agent that answers from a business's own documents and
+never speaks an answer the caller has withdrawn. That shape fits anywhere a
+person needs a spoken answer they can act on, and where a confident wrong answer
+is worse than no answer.
+
+| Deployment | What changes | What stays |
+|---|---|---|
+| **Hands-busy field or workshop work** — the case built and demoed here: gloves on, no free hand for a screen | the knowledge base is the parts catalogue and service policy | everything |
+| **Customer enquiry lines** — hours, delivery, returns, warranty, payment | swap `kb/` for the business's own policy documents | everything |
+| **Compliance-bound desks** — insurance, banking, healthcare front office | add data handling appropriate to the sector; keep the audit log | everything |
+| **Complaint intake** | escalation rules go in `kb/`; the agent drafts the follow-up email for a human to send | everything |
+| **Internal helpdesk** — HR policy, IT procedure, onboarding | point `kb/` at the internal handbook | everything |
+| **As a backend for another system** | drive it through the MCP server instead of by voice | the retrieval, drafts and call telemetry |
+
+**Nothing in the agent is domain-specific.** Changing use case means changing the
+documents in `kb/`, not changing code. The one bundled tool that is domain-shaped
+is `lookup_part`, which exists as the stress case for the interruption test.
+
+### What makes it suitable for these, specifically
+
+- **It declines rather than guesses.** Below a confidence floor it says it does
+  not know and offers escalation. For a refund policy or a compliance question,
+  that is the required behaviour, not a limitation.
+- **Every spoken answer traces to a source line.** The business can audit what
+  the agent told a caller and where it got it.
+- **Email is drafted, never sent.** A human reviews anything that leaves the
+  building.
+- **An append-only event log** records every turn, interruption, cancellation and
+  dropped result — replayable after the fact.
+- **Rime can run in the customer's own environment** where compliance demands it.
+
+### Where it is not suitable
+
+Not for phone lines — telephony is untested and not claimed. Not for anything
+requiring guaranteed accuracy without human review; retrieval is TF-IDF over
+sentence chunks and the limitations section is honest about what that misses.
+
+---
+
 ## Quickstart
 
 ```
